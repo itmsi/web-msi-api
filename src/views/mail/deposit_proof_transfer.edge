@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atur Ulang Kata Sandi Universal</title>
+    <style>
+        * {
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body style="max-width: 600px; margin: 30px auto;">
+    <table style="width:100%">
+        <tr>
+            <td><img src="{{data.LOGO}}" style="width: 100px;" alt="logo"></td>
+            <td align="right" style="font-size: 20px; font-weight: bold;">Universal Collection</td>
+        </tr>
+    </table>
+    @if(data.last_name)
+        <p>Halo! {{data.first_name}} {{data.last_name}}</p>
+    @else
+        <p>Halo! {{data.first_name}}</p>
+    @end
+    <p>Terima kasih telah melakukan deposit untuk:</p>
+    <br/>
+	<table style="width:100%;">
+		<tr>
+			<td>Lelang</td>
+			<td>: {{data.auction_name}}</td>
+		</tr>
+		<tr>
+			<td>Tanggal Lelang</td>
+			<td>: {{data.auction_start_date}}</td>
+		</tr>
+		<tr>
+			<td>Deposit</td>
+			<td>: {{data.deposit_submit_nominal}}</td>
+		</tr>
+	</table>
+    <br/>
+    <p>Deposit Anda sedang dalam tahap verifikasi, secepatnya kami akan informasikan kembali</p>
+	<p>Salam Hangat,</p>
+	<p>Universal Collection</p>
+    <br/><br/>
+    <p style="font-size: 12px; color: #999; text-align: center;">Email dikirimkan otomatis melalui sistem, untuk
+        informasi lebih lanjut silahkan menghubungi<br />
+        {{data.EMAIL_CS}} atau {{data.PHONE_CS}}</p>
+</body>
+
+</html>

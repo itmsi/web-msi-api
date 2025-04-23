@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfirmasi Pemenang Lelang</title>
+    <style>
+        * {
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body style="max-width: 600px; margin: 30px auto;">
+    <table style="width:100%">
+        <tr>
+            <td><img src="{{data.LOGO}}" style="width: 100px;" alt="logo"></td>
+            <td align="right" style="font-size: 20px; font-weight: bold;">Universal Collection</td>
+        </tr>
+    </table>
+    @if(data.last_name)
+        <p>Halo! {{data.first_name}} {{data.last_name}}</p>
+    @else
+        <p>Halo! {{data.first_name}}</p>
+    @end
+    <p>Selamat Anda telah memenangkan unit pada lelang {{data.auction_name}} dengan rincian:</p>
+    <p>
+    <table>
+        <tr>
+            <td width="150px">Nomor Lot</td>
+            <td>: {{data.auction_lane}}/{{data.auction_lot}}</td>
+        </tr>
+        <tr>
+            <td>Nomor Polisi</td>
+            <td>: {{data.police_number}}</td>
+        </tr>
+        <tr>
+            <td>Merk/Tipe</td>
+            <td>: {{data.brand_name}}/{{data.type_name}}</td>
+        </tr>
+        <tr>
+            <td>Tahun</td>
+            <td>: {{data.year}}</td>
+        </tr>
+        <tr>
+            <td>Harga Terbentuk</td>
+            <td>: {{data.last_price}}</td>
+        </tr>
+        <tr>
+            <td>Biaya Administrasi</td>
+            <td>: {{data.fee}}</td>
+        </tr>
+        <tr>
+         <td>Biaya Lain</td>
+           <td>: {{data.total_additional_cost}}</td>
+        </tr>
+    </table>
+    </p>
+    <p>Pelunasan tagihan kami terima paling lambat {{data.auction_deadline_date}} {{data.payment_deadline_time}}, dapat dilakukan secara online melalui <a href="{{data.ONLINE_AUCTION}}" target="_blank">{{data.ONLINE_AUCTION}}</a> atau datang langsung.
+    </p>
+    <br />
+    <p>Salam hangat,<br />Universal Collection</p>
+    <br /><br />
+    <p style="font-size: 12px; color: #999; text-align: center;">Email dikirimkan otomatis melalui sistem, untuk
+        informasi lebih lanjut silahkan menghubungi<br />
+        {{data.EMAIL_CS}} atau {{data.PHONE_CS}}</p>
+</body>
+
+</html>

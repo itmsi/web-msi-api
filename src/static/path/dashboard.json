@@ -1,0 +1,199 @@
+{
+	"/dashboard": {
+		"get": {
+			"tags": [
+				"Dashboard"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"parameters": [
+				{
+					"in": "query",
+					"name": "limit",
+					"required": false,
+					"schema": {
+						"type": "integer"
+					},
+					"description": "Limit value is number by default limit is 10. ex : ?limit=100"
+				},
+				{
+					"in": "query",
+					"name": "page",
+					"required": false,
+					"schema": {
+						"type": "number"
+					},
+					"description": "Page value is number. ex : ?page=1"
+				},
+				{
+					"in": "query",
+					"name": "direction",
+					"required": false,
+					"schema": {
+						"type": "array or string"
+					},
+					"description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id"
+				},
+				{
+					"in": "query",
+					"name": "order",
+					"required": false,
+					"schema": {
+						"type": "array or string"
+					},
+					"description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc"
+				},
+				{
+					"in": "query",
+					"name": "location_id",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Filter value is string with rule ex : ?location_id=dd87483c-1aa8-4498-a75e-25c6aeaf489b"
+				},
+				{
+					"in": "query",
+					"name": "pool_id",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Filter value is string with rule ex : ?pool_id=POL005"
+				},
+				{
+					"in": "query",
+					"name": "start_date",
+					"required": false,
+					"schema": {
+						"type": "format-date"
+					},
+					"description": "Filter value is format-date with rule ex : ?start_date=2022-09-26"
+				},
+				{
+					"in": "query",
+					"name": "end_date",
+					"required": false,
+					"schema": {
+						"type": "format-date"
+					},
+					"description": "Filter value is format-date with rule ex : ?end_date=2022-09-27"
+				}
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaPaginationResponse"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+
+	"/dashboard/client": {
+		"get": {
+			"tags": [
+				"Dashboard"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"parameters": [
+				{
+					"in": "query",
+					"name": "limit",
+					"required": false,
+					"schema": {
+						"type": "integer"
+					},
+					"description": "Limit value is number by default limit is 10. ex : ?limit=100"
+				},
+				{
+					"in": "query",
+					"name": "page",
+					"required": false,
+					"schema": {
+						"type": "number"
+					},
+					"description": "Page value is number. ex : ?page=1"
+				},
+				{
+					"in": "query",
+					"name": "direction",
+					"required": false,
+					"schema": {
+						"type": "array or string"
+					},
+					"description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id"
+				},
+				{
+					"in": "query",
+					"name": "order",
+					"required": false,
+					"schema": {
+						"type": "array or string"
+					},
+					"description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc"
+				},
+				{
+					"in": "query",
+					"name": "location_id",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Filter value is string with rule ex : ?location_id=dd87483c-1aa8-4498-a75e-25c6aeaf489b"
+				},
+				{
+					"in": "query",
+					"name": "pool_id",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Filter value is string with rule ex : ?pool_id=POL005"
+				},
+				{
+					"in": "query",
+					"name": "start_date",
+					"required": false,
+					"schema": {
+						"type": "format-date"
+					},
+					"description": "Filter value is format-date with rule ex : ?start_date=2022-09-26"
+				},
+				{
+					"in": "query",
+					"name": "end_date",
+					"required": false,
+					"schema": {
+						"type": "format-date"
+					},
+					"description": "Filter value is format-date with rule ex : ?end_date=2022-09-27"
+				}
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaPaginationResponse"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
