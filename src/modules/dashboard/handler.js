@@ -15,7 +15,7 @@ const { lang } = require('../../lang')
 const fetch = async (req, res) => {
   const where = req.query;
   const result = await repository.get(where)
-  return baseResponse(res, result)
+  return paginationResponse(req, res, result)
 }
 
 const fetchTable = async (req, res) => {
