@@ -178,6 +178,7 @@ module.exports = {
       GROUP_TYPE: 'group_type_id',
       TYPE: 'type_id',
       LOCATION: 'location_id',
+      BANNER: 'banner_id',
       POOL: 'pool_id',
       CLIENT: 'client_id',
       CLIENT_TYPE: 'client_type_id',

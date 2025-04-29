@@ -1,5 +1,5 @@
 {
-	"/banners": {
+	"/banner": {
 		"get": {
 			"tags": [
 				"Banner"
@@ -102,7 +102,7 @@
 			}
 		}
 	},
-	"/banners/{banner_id}": {
+	"/banner/{banner_id}": {
 		"get": {
 			"tags": [
 				"Banner"

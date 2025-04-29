@@ -6,7 +6,7 @@ const {
   manipulateDate,
   mappingSuccessPagination,
   todayFormat,
-  PRIMARY_KEY
+  MODEL_PROPERTIES: { PRIMARY_KEY }
 } = require('../../utils')
 const { lang } = require('../../lang')
 
