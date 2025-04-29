@@ -6,6 +6,7 @@ const users = require('./users.json')
 const dashboard = require('./dashboard.json')
 const banner = require('./banner.json')
 const newsCategory = require('./news_category.json')
+const news = require('./news.json')
 
 module.exports = {
   ...auth,
@@ -15,5 +16,6 @@ module.exports = {
   ...users,
   ...dashboard,
   ...banner,
-  ...newsCategory
+  ...newsCategory,
+  ...news
 }

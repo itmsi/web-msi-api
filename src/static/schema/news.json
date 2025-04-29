@@ -1,0 +1,134 @@
+{
+	"SchemaResponseNews": {
+		"type": "object",
+		"properties": {
+			"news_id": {
+				"type": "string"
+			},
+			"news_title": {
+				"type": "string"
+			},
+			"news_slug": {
+				"type": "string"
+			},
+			"news_content": {
+				"type": "string"
+			},
+			"news_category_id": {
+				"type": "string"
+			},
+			"news_image": {
+				"type": "string"
+			},
+			"news_image_caption": {
+				"type": "string"
+			},
+			"news_image_alt": {
+				"type": "string"
+			},
+			"news_image_title": {
+				"type": "string"
+			},
+			"news_image_description": {
+				"type": "string"
+			},
+			"news_image_keywords": {
+				"type": "string"
+			},
+			"news_image_tags": {
+				"type": "string"
+			},
+			"news_meta_description": {
+				"type": "string"
+			},
+			"news_meta_keywords": {
+				"type": "string"
+			},
+			"news_meta_title": {
+				"type": "string"
+			},
+			"news_status": {
+				"type": "string"
+			},
+			"news_published_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostNews": {
+		"type": "object",
+		"properties": {
+			"news_title": {
+				"type": "string"
+			},
+			"news_slug": {
+				"type": "string"
+			},
+			"news_content": {
+				"type": "string"
+			},
+			"news_category_id": {
+				"type": "string"
+			},
+			"news_image": {
+				"type": "string"
+			},
+			"news_image_caption": {
+				"type": "string"
+			},
+			"news_image_alt": {
+				"type": "string"
+			},
+			"news_image_title": {
+				"type": "string"
+			},
+			"news_image_description": {
+				"type": "string"
+			},
+			"news_image_keywords": {
+				"type": "string"
+			},
+			"news_image_tags": {
+				"type": "string"
+			},
+			"news_meta_description": {
+				"type": "string"
+			},
+			"news_meta_keywords": {
+				"type": "string"
+			},
+			"news_meta_title": {
+				"type": "string"
+			},
+			"news_status": {
+				"type": "string"
+			},
+			"news_published_at": {
+				"type": "string",
+				"format": "date-time"
+			}
+		}
+	}
+}
