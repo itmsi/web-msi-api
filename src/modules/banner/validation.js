@@ -20,27 +20,6 @@ const postValidation = [
       }
       await checkSameValueinDb('mst_banner', condition, 'title_banner', lang.__('data.exist', { msg }))
     }),
-  check('description_banner')
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'Description Banner', max: 100 }))
-    .isString()
-    .withMessage(lang.__('validator.string', { field: 'Description Banner' }))
-    .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'Description Banner' }))
-    .custom(async (value) => {
-      const msg = `Description Banner ${value}`
-      const condition = {
-        description_banner: value
-      }
-      await checkSameValueinDb('mst_banner', condition, 'description_banner', lang.__('data.exist', { msg }))
-    }),
-  check('link_banner')
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'Link Banner', max: 100 }))
-    .isString()
-    .withMessage(lang.__('validator.string', { field: 'Link Banner' }))
-    .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'Link Banner' })),
   check('file_banner')
     .isLength({ max: 100 })
     .withMessage(lang.__('validator.max', { field: 'File Banner', max: 100 }))
@@ -63,22 +42,6 @@ const putValidation = [
       const msg = lang.__('data.exist', { msg: `Title Banner ${value}` })
       await checkSameValueinDbUpdateUuid('mst_banner', condition, 'banner_id', req?.params?.banner_id, msg)
     }),
-  check('description_banner')
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'Description Banner', max: 100 }))
-    .isString()
-    .withMessage(lang.__('validator.string', { field: 'Description Banner' }))
-    .optional(true)
-    .custom(async (value, { req }) => {
-      const condition = { description_banner: value }
-      const msg = lang.__('data.exist', { msg: `Description Banner ${value}` })
-      await checkSameValueinDbUpdateUuid('mst_banner', condition, 'banner_id', req?.params?.banner_id, msg)
-    }),
-  check('link_banner')
-    .optional(true)
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'Link Banner', max: 100 }))
-    .optional(true),
   check('file_banner')
     .optional(true)
     .isLength({ max: 100 })
