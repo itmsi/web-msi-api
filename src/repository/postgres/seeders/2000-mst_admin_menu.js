@@ -214,8 +214,8 @@ exports.seed = async function (knex) {
     {
       menu_id: '13',
       parent: '11',
-      menu_name: 'Content News/Article',
-      menu_url: 'news-article',
+      menu_name: 'News Article',
+      menu_url: 'news',
       menu_status: '1',
       menu_sort: '2',
       menu_icon: 'far fa-circle nav-icon',
@@ -225,7 +225,7 @@ exports.seed = async function (knex) {
       updated_by: null,
       deleted_at: null,
       deleted_by: null,
-      permission_name: 'news-article',
+      permission_name: 'news',
       heading_admin_menu_id: '6'
     },
     {
