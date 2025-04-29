@@ -113,7 +113,7 @@ exports.seed = async function (knex) {
       menu_id: '7',
       parent: '5',
       menu_name: 'Kategori Product',
-      menu_url: 'master-data/kategori-product',
+      menu_url: 'master-data/product-category',
       menu_status: '1',
       menu_sort: '2',
       menu_icon: 'far fa-circle nav-icon',
@@ -123,7 +123,7 @@ exports.seed = async function (knex) {
       updated_by: null,
       deleted_at: null,
       deleted_by: null,
-      permission_name: 'kategori-product',
+      permission_name: 'product-category',
       heading_admin_menu_id: '3'
     },
     {
