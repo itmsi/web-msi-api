@@ -8,6 +8,7 @@ const users = require('../../modules/users')
 const publicApi = require('../../modules/public');
 const dashboard = require('../../modules/dashboard')
 const banner = require('../../modules/banner')
+const productCategory = require('../../modules/product_category')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -25,4 +26,5 @@ routing.use(`${API_TAG}/locations`, verifyToken, locations)
 routing.use(`${API_TAG}/users`, verifyToken, users)
 routing.use(`${API_TAG}/dashboard`, verifyToken, dashboard)
 routing.use(`${API_TAG}/banner`, verifyToken, banner)
+routing.use(`${API_TAG}/product-category`, verifyToken, productCategory)
 module.exports = routing;

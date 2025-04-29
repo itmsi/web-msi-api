@@ -1,0 +1,48 @@
+{
+	"SchemaResponseProductCategory": {
+		"type": "object",
+		"properties": {
+			"product_category_id": {
+				"type": "string"
+			},
+			"product_category_name": {
+				"type": "string"
+			},
+			"product_category_description": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostProductCategory": {
+		"type": "object",
+		"properties": {
+			"product_category_name": {
+				"type": "string"
+			},
+			"product_category_description": {
+				"type": "string"
+			}
+		}
+	}
+}

@@ -146,7 +146,8 @@ module.exports = {
       OTHER_FEES: 'mst_additional_cost',
       INVOICE_CONFIG: 'mst_invoice_config',
       PUBLISH_CATALOG_LOG: 'publish_catalog_log',
-      ADMIN_FEE_SETTING: 'mst_admin_fee_setting'
+      ADMIN_FEE_SETTING: 'mst_admin_fee_setting',
+      PRODUCT_CATEGORY: 'mst_product_category'
     },
     PRIMARY_KEY: {
       JENIS_AKUN: 'jenis_akun_id',
@@ -233,7 +234,8 @@ module.exports = {
       OTHER_FEES: 'additional_cost_id',
       INVOICE_CONFIG: 'invoice_config_id',
       PUBLISH_CATALOG_LOG: 'publish_catalog_log_id',
-      ADMIN_FEE_SETTING: 'admin_fee_setting_id'
+      ADMIN_FEE_SETTING: 'admin_fee_setting_id',
+      PRODUCT_CATEGORY: 'product_category_id'
     }
   },
   FILE_DESCRIPTION: [
