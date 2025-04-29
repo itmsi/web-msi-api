@@ -112,7 +112,7 @@ const getByParam = async (where, column = COLUMN_ALL) => {
   try {
     const [rows] = await sql(null).clone()
       .select(column)
-      .where(`${TABLE}.${PRIMARY_KEY.news_category}`, where?.[PRIMARY_KEY.news_category])
+      .where(`${TABLE}.${PRIMARY_KEY.NEWS_CATEGORY}`, where?.[PRIMARY_KEY.NEWS_CATEGORY])
     if (rows) {
       return mappingSuccess(lang.__('get.success'), rows)
     }

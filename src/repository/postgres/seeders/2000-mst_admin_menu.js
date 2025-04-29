@@ -198,7 +198,7 @@ exports.seed = async function (knex) {
       menu_id: '12',
       parent: '11',
       menu_name: 'Kategori News/Article',
-      menu_url: 'news-article/kategori',
+      menu_url: 'news-category',
       menu_status: '1',
       menu_sort: '1',
       menu_icon: 'far fa-circle nav-icon',
@@ -208,14 +208,14 @@ exports.seed = async function (knex) {
       updated_by: null,
       deleted_at: null,
       deleted_by: null,
-      permission_name: 'kategori-news-article',
+      permission_name: 'news-category',
       heading_admin_menu_id: '6'
     },
     {
       menu_id: '13',
       parent: '11',
       menu_name: 'Content News/Article',
-      menu_url: 'news-article/content',
+      menu_url: 'news-article',
       menu_status: '1',
       menu_sort: '2',
       menu_icon: 'far fa-circle nav-icon',
@@ -225,7 +225,7 @@ exports.seed = async function (knex) {
       updated_by: null,
       deleted_at: null,
       deleted_by: null,
-      permission_name: 'content-news-article',
+      permission_name: 'news-article',
       heading_admin_menu_id: '6'
     },
     {
