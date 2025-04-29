@@ -11,8 +11,8 @@ const router = Router()
 */
 router.post('/', postValidation, store)
 router.get('/', fetch)
-router.get('/:product_category_id', paramValidation, fetchByParam)
-router.put('/:product_category_id', putValidation, update)
-router.delete('/:product_category_id', softDelete)
+router.get('/:news_category_id', paramValidation, fetchByParam)
+router.put('/:news_category_id', putValidation, update)
+router.delete('/:news_category_id', softDelete)
 
 module.exports = router

@@ -3,13 +3,13 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-  return knex.schema.createTable('mst_product_category', (table) => {
+  return knex.schema.createTable('mst_news_category', (table) => {
     table
-      .uuid('product_category_id')
+      .uuid('news_category_id')
       .defaultTo(knex.raw('uuid_generate_v4()'))
       .primary();
-    table.string('product_category_name');
-    table.string('product_category_description');
+    table.string('news_category_name');
+    table.string('news_category_description');
     table.timestamp('created_at').defaultTo(knex.fn.now());
     table.uuid('created_by');
     table.timestamp('updated_at');
@@ -24,5 +24,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-  return knex.schema.dropTable('mst_product_category');
+  return knex.schema.dropTable('mst_news_category');
 };

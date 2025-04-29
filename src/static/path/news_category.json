@@ -1,8 +1,8 @@
 {
-	"/product-category": {
+	"/news-category": {
 		"get": {
 			"tags": [
-				"Product Category"
+				"News Category"
 			],
 			"security": [
 				{
@@ -71,7 +71,7 @@
 		},
 		"post": {
 			"tags": [
-				"Product Category"
+				"News Category"
 			],
 			"security": [
 				{
@@ -83,7 +83,7 @@
 				"content": {
 					"application/json": {
 						"schema": {
-							"$ref": "#/components/schemas/SchemaPostProductCategory"
+							"$ref": "#/components/schemas/SchemaPostNewsCategory"
 						}
 					}
 				}
@@ -102,10 +102,10 @@
 			}
 		}
 	},
-	"/product-category/{product_category_id}": {
+	"/news-category/{news_category_id}": {
 		"get": {
 			"tags": [
-				"Product Category"
+				"News Category"
 			],
 			"security": [
 				{
@@ -115,7 +115,7 @@
 			"parameters": [
 				{
 					"in": "path",
-					"name": "product_category_id",
+					"name": "news_category_id",
 					"required": true,
 					"schema": {
 						"type": "string"
@@ -137,7 +137,7 @@
 		},
 		"put": {
 			"tags": [
-				"Product Category"
+				"News Category"
 			],
 			"security": [
 				{
@@ -147,7 +147,7 @@
 			"parameters": [
 				{
 					"in": "path",
-					"name": "product_category_id",
+					"name": "news_category_id",
 					"required": true,
 					"schema": {
 						"type": "string"
@@ -159,7 +159,7 @@
 				"content": {
 					"application/json": {
 						"schema": {
-							"$ref": "#/components/schemas/SchemaPostProductCategory"
+							"$ref": "#/components/schemas/SchemaPostNewsCategory"
 						}
 					}
 				}
@@ -179,7 +179,7 @@
 		},
 		"delete": {
 			"tags": [
-				"Product Category"
+				"News Category"
 			],
 			"security": [
 				{
@@ -189,7 +189,7 @@
 			"parameters": [
 				{
 					"in": "path",
-					"name": "product_category_id",
+					"name": "news_category_id",
 					"required": true,
 					"schema": {
 						"type": "string"

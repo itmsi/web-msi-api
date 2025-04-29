@@ -42,7 +42,7 @@ const update = async (req, res) => {
 const softDelete = async (req, res) => {
   const where = requestHttp(req)
   const payload = { type_method: 'soft-delete', ...decodeToken('deleted', req) }
-  const result = await repository.update(where, payload, 'description_product_category')
+  const result = await repository.update(where, payload, 'description_news_category')
   return baseResponse(res, result)
 }
 

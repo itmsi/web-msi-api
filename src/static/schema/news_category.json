@@ -1,14 +1,14 @@
 {
-	"SchemaResponseProductCategory": {
+	"SchemaResponseNewsCategory": {
 		"type": "object",
 		"properties": {
-			"product_category_id": {
+			"news_category_id": {
 				"type": "string"
 			},
-			"product_category_name": {
+			"news_category_name": {
 				"type": "string"
 			},
-			"product_category_description": {
+			"news_category_description": {
 				"type": "string"
 			},
 			"created_at": {
@@ -34,13 +34,13 @@
 			}
 		}
 	},
-	"SchemaPostProductCategory": {
+	"SchemaPostNewsCategory": {
 		"type": "object",
 		"properties": {
-			"product_category_name": {
+			"news_category_name": {
 				"type": "string"
 			},
-			"product_category_description": {
+			"news_category_description": {
 				"type": "string"
 			}
 		}

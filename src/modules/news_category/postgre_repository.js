@@ -10,15 +10,15 @@ const {
 } = require('../../utils')
 const { lang } = require('../../lang')
 
-const TABLE = 'mst_product_category'
+const TABLE = 'mst_news_category'
 const COLUMN_ALL = [
-  `${TABLE}.product_category_id`, `${TABLE}.product_category_name`, `${TABLE}.product_category_description`,
+  `${TABLE}.news_category_id`, `${TABLE}.news_category_name`, `${TABLE}.news_category_description`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
 
 const COLUMN = [
-  `${TABLE}.product_category_id`, `${TABLE}.product_category_name`, `${TABLE}.product_category_description`,
+  `${TABLE}.news_category_id`, `${TABLE}.news_category_name`, `${TABLE}.news_category_description`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
@@ -27,13 +27,13 @@ const DEFAULT_SORT = [COLUMN[0], 'DESC']
 const condition = (builder, where, search = null) => {
   builder.where(`${TABLE}.deleted_at`, null)
 
-  if (where.product_category_id) {
-    builder.where(`${TABLE}.product_category_id`, where.product_category_id)
+  if (where.news_category_id) {
+    builder.where(`${TABLE}.news_category_id`, where.news_category_id)
   }
 
   if (search) {
-    builder.whereILike(`${TABLE}.product_category_name`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
-    builder.orWhereILike(`${TABLE}.product_category_description`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.whereILike(`${TABLE}.news_category_name`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.orWhereILike(`${TABLE}.news_category_description`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
   }
 
   return builder
@@ -112,11 +112,11 @@ const getByParam = async (where, column = COLUMN_ALL) => {
   try {
     const [rows] = await sql(null).clone()
       .select(column)
-      .where(`${TABLE}.${PRIMARY_KEY.PRODUCT_CATEGORY}`, where?.[PRIMARY_KEY.PRODUCT_CATEGORY])
+      .where(`${TABLE}.${PRIMARY_KEY.news_category}`, where?.[PRIMARY_KEY.news_category])
     if (rows) {
       return mappingSuccess(lang.__('get.success'), rows)
     }
-    return mappingSuccess(lang.__('not.found.id', { id: where?.product_category_id }), rows)
+    return mappingSuccess(lang.__('not.found.id', { id: where?.news_category_id }), rows)
   } catch (error) {
     error.path = __filename
     return mappingError(error)
@@ -134,23 +134,23 @@ const update = async (where, payload, name = '') => {
     let { message, result } = ['', '']
     where[`${TABLE}.deleted_at`] = null
     if (payload.type_method === 'update') {
-      message = lang.__('updated.success', { id: where?.product_category_id })
+      message = lang.__('updated.success', { id: where?.news_category_id })
       result = await Repo.updated(TABLE, where, payload, COLUMN[0], name)
     } else {
       const format = todayFormat('YYYYMMDDhmmss')
-      message = lang.__('archive.success', { id: where?.product_category_id })
-      const [rows] = await pgCore(TABLE).select(['product_category_name', 'product_category_description']).where(where)
+      message = lang.__('archive.success', { id: where?.news_category_id })
+      const [rows] = await pgCore(TABLE).select(['news_category_name', 'news_category_description']).where(where)
       if (rows) {
-        payload.product_category_name = `archived-${format}-${rows.product_category_name}`
-        payload.product_category_description = `archived-${format}-${rows.product_category_description}`
+        payload.news_category_name = `archived-${format}-${rows.news_category_name}`
+        payload.news_category_description = `archived-${format}-${rows.news_category_description}`
       }
     }
     delete payload?.type_method
-    result = await pgCore(TABLE).where(where).update(payload).returning(['product_category_id'])
+    result = await pgCore(TABLE).where(where).update(payload).returning(['news_category_id'])
     if (result) {
       return mappingSuccess(message, result)
     }
-    return mappingSuccess(lang.__('not.found.id', { id: where?.product_category_id }), result)
+    return mappingSuccess(lang.__('not.found.id', { id: where?.news_category_id }), result)
   } catch (error) {
     error.path = __filename
     return mappingError(error)
