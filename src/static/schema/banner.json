@@ -1,0 +1,60 @@
+{
+	"SchemaResponseBanner": {
+		"type": "object",
+		"properties": {
+			"banner_id": {
+				"type": "string"
+			},
+			"title_banner": {
+				"type": "string"
+			},
+			"description_banner": {
+				"type": "string"
+			},
+			"link_banner": {
+				"type": "string"
+			},
+			"file_banner": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostBanner": {
+		"type": "object",
+		"properties": {
+			"title_banner": {
+				"type": "string"
+			},
+			"description_banner": {
+				"type": "string"
+			},
+			"link_banner": {
+				"type": "string"
+			},
+			"file_banner": {
+				"type": "string"
+			}
+		}
+	}
+}

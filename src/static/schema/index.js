@@ -4,6 +4,7 @@ const response = require('./response.json')
 const roles = require('./roles.json')
 const location = require('./location.json')
 const users = require('./users.json')
+const banner = require('./banner.json')
 
 module.exports = {
   ...auth,
@@ -11,5 +12,6 @@ module.exports = {
   ...response,
   ...roles,
   ...location,
-  ...users
+  ...users,
+  ...banner
 }

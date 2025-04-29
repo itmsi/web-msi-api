@@ -4,6 +4,7 @@ const roles = require('./roles.json')
 const location = require('./location.json')
 const users = require('./users.json')
 const dashboard = require('./dashboard.json')
+const banner = require('./banner.json')
 
 module.exports = {
   ...auth,
@@ -11,5 +12,6 @@ module.exports = {
   ...roles,
   ...location,
   ...users,
-  ...dashboard
+  ...dashboard,
+  ...banner
 }
