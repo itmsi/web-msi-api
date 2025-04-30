@@ -10,6 +10,8 @@ const dashboard = require('../../modules/dashboard')
 const banner = require('../../modules/banner')
 const newsCategory = require('../../modules/news_category')
 const news = require('../../modules/news')
+const contactUsAdmin = require('../../modules/contact_us_admin')
+const contactUsUser = require('../../modules/contact_us_user')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -29,4 +31,6 @@ routing.use(`${API_TAG}/dashboard`, verifyToken, dashboard)
 routing.use(`${API_TAG}/banner`, verifyToken, banner)
 routing.use(`${API_TAG}/news-category`, verifyToken, newsCategory)
 routing.use(`${API_TAG}/news`, verifyToken, news)
+routing.use(`${API_TAG}/contact-us-admin`, verifyToken, contactUsAdmin)
+routing.use(`${API_TAG}/contact-us-user`, verifyToken, contactUsUser)
 module.exports = routing;

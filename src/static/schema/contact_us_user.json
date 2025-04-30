@@ -1,0 +1,66 @@
+{
+	"SchemaResponseContactUsUser": {
+		"type": "object",
+		"properties": {
+			"contact_us_user_id": {
+				"type": "string"
+			},
+			"contact_us_user_name_first": {
+				"type": "string"
+			},
+			"contact_us_user_name_last": {
+				"type": "string"
+			},
+			"contact_us_user_subject": {
+				"type": "string"
+			},
+			"contact_us_user_email": {
+				"type": "string"
+			},
+			"contact_us_user_message": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostContactUsUser": {
+		"type": "object",
+		"properties": {
+			"contact_us_user_name_first": {
+				"type": "string"
+			},
+			"contact_us_user_name_last": {
+				"type": "string"
+			},
+			"contact_us_user_subject": {
+				"type": "string"
+			},
+			"contact_us_user_email": {
+				"type": "string"
+			},
+			"contact_us_user_message": {
+				"type": "string"
+			}
+		}
+	}
+}

@@ -148,7 +148,9 @@ module.exports = {
       PUBLISH_CATALOG_LOG: 'publish_catalog_log',
       ADMIN_FEE_SETTING: 'mst_admin_fee_setting',
       NEWS_CATEGORY: 'mst_news_category',
-      NEWS: 'mst_news'
+      NEWS: 'mst_news',
+      CONTACT_US_ADMIN: 'mst_contact_us_admin',
+      CONTACT_US_USER: 'mst_contact_us_user'
     },
     PRIMARY_KEY: {
       JENIS_AKUN: 'jenis_akun_id',
@@ -237,7 +239,9 @@ module.exports = {
       PUBLISH_CATALOG_LOG: 'publish_catalog_log_id',
       ADMIN_FEE_SETTING: 'admin_fee_setting_id',
       NEWS_CATEGORY: 'news_category_id',
-      NEWS: 'news_id'
+      NEWS: 'news_id',
+      CONTACT_US_ADMIN: 'contact_us_admin_id',
+      CONTACT_US_USER: 'contact_us_user_id'
     }
   },
   FILE_DESCRIPTION: [

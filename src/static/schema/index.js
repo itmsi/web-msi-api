@@ -7,6 +7,8 @@ const users = require('./users.json')
 const banner = require('./banner.json')
 const newsCategory = require('./news_category.json')
 const news = require('./news.json')
+const contactUsAdmin = require('./contact_us_admin.json')
+const contactUsUser = require('./contact_us_user.json')
 
 module.exports = {
   ...auth,
@@ -17,5 +19,7 @@ module.exports = {
   ...users,
   ...banner,
   ...newsCategory,
-  ...news
+  ...news,
+  ...contactUsAdmin,
+  ...contactUsUser
 }

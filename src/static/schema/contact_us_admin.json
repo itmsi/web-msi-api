@@ -1,0 +1,60 @@
+{
+	"SchemaResponseContactUsAdmin": {
+		"type": "object",
+		"properties": {
+			"contact_us_admin_id": {
+				"type": "string"
+			},
+			"contact_us_admin_name": {
+				"type": "string"
+			},
+			"contact_us_admin_email": {
+				"type": "string"
+			},
+			"contact_us_admin_phone": {
+				"type": "string"
+			},
+			"contact_us_admin_message": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostContactUsAdmin": {
+		"type": "object",
+		"properties": {
+			"contact_us_admin_name": {
+				"type": "string"
+			},
+			"contact_us_admin_email": {
+				"type": "string"
+			},
+			"contact_us_admin_phone": {
+				"type": "string"
+			},
+			"contact_us_admin_message": {
+				"type": "string"
+			}
+		}
+	}
+}
