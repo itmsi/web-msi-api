@@ -151,7 +151,8 @@ module.exports = {
       NEWS: 'mst_news',
       CONTACT_US_ADMIN: 'mst_contact_us_admin',
       CONTACT_US_USER: 'mst_contact_us_user',
-      DEPARTEMENT: 'mst_departement'
+      DEPARTEMENT: 'mst_departement',
+      JOB_CAREER: 'mst_job_career'
     },
     PRIMARY_KEY: {
       JENIS_AKUN: 'jenis_akun_id',
@@ -243,7 +244,8 @@ module.exports = {
       NEWS: 'news_id',
       CONTACT_US_ADMIN: 'contact_us_admin_id',
       CONTACT_US_USER: 'contact_us_user_id',
-      DEPARTEMENT: 'departement_id'
+      DEPARTEMENT: 'departement_id',
+      JOB_CAREER: 'job_career_id'
     }
   },
   FILE_DESCRIPTION: [

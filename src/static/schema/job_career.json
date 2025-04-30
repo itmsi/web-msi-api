@@ -1,0 +1,66 @@
+{
+	"SchemaResponseJobCareer": {
+		"type": "object",
+		"properties": {
+			"job_career_id": {
+				"type": "string"
+			},
+			"job_career_name": {
+				"type": "string"
+			},
+			"job_career_description": {
+				"type": "string"
+			},
+			"departement_id": {
+				"type": "string"
+			},
+			"location_id": {
+				"type": "string"
+			},
+			"job_career_content": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostJobCareer": {
+		"type": "object",
+		"properties": {
+			"job_career_name": {
+				"type": "string"
+			},
+			"job_career_description": {
+				"type": "string"
+			},
+			"departement_id": {
+				"type": "string"
+			},
+			"location_id": {
+				"type": "string"
+			},
+			"job_career_content": {
+				"type": "string"
+			}
+		}
+	}
+}

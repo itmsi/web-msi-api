@@ -10,6 +10,7 @@ const news = require('./news.json')
 const contactUsAdmin = require('./contact_us_admin.json')
 const contactUsUser = require('./contact_us_user.json')
 const departement = require('./departement.json')
+const jobCareer = require('./job_career.json')
 
 module.exports = {
   ...auth,
@@ -23,5 +24,6 @@ module.exports = {
   ...news,
   ...contactUsAdmin,
   ...contactUsUser,
-  ...departement
+  ...departement,
+  ...jobCareer
 }
