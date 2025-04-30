@@ -1,0 +1,48 @@
+{
+	"SchemaResponseDepartement": {
+		"type": "object",
+		"properties": {
+			"departement_id": {
+				"type": "string"
+			},
+			"departement_name": {
+				"type": "string"
+			},
+			"departement_description": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostDepartement": {
+		"type": "object",
+		"properties": {
+			"departement_name": {
+				"type": "string"
+			},
+			"departement_description": {
+				"type": "string"
+			}
+		}
+	}
+}

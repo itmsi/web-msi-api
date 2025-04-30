@@ -12,6 +12,7 @@ const newsCategory = require('../../modules/news_category')
 const news = require('../../modules/news')
 const contactUsAdmin = require('../../modules/contact_us_admin')
 const contactUsUser = require('../../modules/contact_us_user')
+const departement = require('../../modules/departement')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -33,4 +34,5 @@ routing.use(`${API_TAG}/news-category`, verifyToken, newsCategory)
 routing.use(`${API_TAG}/news`, verifyToken, news)
 routing.use(`${API_TAG}/contact-us-admin`, verifyToken, contactUsAdmin)
 routing.use(`${API_TAG}/contact-us-user`, verifyToken, contactUsUser)
+routing.use(`${API_TAG}/departement`, verifyToken, departement)
 module.exports = routing;

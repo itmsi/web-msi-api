@@ -150,7 +150,8 @@ module.exports = {
       NEWS_CATEGORY: 'mst_news_category',
       NEWS: 'mst_news',
       CONTACT_US_ADMIN: 'mst_contact_us_admin',
-      CONTACT_US_USER: 'mst_contact_us_user'
+      CONTACT_US_USER: 'mst_contact_us_user',
+      DEPARTEMENT: 'mst_departement'
     },
     PRIMARY_KEY: {
       JENIS_AKUN: 'jenis_akun_id',
@@ -241,7 +242,8 @@ module.exports = {
       NEWS_CATEGORY: 'news_category_id',
       NEWS: 'news_id',
       CONTACT_US_ADMIN: 'contact_us_admin_id',
-      CONTACT_US_USER: 'contact_us_user_id'
+      CONTACT_US_USER: 'contact_us_user_id',
+      DEPARTEMENT: 'departement_id'
     }
   },
   FILE_DESCRIPTION: [
