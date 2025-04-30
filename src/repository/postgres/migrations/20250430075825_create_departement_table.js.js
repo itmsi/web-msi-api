@@ -9,7 +9,7 @@ exports.up = function (knex) {
       .defaultTo(knex.raw('uuid_generate_v4()'))
       .primary();
     table.string('departement_name', 100).notNullable()
-    table.string('departement_description', 100).notNullable()
+    table.string('departement_description', 100).nullable()
     table.timestamp('created_at').defaultTo(knex.fn.now());
     table.uuid('created_by');
     table.timestamp('updated_at');
