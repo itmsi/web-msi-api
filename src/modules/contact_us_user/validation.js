@@ -1,7 +1,6 @@
 const { check, param } = require('express-validator')
 const { validateMiddleware } = require('../../middlewares')
 const { lang } = require('../../lang')
-const { checkSameValueinDb, checkSameValueinDbUpdateUuid } = require('../../repository/postgres/core_postgres')
 /* RULE
   ** More Documentation in here https://express-validator.github.io/docs/
 */
@@ -12,14 +11,7 @@ const postValidation = [
     .isLength({ max: 100 })
     .withMessage(lang.__('validator.max', { field: 'Contact Us User Name First', max: 100 }))
     .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'Contact Us User Name First' }))
-    .custom(async (value) => {
-      const msg = `Contact Us User Name First ${value}`
-      const condition = {
-        contact_us_user_name_first: value
-      }
-      await checkSameValueinDb('mst_contact_us_user', condition, 'contact_us_user_name_first', lang.__('data.exist', { msg }))
-    }),
+    .withMessage(lang.__('validator.required', { field: 'Contact Us User Name First' })),
   check('contact_us_user_email')
     .isEmail()
     .withMessage(lang.__('validator.email', { field: 'Contact Us User Email' }))
@@ -46,12 +38,7 @@ const putValidation = [
     .withMessage(lang.__('validator.max', { field: 'Contact Us User Name First', max: 100 }))
     .isString()
     .withMessage(lang.__('validator.string', { field: 'Contact Us User Name First' }))
-    .optional(true)
-    .custom(async (value, { req }) => {
-      const condition = { contact_us_user_name_first: value }
-      const msg = lang.__('data.exist', { msg: `Contact Us User Name First ${value}` })
-      await checkSameValueinDbUpdateUuid('mst_contact_us_user', condition, 'contact_us_user_id', req?.params?.contact_us_user_id, msg)
-    }),
+    .optional(true),
   check('contact_us_user_email')
     .isEmail()
     .withMessage(lang.__('validator.email', { field: 'Contact Us User Email' }))

@@ -73,9 +73,9 @@ const create = async (payload) => {
     }
 
     // Publish message to RabbitMQ
-    await publishToRabbitMqQueueSingle(CONTACT_US_EXCHANGE, CONTACT_US_QUEUE, {
+    publishToRabbitMqQueueSingle(CONTACT_US_EXCHANGE, CONTACT_US_QUEUE, {
       type: 'NEW_CONTACT',
-      data: result
+      data: payload
     });
 
     transaction.commit();
