@@ -11,18 +11,22 @@ const {
 const { lang } = require('../../lang')
 
 const TABLE = 'mst_job_career'
+const DEPARTMENT_TABLE = 'mst_departement'
+const LOCATION_TABLE = 'mst_location'
 const COLUMN_ALL = [
   `${TABLE}.job_career_id`, `${TABLE}.job_career_name`, `${TABLE}.job_career_description`,
   `${TABLE}.departement_id`, `${TABLE}.location_id`, `${TABLE}.job_career_content`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
-  `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
+  `${TABLE}.deleted_at`, `${TABLE}.deleted_by`,
+  `${DEPARTMENT_TABLE}.departement_name`, `${LOCATION_TABLE}.location_name`
 ]
 
 const COLUMN = [
   `${TABLE}.job_career_id`, `${TABLE}.job_career_name`, `${TABLE}.job_career_description`,
   `${TABLE}.departement_id`, `${TABLE}.location_id`, `${TABLE}.job_career_content`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
-  `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
+  `${TABLE}.deleted_at`, `${TABLE}.deleted_by`,
+  `${DEPARTMENT_TABLE}.departement_name`, `${LOCATION_TABLE}.location_name`
 ]
 
 const DEFAULT_SORT = [COLUMN[0], 'DESC']
@@ -46,6 +50,8 @@ const condition = (builder, where, search = null) => {
 
 const sql = (where, search = false) => {
   let query = pgCore(TABLE)
+    .leftJoin(DEPARTMENT_TABLE, `${DEPARTMENT_TABLE}.departement_id`, `${TABLE}.departement_id`)
+    .leftJoin(LOCATION_TABLE, `${LOCATION_TABLE}.location_id`, `${TABLE}.location_id`)
 
   if (where != null) {
     query = query.where((builder) => {
