@@ -1,32 +1,24 @@
-const amqplib = require('amqplib')
-const { lang } = require('../lang')
+const amqp = require('amqplib');
+const { lang } = require('../lang');
 
-const amqpUrl = process.env.RABBITMQ_URL
+const RABBITMQ_URL = process.env.RABBITMQ_URL || 'amqp://guest:guest@localhost:5672';
 
-const rabbitmq = async () => {
+const connectRabbitMQ = async () => {
   try {
-    const connection = await amqplib.connect(amqpUrl, 'heartbeat=60')
-    const channel = await connection.createChannel()
-    return {
-      status: 'connected',
-      connection,
-      channel,
-      exception: null
-    }
+    const connection = await amqp.connect(RABBITMQ_URL);
+    const channel = await connection.createChannel();
+    return { connection, channel };
   } catch (error) {
-    console.info('error in connection rabbitmq', error)
-    return {
-      status: 'disconected',
-      exception: error
-    }
+    console.error('Error connecting to RabbitMQ:', error);
+    throw error;
   }
-}
+};
 
 const publishToRabbitMqQueueSingle = async (exchangeName, queueName, data) => {
-  const config = await rabbitmq()
+  const config = await connectRabbitMQ()
 
   try {
-    if (config?.status === 'connected') {
+    if (config?.connection && config?.channel) {
       await config?.channel.assertExchange(exchangeName, 'fanout', { durable: true })
       await config?.channel.assertQueue(queueName, { durable: true })
       await config?.channel.bindQueue(queueName, exchangeName)
@@ -34,7 +26,7 @@ const publishToRabbitMqQueueSingle = async (exchangeName, queueName, data) => {
       config?.channel.publish(exchangeName, '', Buffer.from(JSON.stringify(data)))
       console.info(lang.__('rabbitmq.publish'))
     } else {
-      console.info(`failed to publish ${exchangeName} - ${queueName}`, config?.exception)
+      console.info(`failed to publish ${exchangeName} - ${queueName}`, config?.error)
     }
   } catch (e) {
     console.error(lang.__('rabbitmq.error'), e)
@@ -47,6 +39,6 @@ const publishToRabbitMqQueueSingle = async (exchangeName, queueName, data) => {
 }
 
 module.exports = {
-  rabbitmq,
+  connectRabbitMQ,
   publishToRabbitMqQueueSingle
 }

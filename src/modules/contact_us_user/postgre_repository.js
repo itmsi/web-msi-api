@@ -1,5 +1,6 @@
 const { pgCore } = require('../../config/database')
 const Repo = require('../../repository/postgres/core_postgres')
+const { publishToRabbitMqQueueSingle } = require('../../config/rabbitmq')
 const {
   mappingSuccess,
   mappingError,
@@ -9,6 +10,7 @@ const {
   MODEL_PROPERTIES: { PRIMARY_KEY }
 } = require('../../utils')
 const { lang } = require('../../lang')
+const { CONTACT_US_QUEUE, CONTACT_US_EXCHANGE } = require('./consumer')
 
 const TABLE = 'mst_contact_us_user'
 const COLUMN_ALL = [
@@ -69,6 +71,12 @@ const create = async (payload) => {
       transaction.rollback();
       return mappingSuccess(lang.__('created.failed'), null, 200, false)
     }
+
+    // Publish message to RabbitMQ
+    await publishToRabbitMqQueueSingle(CONTACT_US_EXCHANGE, CONTACT_US_QUEUE, {
+      type: 'NEW_CONTACT',
+      data: result
+    });
 
     transaction.commit();
     return mappingSuccess(lang.__('created.success'), result)
