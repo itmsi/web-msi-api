@@ -1,0 +1,48 @@
+{
+	"SchemaResponseMaritalStatus": {
+		"type": "object",
+		"properties": {
+			"marital_status_id": {
+				"type": "string"
+			},
+			"marital_status_name": {
+				"type": "string"
+			},
+			"marital_status_description": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostMaritalStatus": {
+		"type": "object",
+		"properties": {
+			"marital_status_name": {
+				"type": "string"
+			},
+			"marital_status_description": {
+				"type": "string"
+			}
+		}
+	}
+}

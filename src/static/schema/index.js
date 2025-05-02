@@ -12,6 +12,7 @@ const contactUsUser = require('./contact_us_user.json')
 const departement = require('./departement.json')
 const jobCareer = require('./job_career.json')
 const locationArea = require('./location_area.json')
+const maritalStatus = require('./marital_status.json')
 
 module.exports = {
   ...auth,
@@ -27,5 +28,6 @@ module.exports = {
   ...contactUsUser,
   ...departement,
   ...jobCareer,
-  ...locationArea
+  ...locationArea,
+  ...maritalStatus
 }
