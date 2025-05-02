@@ -16,6 +16,7 @@ const departement = require('../../modules/departement')
 const jobCareer = require('../../modules/job_career')
 const locationArea = require('../../modules/location_area')
 const maritalStatus = require('../../modules/marital_status')
+const religion = require('../../modules/religion')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -41,4 +42,5 @@ routing.use(`${API_TAG}/departement`, verifyToken, departement)
 routing.use(`${API_TAG}/job-career`, verifyToken, jobCareer)
 routing.use(`${API_TAG}/location-area`, verifyToken, locationArea)
 routing.use(`${API_TAG}/marital-status`, verifyToken, maritalStatus)
+routing.use(`${API_TAG}/religion`, verifyToken, religion)
 module.exports = routing;
