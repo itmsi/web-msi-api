@@ -1,0 +1,48 @@
+{
+	"SchemaResponseDegree": {
+		"type": "object",
+		"properties": {
+			"degree_id": {
+				"type": "string"
+			},
+			"degree_name": {
+				"type": "string"
+			},
+			"degree_description": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostDegree": {
+		"type": "object",
+		"properties": {
+			"degree_name": {
+				"type": "string"
+			},
+			"degree_description": {
+				"type": "string"
+			}
+		}
+	}
+}

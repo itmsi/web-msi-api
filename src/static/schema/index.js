@@ -16,6 +16,7 @@ const maritalStatus = require('./marital_status.json')
 const religion = require('./religion.json')
 const province = require('./province.json')
 const city = require('./city.json')
+const degree = require('./degree.json')
 
 module.exports = {
   ...auth,
@@ -35,5 +36,6 @@ module.exports = {
   ...maritalStatus,
   ...religion,
   ...province,
-  ...city
+  ...city,
+  ...degree
 }
