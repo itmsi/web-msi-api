@@ -76,8 +76,6 @@ module.exports = {
       KATEGORI_KAS: 'mst_kategori_kas',
       KATEGORI_JURNAL: 'mst_kategori_jurnal',
       JURNAL_UMUM: 'trs_jurnal_umum',
-      CITY: 'mst_city',
-      PROVINCE: 'mst_province',
       BANK: 'mst_bank',
       INVENTORY: 'inv_car_stock',
       TRANSPORTATION_TYPE: 'mst_transportation_type',
@@ -152,7 +150,14 @@ module.exports = {
       CONTACT_US_ADMIN: 'mst_contact_us_admin',
       CONTACT_US_USER: 'mst_contact_us_user',
       DEPARTEMENT: 'mst_departement',
-      JOB_CAREER: 'mst_job_career'
+      JOB_CAREER: 'mst_job_career',
+      LOCATION_AREA: 'mst_location_area',
+      MARITAL_STATUS: 'mst_marital_status',
+      RELIGION: 'mst_religion',
+      DEGREE: 'mst_degree',
+      PROVINCE: 'mst_province',
+      CITY: 'mst_city',
+      CAREER_APPLY: 'mst_career_apply'
     },
     PRIMARY_KEY: {
       JENIS_AKUN: 'jenis_akun_id',
@@ -175,8 +180,6 @@ module.exports = {
       TUJUAN_PENGELUARAN: 'tujuan_pengeluaran_id',
       KATEGORI_JURNAL: 'kategori_jurnal_id',
       JURNAL_UMUM: 'jurnal_umum_id',
-      CITY: 'city_code',
-      PROVINCE: 'province_code',
       BANK: 'id',
       INVENTORY: 'inventory_car_id',
       TRANSPORTATION_TYPE: 'transportation_id',
@@ -245,7 +248,14 @@ module.exports = {
       CONTACT_US_ADMIN: 'contact_us_admin_id',
       CONTACT_US_USER: 'contact_us_user_id',
       DEPARTEMENT: 'departement_id',
-      JOB_CAREER: 'job_career_id'
+      JOB_CAREER: 'job_career_id',
+      LOCATION_AREA: 'location_area_id',
+      MARITAL_STATUS: 'marital_status_id',
+      RELIGION: 'religion_id',
+      DEGREE: 'degree_id',
+      PROVINCE: 'province_id',
+      CITY: 'city_id',
+      CAREER_APPLY: 'career_apply_id'
     }
   },
   FILE_DESCRIPTION: [

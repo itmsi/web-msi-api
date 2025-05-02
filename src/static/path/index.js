@@ -11,6 +11,7 @@ const contactUsAdmin = require('./contact_us_admin.json')
 const contactUsUser = require('./contact_us_user.json')
 const departement = require('./departement.json')
 const jobCareer = require('./job_career.json')
+const locationArea = require('./location_area.json')
 
 module.exports = {
   ...auth,
@@ -25,5 +26,6 @@ module.exports = {
   ...contactUsAdmin,
   ...contactUsUser,
   ...departement,
-  ...jobCareer
+  ...jobCareer,
+  ...locationArea
 }
