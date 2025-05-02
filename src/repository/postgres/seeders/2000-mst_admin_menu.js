@@ -282,8 +282,8 @@ exports.seed = async function (knex) {
     {
       menu_id: '15',
       parent: '0',
-      menu_name: 'Career',
-      menu_url: 'career',
+      menu_name: 'Management Career',
+      menu_url: 'management-career',
       menu_status: '1',
       menu_sort: '8',
       menu_icon: 'far fa-folder nav-icon',
@@ -293,7 +293,7 @@ exports.seed = async function (knex) {
       updated_by: null,
       deleted_at: null,
       deleted_by: null,
-      permission_name: 'career',
+      permission_name: 'management-career',
       heading_admin_menu_id: '8'
     },
     {
@@ -312,7 +312,41 @@ exports.seed = async function (knex) {
       deleted_by: null,
       permission_name: 'management-language',
       heading_admin_menu_id: '9'
-    }
+    },
+    {
+      menu_id: '19',
+      parent: '15',
+      menu_name: 'Career',
+      menu_url: 'career',
+      menu_status: '1',
+      menu_sort: '8',
+      menu_icon: 'far fa-circle nav-icon',
+      created_at: '2025-04-24 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null,
+      permission_name: 'career',
+      heading_admin_menu_id: '8'
+    },
+    {
+      menu_id: '20',
+      parent: '15',
+      menu_name: 'Apply',
+      menu_url: 'apply',
+      menu_status: '1',
+      menu_sort: '9',
+      menu_icon: 'far fa-circle nav-icon',
+      created_at: '2025-04-24 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null,
+      permission_name: 'apply',
+      heading_admin_menu_id: '8'
+    },
   ];
   return knex('mst_admin_menu').del()
     .then(() => knex('mst_admin_menu').insert(admin_menu));
