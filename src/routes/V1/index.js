@@ -18,6 +18,7 @@ const locationArea = require('../../modules/location_area')
 const maritalStatus = require('../../modules/marital_status')
 const religion = require('../../modules/religion')
 const province = require('../../modules/province')
+const city = require('../../modules/city')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -45,4 +46,5 @@ routing.use(`${API_TAG}/location-area`, verifyToken, locationArea)
 routing.use(`${API_TAG}/marital-status`, verifyToken, maritalStatus)
 routing.use(`${API_TAG}/religion`, verifyToken, religion)
 routing.use(`${API_TAG}/province`, verifyToken, province)
+routing.use(`${API_TAG}/city`, verifyToken, city)
 module.exports = routing;

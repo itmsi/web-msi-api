@@ -1,0 +1,48 @@
+{
+	"SchemaResponseCity": {
+		"type": "object",
+		"properties": {
+			"city_id": {
+				"type": "string"
+			},
+			"city_name": {
+				"type": "string"
+			},
+			"city_description": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostCity": {
+		"type": "object",
+		"properties": {
+			"city_name": {
+				"type": "string"
+			},
+			"city_description": {
+				"type": "string"
+			}
+		}
+	}
+}
