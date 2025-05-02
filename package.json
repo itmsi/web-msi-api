@@ -7,7 +7,8 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "migrate": "knex --knexfile src/knexfile.js migrate:latest",
-    "consumer": "node src/scripts/start-consumer.js"
+    "consumer": "node src/scripts/start-consumer.js",
+    "consumer-career": "node src/scripts/start-consumer-career.js"
   },
   "repository": {
     "type": "git",
