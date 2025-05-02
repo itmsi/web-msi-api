@@ -1,0 +1,48 @@
+{
+	"SchemaResponseProvince": {
+		"type": "object",
+		"properties": {
+			"province_id": {
+				"type": "string"
+			},
+			"province_name": {
+				"type": "string"
+			},
+			"province_description": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostProvince": {
+		"type": "object",
+		"properties": {
+			"province_name": {
+				"type": "string"
+			},
+			"province_description": {
+				"type": "string"
+			}
+		}
+	}
+}
