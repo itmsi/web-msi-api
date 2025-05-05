@@ -30,6 +30,7 @@ naming convention endpoint: using plural
 // public api register here
 routing.use(`${API_TAG}/auth`, auth)
 routing.use(`${API_TAG}/public/api`, publicApi)
+routing.use(`${API_TAG}/contact-us-user`, contactUsUser)
 
 // need token verify register here
 routing.use(`${API_TAG}/admin-menu`, verifyToken, adminMenu)
@@ -41,7 +42,6 @@ routing.use(`${API_TAG}/banner`, verifyToken, banner)
 routing.use(`${API_TAG}/news-category`, verifyToken, newsCategory)
 routing.use(`${API_TAG}/news`, verifyToken, news)
 routing.use(`${API_TAG}/contact-us-admin`, verifyToken, contactUsAdmin)
-routing.use(`${API_TAG}/contact-us-user`, verifyToken, contactUsUser)
 routing.use(`${API_TAG}/departement`, verifyToken, departement)
 routing.use(`${API_TAG}/job-career`, verifyToken, jobCareer)
 routing.use(`${API_TAG}/location-area`, verifyToken, locationArea)

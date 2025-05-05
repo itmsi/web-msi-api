@@ -14,7 +14,14 @@ const {
 } = require('../../utils')
 
 const store = async (req, res) => {
-  const payload = { ...req?.body, ...decodeToken('created', req) }
+  const payload = {
+    contact_us_user_name_first: req.body.contact_us_user_name_first,
+    contact_us_user_name_last: req.body.contact_us_user_name_last,
+    contact_us_user_subject: req.body.contact_us_user_subject,
+    contact_us_user_email: req.body.contact_us_user_email,
+    contact_us_user_message: req.body.contact_us_user_message,
+    created_at: new Date().toISOString()
+  }
   const result = await repository.create(payload)
   return baseResponse(res, result)
 }
