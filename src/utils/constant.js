@@ -157,7 +157,8 @@ module.exports = {
       DEGREE: 'mst_degree',
       PROVINCE: 'mst_province',
       CITY: 'mst_city',
-      CAREER_APPLY: 'mst_career_apply'
+      CAREER_APPLY: 'mst_career_apply',
+      MEMBER: 'mst_member'
     },
     PRIMARY_KEY: {
       JENIS_AKUN: 'jenis_akun_id',
@@ -255,7 +256,8 @@ module.exports = {
       DEGREE: 'degree_id',
       PROVINCE: 'province_id',
       CITY: 'city_id',
-      CAREER_APPLY: 'career_apply_id'
+      CAREER_APPLY: 'career_apply_id',
+      MEMBER: 'member_id'
     }
   },
   FILE_DESCRIPTION: [

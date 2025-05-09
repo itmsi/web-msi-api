@@ -21,6 +21,7 @@ const province = require('../../modules/province')
 const city = require('../../modules/city')
 const degree = require('../../modules/degree')
 const careerApply = require('../../modules/career_apply')
+const member = require('../../modules/member')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -51,4 +52,5 @@ routing.use(`${API_TAG}/province`, verifyToken, province)
 routing.use(`${API_TAG}/city`, verifyToken, city)
 routing.use(`${API_TAG}/degree`, verifyToken, degree)
 routing.use(`${API_TAG}/career-apply`, verifyToken, careerApply)
+routing.use(`${API_TAG}/member`, verifyToken, member)
 module.exports = routing;

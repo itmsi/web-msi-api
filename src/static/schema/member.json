@@ -1,0 +1,78 @@
+{
+	"SchemaResponseMember": {
+		"type": "object",
+		"properties": {
+			"member_id": {
+				"type": "string"
+			},
+			"member_name": {
+				"type": "string"
+			},
+			"member_email": {
+				"type": "string"
+			},
+			"member_password": {
+				"type": "string"
+			},
+			"member_full_name": {
+				"type": "string"
+			},
+			"member_phone_number": {
+				"type": "string"
+			},
+			"member_approval_status": {
+				"type": "string"
+			},
+			"member_description": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostMember": {
+		"type": "object",
+		"properties": {
+			"member_name": {
+				"type": "string"
+			},
+			"member_email": {
+				"type": "string"
+			},
+			"member_password": {
+				"type": "string"
+			},
+			"member_full_name": {
+				"type": "string"
+			},
+			"member_phone_number": {
+				"type": "string"
+			},
+			"member_approval_status": {
+				"type": "string"
+			},
+			"member_description": {
+				"type": "string"
+			}
+		}
+	}
+}
