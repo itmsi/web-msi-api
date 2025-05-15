@@ -57,6 +57,11 @@ const postValidation = [
       }
       await checkSameValueinDb('mst_banner', condition, 'title_banner_en', lang.__('data.exist', { msg }))
     }),
+  check('status_banner')
+    .isInt()
+    .withMessage(lang.__('validator.integer', { field: 'Status Banner' }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Status Banner' })),
   check('title_banner_cn')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'Title Banner' }))
@@ -94,6 +99,10 @@ const putValidation = [
       }
       await checkSameValueinDbUpdateUuid('mst_banner', condition, 'banner_id', req?.params?.banner_id, msg)
     }),
+  check('status_banner')
+    .isInt()
+    .withMessage(lang.__('validator.integer', { field: 'Status Banner' }))
+    .optional(true),
   check('title_banner_id')
     .isLength({ max: 100 })
     .withMessage(lang.__('validator.max', { field: 'Title Banner', max: 100 }))

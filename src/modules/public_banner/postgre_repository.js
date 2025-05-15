@@ -14,12 +14,13 @@ const COLUMN_DEFAULT = [
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
+const STATUS_BANNER_ACTIVE = 1;
 
 const DEFAULT_SORT = [`${TABLE}.banner_id`, 'DESC']
 
 const condition = (builder, where, search = null) => {
   builder.where(`${TABLE}.deleted_at`, null)
-
+  builder.where(`${TABLE}.status_banner`, STATUS_BANNER_ACTIVE)
   if (where?.banner_id) {
     builder.where(`${TABLE}.banner_id`, where.banner_id)
   }
