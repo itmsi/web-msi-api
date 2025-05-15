@@ -112,9 +112,9 @@ exports.seed = async function (knex) {
     {
       menu_id: '7',
       parent: '5',
-      menu_name: 'Kategori Product',
-      menu_url: 'admin/master-data/product-category',
-      menu_status: '0',
+      menu_name: 'Type Product',
+      menu_url: 'admin/master-data/type-product',
+      menu_status: '1',
       menu_sort: '2',
       menu_icon: 'far fa-circle nav-icon',
       created_at: '2025-04-24 11:54:24.776 +0700',
@@ -123,7 +123,7 @@ exports.seed = async function (knex) {
       updated_by: null,
       deleted_at: null,
       deleted_by: null,
-      permission_name: 'product-category',
+      permission_name: 'type-product',
       heading_admin_menu_id: '3'
     },
     {
@@ -131,7 +131,7 @@ exports.seed = async function (knex) {
       parent: '5',
       menu_name: 'Product',
       menu_url: 'admin/master-data/product',
-      menu_status: '0',
+      menu_status: '1',
       menu_sort: '3',
       menu_icon: 'far fa-circle nav-icon',
       created_at: '2025-04-24 11:54:24.776 +0700',

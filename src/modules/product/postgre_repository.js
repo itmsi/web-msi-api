@@ -17,6 +17,7 @@ const COLUMN_ALL = [
   `${TABLE}.product_id`, `${TABLE}.type_product_id`, `${TABLE}.product_name_id`, `${TABLE}.product_name_en`, `${TABLE}.product_name_cn`,
   `${TABLE}.banner_product`, `${TABLE}.tagline_banner_product_id`, `${TABLE}.tagline_banner_product_en`, `${TABLE}.tagline_banner_product_cn`,
   `${TABLE}.image_product`, `${TABLE}.product_description_id`, `${TABLE}.product_description_en`, `${TABLE}.product_description_cn`,
+  `${TABLE}.slug_product`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`,
   `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`
@@ -26,6 +27,7 @@ const COLUMN = [
   `${TABLE}.product_id`, `${TABLE}.type_product_id`, `${TABLE}.product_name_id`, `${TABLE}.product_name_en`, `${TABLE}.product_name_cn`,
   `${TABLE}.banner_product`, `${TABLE}.tagline_banner_product_id`, `${TABLE}.tagline_banner_product_en`, `${TABLE}.tagline_banner_product_cn`,
   `${TABLE}.image_product`, `${TABLE}.product_description_id`, `${TABLE}.product_description_en`, `${TABLE}.product_description_cn`,
+  `${TABLE}.slug_product`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`,
   `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`
