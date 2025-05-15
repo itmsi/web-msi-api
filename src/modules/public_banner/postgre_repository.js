@@ -28,7 +28,7 @@ const COLUMN = [
 ]
 
 const DEFAULT_SORT = [COLUMN[0], 'DESC']
-const condition = (builder, where, search = null) => {
+const condition = (builder, where, search = null, language = 'id') => {
   builder.where(`${TABLE}.deleted_at`, null)
 
   if (where.banner_id) {
@@ -36,23 +36,34 @@ const condition = (builder, where, search = null) => {
   }
 
   if (search) {
-    builder.whereILike(`${TABLE}.title_banner_id`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
-    builder.orWhereILike(`${TABLE}.title_banner_en`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
-    builder.orWhereILike(`${TABLE}.title_banner_cn`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
-    builder.orWhereILike(`${TABLE}.banner_tagline_id`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
-    builder.orWhereILike(`${TABLE}.banner_tagline_en`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
-    builder.orWhereILike(`${TABLE}.banner_tagline_cn`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    switch (language) {
+      case 'id':
+        builder.whereILike(`${TABLE}.title_banner_id`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+        builder.orWhereILike(`${TABLE}.banner_tagline_id`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+        break;
+      case 'en':
+        builder.whereILike(`${TABLE}.title_banner_en`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+        builder.orWhereILike(`${TABLE}.banner_tagline_en`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+        break;
+      case 'cn':
+        builder.whereILike(`${TABLE}.title_banner_cn`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+        builder.orWhereILike(`${TABLE}.banner_tagline_cn`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+        break;
+      default:
+        builder.whereILike(`${TABLE}.title_banner_id`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+        builder.orWhereILike(`${TABLE}.banner_tagline_id`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    }
   }
 
   return builder
 }
 
-const sql = (where, search = false) => {
+const sql = (where, search = false, language = 'id') => {
   let query = pgCore(TABLE)
 
   if (where != null) {
     query = query.where((builder) => {
-      condition(builder, where, search)
+      condition(builder, where, search, language)
     })
   }
 
@@ -90,15 +101,15 @@ const create = async (payload) => {
  * @param {*} filter
  * @return {*}
  */
-const get = async (where, filter, column = COLUMN) => {
+const get = async (where, filter, column = COLUMN, language = 'id') => {
   try {
-    const result = await sql(where, filter.search).clone()
+    const result = await sql(where, filter.search, language).clone()
       .select(column)
       .orderBy(`${filter.direction}`, filter.order)
       .limit(filter.limit)
       .offset(((filter.page - 1) * filter.limit))
 
-    const [rows] = await sql(where, filter.search).clone().count(column[0])
+    const [rows] = await sql(where, filter.search, language).clone().count(column[0])
 
     return mappingSuccessPagination(lang.__('get.success'), {
       result: manipulateDate(result),
@@ -147,11 +158,9 @@ const update = async (where, payload, name = '') => {
     } else {
       const format = todayFormat('YYYYMMDDhmmss')
       message = lang.__('archive.success', { id: where?.banner_id })
-      const [rows] = await pgCore(TABLE).select(['title_banner_id', 'title_banner_en', 'title_banner_cn', 'description_banner']).where(where)
+      const [rows] = await pgCore(TABLE).select(['title_banner', 'description_banner']).where(where)
       if (rows) {
-        payload.title_banner_id = `archived-${format}-${rows.title_banner_id}`
-        payload.title_banner_en = `archived-${format}-${rows.title_banner_en}`
-        payload.title_banner_cn = `archived-${format}-${rows.title_banner_cn}`
+        payload.title_banner = `archived-${format}-${rows.title_banner}`
         payload.description_banner = `archived-${format}-${rows.description_banner}`
       }
     }

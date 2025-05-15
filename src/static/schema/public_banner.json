@@ -1,0 +1,44 @@
+{
+	"SchemaResponsePublicBanner": {
+		"type": "object",
+		"properties": {
+			"banner_id": {
+				"type": "string"
+			},
+			"title_banner_id": {
+				"type": "string"
+			},
+			"title_banner_en": {
+				"type": "string"
+			},
+			"title_banner_cn": {
+				"type": "string"
+			},
+			"banner_tagline_id": {
+				"type": "string"
+			},
+			"banner_tagline_en": {
+				"type": "string"
+			},
+			"banner_tagline_cn": {
+				"type": "string"
+			},
+			"description_banner": {
+				"type": "string"
+			},
+			"description_banner_en": {
+				"type": "string"
+			},
+			"link_banner": {
+				"type": "string"
+			},
+			"file_banner": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			}
+		}
+	}
+}

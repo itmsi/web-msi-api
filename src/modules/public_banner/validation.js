@@ -6,7 +6,7 @@ const { checkSameValueinDb, checkSameValueinDbUpdateUuid } = require('../../repo
   ** More Documentation in here https://express-validator.github.io/docs/
 */
 const postValidation = [
-  check('title_banner_id')
+  check('title_banner')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'Title Banner' }))
     .isLength({ max: 100 })
@@ -16,31 +16,10 @@ const postValidation = [
     .custom(async (value) => {
       const msg = `Title Banner ${value}`
       const condition = {
-        title_banner_id: value
+        title_banner: value
       }
-      await checkSameValueinDb('mst_banner', condition, 'title_banner_id', lang.__('data.exist', { msg }))
+      await checkSameValueinDb('mst_banner', condition, 'title_banner', lang.__('data.exist', { msg }))
     }),
-  check('title_banner_en')
-    .isString()
-    .withMessage(lang.__('validator.string', { field: 'Title Banner' }))
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'Title Banner', max: 100 }))
-    .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'Title Banner' }))
-    .custom(async (value) => {
-      const msg = `Title Banner ${value}`
-      const condition = {
-        title_banner_en: value
-      }
-      await checkSameValueinDb('mst_banner', condition, 'title_banner_en', lang.__('data.exist', { msg }))
-    }),
-  check('title_banner_cn')
-    .isString()
-    .withMessage(lang.__('validator.string', { field: 'Title Banner' }))
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'Title Banner', max: 100 }))
-    .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'Title Banner' })),
   check('file_banner')
     .isLength({ max: 100 })
     .withMessage(lang.__('validator.max', { field: 'File Banner', max: 100 }))
@@ -52,35 +31,17 @@ const postValidation = [
 ]
 
 const putValidation = [
-  check('title_banner_id')
+  check('title_banner')
     .isLength({ max: 100 })
     .withMessage(lang.__('validator.max', { field: 'Title Banner', max: 100 }))
     .isString()
     .withMessage(lang.__('validator.string', { field: 'Title Banner' }))
     .optional(true)
     .custom(async (value, { req }) => {
-      const condition = { title_banner_id: value }
+      const condition = { title_banner: value }
       const msg = lang.__('data.exist', { msg: `Title Banner ${value}` })
       await checkSameValueinDbUpdateUuid('mst_banner', condition, 'banner_id', req?.params?.banner_id, msg)
     }),
-  check('title_banner_en')
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'Title Banner', max: 100 }))
-    .isString()
-    .withMessage(lang.__('validator.string', { field: 'Title Banner' }))
-    .optional(true)
-    .custom(async (value, { req }) => {
-      const condition = { title_banner_en: value }
-      const msg = lang.__('data.exist', { msg: `Title Banner ${value}` })
-      await checkSameValueinDbUpdateUuid('mst_banner', condition, 'banner_id', req?.params?.banner_id, msg)
-    }),
-  check('title_banner_cn')
-    .isString()
-    .withMessage(lang.__('validator.string', { field: 'Title Banner' }))
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'Title Banner', max: 100 }))
-    .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'Title Banner' })),
   check('file_banner')
     .optional(true)
     .isLength({ max: 100 })

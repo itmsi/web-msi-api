@@ -5,7 +5,22 @@
 			"banner_id": {
 				"type": "string"
 			},
-			"title_banner": {
+			"title_banner_id": {
+				"type": "string"
+			},
+			"title_banner_en": {
+				"type": "string"
+			},
+			"title_banner_cn": {
+				"type": "string"
+			},
+			"banner_tagline_id": {
+				"type": "string"
+			},
+			"banner_tagline_en": {
+				"type": "string"
+			},
+			"banner_tagline_cn": {
 				"type": "string"
 			},
 			"description_banner": {
@@ -43,7 +58,22 @@
 	"SchemaPostBanner": {
 		"type": "object",
 		"properties": {
-			"title_banner": {
+			"title_banner_id": {
+				"type": "string"
+			},
+			"title_banner_en": {
+				"type": "string"
+			},
+			"title_banner_cn": {
+				"type": "string"
+			},
+			"banner_tagline_id": {
+				"type": "string"
+			},
+			"banner_tagline_en": {
+				"type": "string"
+			},
+			"banner_tagline_cn": {
 				"type": "string"
 			},
 			"description_banner": {
