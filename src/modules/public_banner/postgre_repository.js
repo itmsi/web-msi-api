@@ -61,8 +61,6 @@ const sql = (where, search = false) => {
     })
   }
 
-  query = query.orderBy(`${TABLE}.order_banner`, 'ASC')
-
   return query
 }
 
