@@ -14,7 +14,8 @@ const TABLE = 'mst_banner'
 const COLUMN_ALL = [
   `${TABLE}.banner_id`, `${TABLE}.title_banner_id`, `${TABLE}.title_banner_en`, `${TABLE}.title_banner_cn`,
   `${TABLE}.banner_tagline_id`, `${TABLE}.banner_tagline_en`, `${TABLE}.banner_tagline_cn`,
-  `${TABLE}.file_banner`, `${TABLE}.link_banner`, `${TABLE}.description_banner`,
+  `${TABLE}.page_banner`, `${TABLE}.file_banner`, `${TABLE}.link_banner`, `${TABLE}.description_banner`,
+  `${TABLE}.order_banner`, `${TABLE}.status_banner`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
@@ -22,7 +23,8 @@ const COLUMN_ALL = [
 const COLUMN = [
   `${TABLE}.banner_id`, `${TABLE}.title_banner_id`, `${TABLE}.title_banner_en`, `${TABLE}.title_banner_cn`,
   `${TABLE}.banner_tagline_id`, `${TABLE}.banner_tagline_en`, `${TABLE}.banner_tagline_cn`,
-  `${TABLE}.file_banner`, `${TABLE}.link_banner`, `${TABLE}.description_banner`,
+  `${TABLE}.page_banner`, `${TABLE}.file_banner`, `${TABLE}.link_banner`, `${TABLE}.description_banner`,
+  `${TABLE}.order_banner`, `${TABLE}.status_banner`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]

@@ -10,55 +10,16 @@
 
 const repository = require('./postgre_repository')
 const {
-  baseResponse, paginationResponse, requestHttp, paging, decodeToken
+  paging, paginationResponsePublic
 } = require('../../utils')
-
-const store = async (req, res) => {
-  const payload = { ...req?.body, ...decodeToken('created', req) }
-  const result = await repository.create(payload)
-  return baseResponse(res, result)
-}
-
-const fetch = async (req, res) => {
-  const where = req.query; // dynamicFilterJoin(req, repository.COLUMN)
-  const filter = paging(req, repository.DEFAULT_SORT)
-  const result = await repository.get(where, filter)
-  return paginationResponse(req, res, result)
-}
 
 const fetchPublic = async (req, res) => {
   const where = req.query; // dynamicFilterJoin(req, repository.COLUMN)
   const filter = paging(req, repository.DEFAULT_SORT)
-  const language = req.query.language || 'id'
-  const result = await repository.get(where, filter, language)
-  return baseResponse(res, result)
-}
-
-const fetchByParam = async (req, res) => {
-  const where = requestHttp(req)
-  const result = await repository.getByParam(where)
-  return baseResponse(res, result)
-}
-
-const update = async (req, res) => {
-  const where = requestHttp(req)
-  const payload = { ...req?.body, type_method: 'update', ...decodeToken('updated', req) }
-  const result = await repository.update(where, payload)
-  return baseResponse(res, result)
-}
-
-const softDelete = async (req, res) => {
-  const where = requestHttp(req)
-  const payload = { type_method: 'soft-delete', ...decodeToken('deleted', req) }
-  const result = await repository.update(where, payload, 'description_banner')
-  return baseResponse(res, result)
+  const result = await repository.get(where, filter)
+  return paginationResponsePublic(req, res, result)
 }
 
 module.exports = {
-  store,
-  fetch,
   fetchPublic,
-  fetchByParam,
-  update,
-  softDelete
 }

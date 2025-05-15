@@ -5,6 +5,15 @@
 			"banner_id": {
 				"type": "string"
 			},
+			"page_banner": {
+				"type": "string"
+			},
+			"order_banner": {
+				"type": "integer"
+			},
+			"status_banner": {
+				"type": "integer"
+			},
 			"title_banner_id": {
 				"type": "string"
 			},
@@ -58,6 +67,15 @@
 	"SchemaPostBanner": {
 		"type": "object",
 		"properties": {
+			"page_banner": {
+				"type": "string"
+			},
+			"order_banner": {
+				"type": "integer"
+			},
+			"status_banner": {
+				"type": "integer"
+			},
 			"title_banner_id": {
 				"type": "string"
 			},
