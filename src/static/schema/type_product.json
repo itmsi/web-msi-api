@@ -5,7 +5,13 @@
 			"type_product_id": {
 				"type": "string"
 			},
-			"type_product_name": {
+			"type_product_name_id": {
+				"type": "string"
+			},
+			"type_product_name_en": {
+				"type": "string"
+			},
+			"type_product_name_cn": {
 				"type": "string"
 			},
 			"type_product_description": {
@@ -37,7 +43,13 @@
 	"SchemaPostTypeProduct": {
 		"type": "object",
 		"properties": {
-			"type_product_name": {
+			"type_product_name_id": {
+				"type": "string"
+			},
+			"type_product_name_en": {
+				"type": "string"
+			},
+			"type_product_name_cn": {
 				"type": "string"
 			},
 			"type_product_description": {

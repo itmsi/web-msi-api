@@ -6,35 +6,64 @@ const { checkSameValueinDb, checkSameValueinDbUpdateUuid } = require('../../repo
   ** More Documentation in here https://express-validator.github.io/docs/
 */
 const postValidation = [
-  check('type_product_name')
+  check('type_product_name_id')
     .isString()
-    .withMessage(lang.__('validator.string', { field: 'Type Product Name' }))
+    .withMessage(lang.__('validator.string', { field: 'Type Product Name ID' }))
     .isLength({ max: 200 })
-    .withMessage(lang.__('validator.max', { field: 'Type Product Name', max: 200 }))
+    .withMessage(lang.__('validator.max', { field: 'Type Product Name ID', max: 200 }))
     .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'Type Product Name' }))
+    .withMessage(lang.__('validator.required', { field: 'Type Product Name ID' }))
     .custom(async (value) => {
       const msg = `Type Product Name ${value}`
       const condition = {
-        type_product_name: value
+        type_product_name_id: value
       }
-      await checkSameValueinDb('mst_type_product', condition, 'type_product_name', lang.__('data.exist', { msg }))
+      await checkSameValueinDb('mst_type_product', condition, 'type_product_name_id', lang.__('data.exist', { msg }))
     }),
+  check('type_product_name_en')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'Type Product Name EN' }))
+    .isLength({ max: 200 })
+    .withMessage(lang.__('validator.max', { field: 'Type Product Name EN', max: 200 }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Type Product Name EN' })),
+  check('type_product_name_cn')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'Type Product Name CN' }))
+    .isLength({ max: 200 })
+    .withMessage(lang.__('validator.max', { field: 'Type Product Name CN', max: 200 }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Type Product Name CN' })),
   (req, res, next) => { validateMiddleware(req, res, next) }
 ]
 
 const putValidation = [
-  check('type_product_name')
-    .isLength({ max: 200 })
-    .withMessage(lang.__('validator.max', { field: 'Type Product Name', max: 200 }))
+  check('type_product_name_id')
     .isString()
-    .withMessage(lang.__('validator.string', { field: 'Type Product Name' }))
-    .optional(true)
+    .withMessage(lang.__('validator.string', { field: 'Type Product Name ID' }))
+    .isLength({ max: 200 })
+    .withMessage(lang.__('validator.max', { field: 'Type Product Name ID', max: 200 }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Type Product Name ID' }))
     .custom(async (value, { req }) => {
-      const condition = { type_product_name: value }
+      const condition = { type_product_name_id: value }
       const msg = lang.__('data.exist', { msg: `Type Product Name ${value}` })
       await checkSameValueinDbUpdateUuid('mst_type_product', condition, 'type_product_id', req?.params?.type_product_id, msg)
     }),
+  check('type_product_name_en')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'Type Product Name EN' }))
+    .isLength({ max: 200 })
+    .withMessage(lang.__('validator.max', { field: 'Type Product Name EN', max: 200 }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Type Product Name EN' })),
+  check('type_product_name_cn')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'Type Product Name CN' }))
+    .isLength({ max: 200 })
+    .withMessage(lang.__('validator.max', { field: 'Type Product Name CN', max: 200 }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Type Product Name CN' })),
   (req, res, next) => { validateMiddleware(req, res, next) }
 ]
 

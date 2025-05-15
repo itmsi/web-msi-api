@@ -12,13 +12,13 @@ const { lang } = require('../../lang')
 
 const TABLE = 'mst_type_product'
 const COLUMN_ALL = [
-  `${TABLE}.type_product_id`, `${TABLE}.type_product_name`, `${TABLE}.type_product_description`,
+  `${TABLE}.type_product_id`, `${TABLE}.type_product_name_id`, `${TABLE}.type_product_name_en`, `${TABLE}.type_product_name_cn`, `${TABLE}.type_product_description`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
 
 const COLUMN = [
-  `${TABLE}.type_product_id`, `${TABLE}.type_product_name`, `${TABLE}.type_product_description`,
+  `${TABLE}.type_product_id`, `${TABLE}.type_product_name_id`, `${TABLE}.type_product_name_en`, `${TABLE}.type_product_name_cn`, `${TABLE}.type_product_description`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
@@ -32,7 +32,9 @@ const condition = (builder, where, search = null) => {
   }
 
   if (search) {
-    builder.whereILike(`${TABLE}.type_product_name`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.whereILike(`${TABLE}.type_product_name_id`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.orWhereILike(`${TABLE}.type_product_name_en`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.orWhereILike(`${TABLE}.type_product_name_cn`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
     builder.orWhereILike(`${TABLE}.type_product_description`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
   }
 
@@ -139,9 +141,11 @@ const update = async (where, payload, name = '') => {
     } else {
       const format = todayFormat('YYYYMMDDhmmss')
       message = lang.__('archive.success', { id: where?.[PRIMARY_KEY.TYPE_PRODUCT] })
-      const [rows] = await pgCore(TABLE).select(['type_product_name', 'type_product_description']).where(where)
+      const [rows] = await pgCore(TABLE).select(['type_product_name_id', 'type_product_name_en', 'type_product_name_cn', 'type_product_description']).where(where)
       if (rows) {
-        payload.type_product_name = `archived-${format}-${rows.type_product_name}`
+        payload.type_product_name_id = `archived-${format}-${rows.type_product_name_id}`
+        payload.type_product_name_en = `archived-${format}-${rows.type_product_name_en}`
+        payload.type_product_name_cn = `archived-${format}-${rows.type_product_name_cn}`
         payload.type_product_description = `archived-${format}-${rows.type_product_description}`
       }
     }
