@@ -1,0 +1,23 @@
+{
+	"SchemaResponsePublicTypeProduct": {
+		"type": "object",
+		"properties": {
+			"type_product_id": {
+				"type": "string"
+			},
+			"type_product_name_id": {
+				"type": "string"
+			},
+			"type_product_name_en": {
+				"type": "string"
+			},
+			"type_product_name_cn": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			}
+		}
+	}
+}
