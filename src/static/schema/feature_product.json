@@ -1,0 +1,78 @@
+{
+	"SchemaResponseFeatureProduct": {
+		"type": "object",
+		"properties": {
+			"feature_product_id": {
+				"type": "string"
+			},
+			"product_id": {
+				"type": "string"
+			},
+			"feature_product_title_id": {
+				"type": "string"
+			},
+			"feature_product_title_en": {
+				"type": "string"
+			},
+			"feature_product_title_cn": {
+				"type": "string"
+			},
+			"feature_product_description_id": {
+				"type": "string"
+			},
+			"feature_product_description_en": {
+				"type": "string"
+			},
+			"feature_product_description_cn": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostFeatureProduct": {
+		"type": "object",
+		"properties": {
+			"product_id": {
+				"type": "string"
+			},
+			"feature_product_title_id": {
+				"type": "string"
+			},
+			"feature_product_title_en": {
+				"type": "string"
+			},
+			"feature_product_title_cn": {
+				"type": "string"
+			},
+			"feature_product_description_id": {
+				"type": "string"
+			},
+			"feature_product_description_en": {
+				"type": "string"
+			},
+			"feature_product_description_cn": {
+				"type": "string"
+			}
+		}
+	}
+}

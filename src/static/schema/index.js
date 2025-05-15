@@ -22,6 +22,10 @@ const member = require('./member.json')
 const publicBanner = require('./public_banner.json')
 const typeProduct = require('./type_product.json')
 const publicTypeProduct = require('./public_type_product.json')
+const product = require('./product.json')
+const publicProduct = require('./public_product.json')
+const flayerProduct = require('./flayer_product.json')
+const featureProduct = require('./feature_product.json')
 
 module.exports = {
   ...auth,
@@ -47,5 +51,9 @@ module.exports = {
   ...member,
   ...publicBanner,
   ...typeProduct,
-  ...publicTypeProduct
+  ...publicTypeProduct,
+  ...product,
+  ...publicProduct,
+  ...flayerProduct,
+  ...featureProduct
 }

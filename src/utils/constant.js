@@ -159,7 +159,10 @@ module.exports = {
       CITY: 'mst_city',
       CAREER_APPLY: 'mst_career_apply',
       MEMBER: 'mst_member',
-      TYPE_PRODUCT: 'mst_type_product'
+      TYPE_PRODUCT: 'mst_type_product',
+      PRODUCT: 'mst_product',
+      FLYER_PRODUCT: 'mst_flayer_product',
+      FEATURE_PRODUCT: 'mst_feature_product'
     },
     PRIMARY_KEY: {
       JENIS_AKUN: 'jenis_akun_id',
@@ -259,7 +262,10 @@ module.exports = {
       CITY: 'city_id',
       CAREER_APPLY: 'career_apply_id',
       MEMBER: 'member_id',
-      TYPE_PRODUCT: 'type_product_id'
+      TYPE_PRODUCT: 'type_product_id',
+      PRODUCT: 'product_id',
+      FLYER_PRODUCT: 'flayer_product_id',
+      FEATURE_PRODUCT: 'feature_product_id'
     }
   },
   FILE_DESCRIPTION: [
