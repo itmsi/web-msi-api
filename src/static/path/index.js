@@ -19,6 +19,7 @@ const city = require('./city.json')
 const degree = require('./degree.json')
 const careerApply = require('./career_apply.json')
 const member = require('./member.json')
+const publicBanner = require('./public_banner.json')
 
 module.exports = {
   ...auth,
@@ -41,5 +42,6 @@ module.exports = {
   ...city,
   ...degree,
   ...careerApply,
-  ...member
+  ...member,
+  ...publicBanner
 }
