@@ -26,6 +26,7 @@ const publicBanner = require('../../modules/public_banner')
 const typeProduct = require('../../modules/type_product')
 const publicTypeProduct = require('../../modules/public_type_product')
 const product = require('../../modules/product')
+const publicProduct = require('../../modules/public_product')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -37,6 +38,7 @@ routing.use(`${API_TAG}/auth`, auth)
 routing.use(`${API_TAG}/public/api`, publicApi)
 routing.use(`${API_TAG}/public/banner`, publicBanner)
 routing.use(`${API_TAG}/public/type-product`, publicTypeProduct)
+routing.use(`${API_TAG}/public/product`, publicProduct)
 routing.use(`${API_TAG}/contact-us-user`, contactUsUser)
 
 // need token verify register here

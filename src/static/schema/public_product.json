@@ -1,0 +1,50 @@
+{
+	"SchemaResponsePublicProduct": {
+		"type": "object",
+		"properties": {
+			"product_id": {
+				"type": "string"
+			},
+			"type_product_id": {
+				"type": "string"
+			},
+			"product_name_id": {
+				"type": "string"
+			},
+			"product_name_en": {
+				"type": "string"
+			},
+			"product_name_cn": {
+				"type": "string"
+			},
+			"banner_product": {
+				"type": "string"
+			},
+			"tagline_banner_product_id": {
+				"type": "string"
+			},
+			"tagline_banner_product_en": {
+				"type": "string"
+			},
+			"tagline_banner_product_cn": {
+				"type": "string"
+			},
+			"image_product": {
+				"type": "string"
+			},
+			"product_description_id": {
+				"type": "string"
+			},
+			"product_description_en": {
+				"type": "string"
+			},
+			"product_description_cn": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			}
+		}
+	}
+}

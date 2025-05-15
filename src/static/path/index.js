@@ -23,6 +23,7 @@ const publicBanner = require('./public_banner.json')
 const typeProduct = require('./type_product.json')
 const publicTypeProduct = require('./public_type_product.json')
 const product = require('./product.json')
+const publicProduct = require('./public_product.json')
 
 module.exports = {
   ...auth,
@@ -49,5 +50,6 @@ module.exports = {
   ...publicBanner,
   ...typeProduct,
   ...publicTypeProduct,
-  ...product
+  ...product,
+  ...publicProduct
 }
