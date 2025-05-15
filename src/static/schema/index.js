@@ -25,6 +25,7 @@ const publicTypeProduct = require('./public_type_product.json')
 const product = require('./product.json')
 const publicProduct = require('./public_product.json')
 const flayerProduct = require('./flayer_product.json')
+const featureProduct = require('./feature_product.json')
 
 module.exports = {
   ...auth,
@@ -53,5 +54,6 @@ module.exports = {
   ...publicTypeProduct,
   ...product,
   ...publicProduct,
-  ...flayerProduct
+  ...flayerProduct,
+  ...featureProduct
 }
