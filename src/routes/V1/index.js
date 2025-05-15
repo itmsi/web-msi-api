@@ -22,6 +22,7 @@ const city = require('../../modules/city')
 const degree = require('../../modules/degree')
 const careerApply = require('../../modules/career_apply')
 const member = require('../../modules/member')
+const publicBanner = require('../../modules/public_banner')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -31,7 +32,7 @@ naming convention endpoint: using plural
 // public api register here
 routing.use(`${API_TAG}/auth`, auth)
 routing.use(`${API_TAG}/public/api`, publicApi)
-routing.use(`${API_TAG}/public/banner`, banner)
+routing.use(`${API_TAG}/public/banner`, publicBanner)
 routing.use(`${API_TAG}/contact-us-user`, contactUsUser)
 
 // need token verify register here

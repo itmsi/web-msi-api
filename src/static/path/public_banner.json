@@ -52,6 +52,15 @@
 				},
 				{
 					"in": "query",
+					"name": "page_banner",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Page Banner value is string with rule ex : ?page_banner=Home"
+				},
+				{
+					"in": "query",
 					"name": "language",
 					"required": false,
 					"schema": {

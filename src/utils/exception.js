@@ -109,6 +109,14 @@ const paginationResponse = (req, res, rows) => {
   })
 }
 
+const paginationResponsePublic = (req, res, rows) => {
+  res.status(HTTP.OK).json({
+    message: lang.__('get.success'),
+    status: true,
+    data: rows?.data?.response?.result || []
+  })
+}
+
 const originResponse = (res, status, data) => {
   let code
   switch (status) {
@@ -155,7 +163,7 @@ const mappingSuccess = (message, data = [], code = HTTP.OK, status = true) => ({
 const mappingErrorValidation = (error, code = HTTP.CREATED) => {
   let { message, exception } = ['', '']
   message = error
-  console.error(`catch message`, error);
+  console.error('catch message', error);
   if (process.env.NODE_ENV === 'development') {
     exception = error.toString()
   }
@@ -195,7 +203,7 @@ const mappingError = (error, code = HTTP.CREATED) => {
     default:
       message = error
   }
-  console.error(`catch message`, error);
+  console.error('catch message', error);
   if (process.env.NODE_ENV === 'development') {
     exception = error.toString()
   }
@@ -230,6 +238,7 @@ module.exports = {
   errorHandler,
   baseResponse,
   paginationResponse,
+  paginationResponsePublic,
   removeFavicon,
   syntaxError,
   originResponse,
