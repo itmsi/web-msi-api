@@ -24,6 +24,7 @@ const COLUMN_ALL = [
 const COLUMN = [
   `${TABLE}.flayer_product_id`, `${TABLE}.product_id`, `${TABLE}.flayer_product_name_id`, `${TABLE}.flayer_product_name_en`, `${TABLE}.flayer_product_name_cn`,
   `${TABLE}.flayer_product_description`, `${TABLE}.flayer_product_file`,
+  `${PRODUCT_TABLE}.product_name_id`, `${PRODUCT_TABLE}.product_name_en`, `${PRODUCT_TABLE}.product_name_cn`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
