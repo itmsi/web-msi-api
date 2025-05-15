@@ -21,6 +21,7 @@ const careerApply = require('./career_apply.json')
 const member = require('./member.json')
 const publicBanner = require('./public_banner.json')
 const typeProduct = require('./type_product.json')
+const publicTypeProduct = require('./public_type_product.json')
 
 module.exports = {
   ...auth,
@@ -45,5 +46,6 @@ module.exports = {
   ...careerApply,
   ...member,
   ...publicBanner,
-  ...typeProduct
+  ...typeProduct,
+  ...publicTypeProduct
 }
