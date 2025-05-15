@@ -25,6 +25,7 @@ const member = require('../../modules/member')
 const publicBanner = require('../../modules/public_banner')
 const typeProduct = require('../../modules/type_product')
 const publicTypeProduct = require('../../modules/public_type_product')
+const product = require('../../modules/product')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -59,5 +60,6 @@ routing.use(`${API_TAG}/degree`, verifyToken, degree)
 routing.use(`${API_TAG}/career-apply`, verifyToken, careerApply)
 routing.use(`${API_TAG}/member`, verifyToken, member)
 routing.use(`${API_TAG}/type-product`, verifyToken, typeProduct)
+routing.use(`${API_TAG}/product`, verifyToken, product)
 
 module.exports = routing;
