@@ -1,0 +1,72 @@
+{
+	"SchemaResponseFlayerProduct": {
+		"type": "object",
+		"properties": {
+			"flayer_product_id": {
+				"type": "string"
+			},
+			"product_id": {
+				"type": "string"
+			},
+			"flayer_product_name_id": {
+				"type": "string"
+			},
+			"flayer_product_name_en": {
+				"type": "string"
+			},
+			"flayer_product_name_cn": {
+				"type": "string"
+			},
+			"flayer_product_description": {
+				"type": "string"
+			},
+			"flayer_product_file": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostFlayerProduct": {
+		"type": "object",
+		"properties": {
+			"product_id": {
+				"type": "string"
+			},
+			"flayer_product_name_id": {
+				"type": "string"
+			},
+			"flayer_product_name_en": {
+				"type": "string"
+			},
+			"flayer_product_name_cn": {
+				"type": "string"
+			},
+			"flayer_product_description": {
+				"type": "string"
+			},
+			"flayer_product_file": {
+				"type": "string"
+			}
+		}
+	}
+}
