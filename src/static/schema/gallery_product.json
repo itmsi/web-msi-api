@@ -1,0 +1,63 @@
+{
+	"SchemaResponseGalleryProduct": {
+		"type": "object",
+		"properties": {
+			"gallery_product_id": {
+				"type": "string"
+			},
+			"product_id": {
+				"type": "string"
+			},
+			"gallery_product_alt": {
+				"type": "string"
+			},
+			"gallery_product_image": {
+				"type": "string"
+			},
+			"gallery_product_description": {
+				"type": "string"
+			},
+			"product_name": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostGalleryProduct": {
+		"type": "object",
+		"properties": {
+			"product_id": {
+				"type": "string"
+			},
+			"gallery_product_alt": {
+				"type": "string"
+			},
+			"gallery_product_image": {
+				"type": "string"
+			},
+			"gallery_product_description": {
+				"type": "string"
+			}
+		}
+	}
+}

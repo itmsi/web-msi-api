@@ -30,6 +30,7 @@ const publicProduct = require('../../modules/public_product')
 const flayerProduct = require('../../modules/flayer_product')
 const featureProduct = require('../../modules/feature_product')
 const featureChildProduct = require('../../modules/feature_child_product')
+const galleryProduct = require('../../modules/gallery_product')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -69,5 +70,6 @@ routing.use(`${API_TAG}/product`, verifyToken, product)
 routing.use(`${API_TAG}/flayer-product`, verifyToken, flayerProduct)
 routing.use(`${API_TAG}/feature-product`, verifyToken, featureProduct)
 routing.use(`${API_TAG}/feature-child-product`, verifyToken, featureChildProduct)
+routing.use(`${API_TAG}/gallery-product`, verifyToken, galleryProduct)
 
 module.exports = routing;
