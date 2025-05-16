@@ -45,7 +45,9 @@ const condition = (builder, where, search = null) => {
     builder.whereILike(`${TABLE}.gallery_product_alt`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
     builder.orWhereILike(`${TABLE}.gallery_product_image`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
     builder.orWhereILike(`${TABLE}.gallery_product_description`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
-    builder.orWhereILike(`${TABLE_PRODUCT}.product_name`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.orWhereILike(`${TABLE_PRODUCT}.product_name_id`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.orWhereILike(`${TABLE_PRODUCT}.product_name_en`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.orWhereILike(`${TABLE_PRODUCT}.product_name_cn`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
   }
 
   return builder
@@ -125,11 +127,11 @@ const getByParam = async (where, column = COLUMN_ALL) => {
   try {
     const [rows] = await sql(null).clone()
       .select(column)
-      .where(`${TABLE}.${PRIMARY_KEY.BANNER}`, where?.[PRIMARY_KEY.BANNER])
+      .where(`${TABLE}.${PRIMARY_KEY.GALLERY_PRODUCT}`, where?.[PRIMARY_KEY.GALLERY_PRODUCT])
     if (rows) {
       return mappingSuccess(lang.__('get.success'), rows)
     }
-    return mappingSuccess(lang.__('not.found.id', { id: where?.banner_id }), rows)
+    return mappingSuccess(lang.__('not.found.id', { id: where?.[PRIMARY_KEY.GALLERY_PRODUCT] }), rows)
   } catch (error) {
     error.path = __filename
     return mappingError(error)
@@ -147,25 +149,25 @@ const update = async (where, payload, name = '') => {
     let { message, result } = ['', '']
     where[`${TABLE}.deleted_at`] = null
     if (payload.type_method === 'update') {
-      message = lang.__('updated.success', { id: where?.banner_id })
+      message = lang.__('updated.success', { id: where?.gallery_product_id })
       result = await Repo.updated(TABLE, where, payload, COLUMN[0], name)
     } else {
       const format = todayFormat('YYYYMMDDhmmss')
-      message = lang.__('archive.success', { id: where?.banner_id })
-      const [rows] = await pgCore(TABLE).select(['title_banner_id', 'title_banner_en', 'title_banner_cn', 'description_banner']).where(where)
+      message = lang.__('archive.success', { id: where?.gallery_product_id })
+      const [rows] = await pgCore(TABLE).select(['gallery_product_id', 'product_id', 'gallery_product_image', 'gallery_product_description']).where(where)
       if (rows) {
-        payload.title_banner_id = `archived-${format}-${rows.title_banner_id}`
-        payload.title_banner_en = `archived-${format}-${rows.title_banner_en}`
-        payload.title_banner_cn = `archived-${format}-${rows.title_banner_cn}`
-        payload.description_banner = `archived-${format}-${rows.description_banner}`
+        payload.gallery_product_id = `archived-${format}-${rows.gallery_product_id}`
+        payload.product_id = `archived-${format}-${rows.product_id}`
+        payload.gallery_product_image = `archived-${format}-${rows.gallery_product_image}`
+        payload.gallery_product_description = `archived-${format}-${rows.gallery_product_description}`
       }
     }
     delete payload?.type_method
-    result = await pgCore(TABLE).where(where).update(payload).returning(['banner_id'])
+    result = await pgCore(TABLE).where(where).update(payload).returning(['gallery_product_id'])
     if (result) {
       return mappingSuccess(message, result)
     }
-    return mappingSuccess(lang.__('not.found.id', { id: where?.banner_id }), result)
+    return mappingSuccess(lang.__('not.found.id', { id: where?.gallery_product_id }), result)
   } catch (error) {
     error.path = __filename
     return mappingError(error)
