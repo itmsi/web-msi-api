@@ -13,22 +13,6 @@ const postValidation = [
     .withMessage(lang.__('validator.max', { field: 'Product ID', max: 100 }))
     .notEmpty()
     .withMessage(lang.__('validator.required', { field: 'Product ID' })),
-  check('gallery_product_alt')
-    .isString()
-    .withMessage(lang.__('validator.string', { field: 'Gallery Product Alt' }))
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'Gallery Product Alt', max: 100 }))
-    .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'Gallery Product Alt' }))
-    .custom(async (value, { req }) => {
-      const msg = `Gallery Product Alt ${value}`
-      const condition = {
-        gallery_product_alt: value,
-        product_id: req.body.product_id,
-        deleted_at: null,
-      }
-      await checkSameValueinDb('mst_gallery_product', condition, 'gallery_product_alt', lang.__('data.exist', { msg }))
-    }),
   check('gallery_product_image')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'Gallery Product Image' }))
@@ -48,23 +32,11 @@ const postValidation = [
 ]
 
 const putValidation = [
-  check('gallery_product_alt')
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'Gallery Product Alt', max: 100 }))
-    .isString()
-    .withMessage(lang.__('validator.string', { field: 'Gallery Product Alt' }))
-    .optional(true),
   check('gallery_product_image')
     .isLength({ max: 100 })
     .withMessage(lang.__('validator.max', { field: 'Gallery Product Image', max: 100 }))
     .isString()
     .withMessage(lang.__('validator.string', { field: 'Gallery Product Image' }))
-    .optional(true),
-  check('gallery_product_description')
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'Gallery Product Description', max: 100 }))
-    .isString()
-    .withMessage(lang.__('validator.string', { field: 'Gallery Product Description' }))
     .optional(true),
   check('product_id')
     .isString()
