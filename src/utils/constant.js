@@ -162,7 +162,8 @@ module.exports = {
       TYPE_PRODUCT: 'mst_type_product',
       PRODUCT: 'mst_product',
       FLYER_PRODUCT: 'mst_flayer_product',
-      FEATURE_PRODUCT: 'mst_feature_product'
+      FEATURE_PRODUCT: 'mst_feature_product',
+      FEATURE_CHILD_PRODUCT: 'mst_feature_child_product'
     },
     PRIMARY_KEY: {
       JENIS_AKUN: 'jenis_akun_id',
@@ -265,7 +266,8 @@ module.exports = {
       TYPE_PRODUCT: 'type_product_id',
       PRODUCT: 'product_id',
       FLYER_PRODUCT: 'flayer_product_id',
-      FEATURE_PRODUCT: 'feature_product_id'
+      FEATURE_PRODUCT: 'feature_product_id',
+      FEATURE_CHILD_PRODUCT: 'feature_child_product_id'
     }
   },
   FILE_DESCRIPTION: [
