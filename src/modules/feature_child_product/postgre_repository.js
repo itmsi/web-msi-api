@@ -23,7 +23,7 @@ const COLUMN_ALL = [
 ]
 
 const COLUMN = [
-  `${TABLE}.feature_product_id`, `${TABLE}.feature_child_product_title_id`, `${TABLE}.feature_child_product_title_en`, `${TABLE}.feature_child_product_title_cn`,
+  `${TABLE}.feature_child_product_id`, `${TABLE}.feature_product_id`, `${TABLE}.feature_child_product_title_id`, `${TABLE}.feature_child_product_title_en`, `${TABLE}.feature_child_product_title_cn`,
   `${TABLE}.feature_child_product_description_id`, `${TABLE}.feature_child_product_description_en`, `${TABLE}.feature_child_product_description_cn`,
   `${PARENT_TABLE}.feature_product_title_id`, `${PARENT_TABLE}.feature_product_title_en`, `${PARENT_TABLE}.feature_product_title_cn`,
   `${TABLE}.feature_child_product_image`,
