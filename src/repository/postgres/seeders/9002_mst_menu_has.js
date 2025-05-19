@@ -676,6 +676,526 @@ exports.seed = function (knex) {
       updated_by: null,
       deleted_at: null,
       deleted_by: null
+    },
+    {
+      menu_id: 17,
+      permission_id: 1,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 17,
+      permission_id: 2,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 17,
+      permission_id: 3,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 17,
+      permission_id: 4,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 18,
+      permission_id: 1,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 18,
+      permission_id: 2,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 18,
+      permission_id: 3,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 18,
+      permission_id: 4,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 19,
+      permission_id: 1,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 19,
+      permission_id: 2,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 19,
+      permission_id: 3,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 19,
+      permission_id: 4,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 20,
+      permission_id: 1,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 20,
+      permission_id: 2,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 20,
+      permission_id: 3,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 20,
+      permission_id: 4,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 21,
+      permission_id: 1,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 21,
+      permission_id: 2,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 21,
+      permission_id: 3,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 21,
+      permission_id: 4,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 22,
+      permission_id: 1,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 22,
+      permission_id: 2,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 22,
+      permission_id: 3,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 22,
+      permission_id: 4,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 23,
+      permission_id: 1,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 23,
+      permission_id: 2,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 23,
+      permission_id: 3,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 23,
+      permission_id: 4,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 24,
+      permission_id: 1,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 24,
+      permission_id: 2,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 24,
+      permission_id: 3,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 24,
+      permission_id: 4,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 25,
+      permission_id: 1,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 25,
+      permission_id: 2,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 25,
+      permission_id: 3,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 25,
+      permission_id: 4,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 26,
+      permission_id: 1,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 26,
+      permission_id: 2,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 26,
+      permission_id: 3,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 26,
+      permission_id: 4,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 27,
+      permission_id: 1,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 27,
+      permission_id: 2,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 27,
+      permission_id: 3,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 27,
+      permission_id: 4,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 28,
+      permission_id: 1,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 28,
+      permission_id: 2,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 28,
+      permission_id: 3,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 28,
+      permission_id: 4,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 29,
+      permission_id: 1,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 29,
+      permission_id: 2,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 29,
+      permission_id: 3,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
+    },
+    {
+      menu_id: 29,
+      permission_id: 4,
+      created_at: '2025-03-11 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null
     }
   ]
   return knex('mst_menu_has_permissions').del()
