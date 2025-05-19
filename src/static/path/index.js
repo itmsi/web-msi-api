@@ -31,6 +31,8 @@ const galleryProduct = require('./gallery_product.json')
 const product360 = require('./product_360.json')
 const publicFlayerProduct = require('./public_flayer_product.json')
 const publicFeatureProduct = require('./public_feature_product.json')
+const publicArticleCategory = require('./public_article_category.json')
+const publicArticle = require('./public_article.json')
 
 module.exports = {
   ...auth,
@@ -65,5 +67,7 @@ module.exports = {
   ...galleryProduct,
   ...product360,
   ...publicFlayerProduct,
-  ...publicFeatureProduct
+  ...publicFeatureProduct,
+  ...publicArticleCategory,
+  ...publicArticle
 }

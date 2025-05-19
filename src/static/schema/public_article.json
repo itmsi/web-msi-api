@@ -1,0 +1,161 @@
+{
+	"SchemaResponsePublicArticle": {
+		"type": "object",
+		"properties": {
+			"status": {
+				"type": "integer",
+				"example": 200,
+				"description": "HTTP status code"
+			},
+			"message": {
+				"type": "string",
+				"example": "Success get data",
+				"description": "Response message"
+			},
+			"data": {
+				"type": "object",
+				"properties": {
+					"result": {
+						"oneOf": [
+							{
+								"type": "array",
+								"items": {
+									"$ref": "#/components/schemas/ArticleData"
+								},
+								"description": "Array of articles for list endpoint"
+							},
+							{
+								"$ref": "#/components/schemas/ArticleData"
+							}
+						],
+						"description": "Article data, can be single object or array"
+					},
+					"count": {
+						"type": "integer",
+						"description": "Total count of records (only for list endpoint)",
+						"example": 100
+					},
+					"page": {
+						"type": "integer",
+						"description": "Current page number (only for list endpoint)",
+						"example": 1
+					},
+					"limit": {
+						"type": "integer",
+						"description": "Number of items per page (only for list endpoint)",
+						"example": 10
+					}
+				}
+			}
+		}
+	},
+	"ArticleData": {
+		"type": "object",
+		"properties": {
+			"news_id": {
+				"type": "string",
+				"format": "uuid",
+				"description": "Unique identifier of the article"
+			},
+			"news_title_id": {
+				"type": "string",
+				"description": "Article title in Indonesian"
+			},
+			"news_title_en": {
+				"type": "string",
+				"description": "Article title in English"
+			},
+			"news_title_cn": {
+				"type": "string",
+				"description": "Article title in Chinese"
+			},
+			"news_slug_id": {
+				"type": "string",
+				"description": "URL-friendly slug in Indonesian"
+			},
+			"news_slug_en": {
+				"type": "string",
+				"description": "URL-friendly slug in English"
+			},
+			"news_slug_cn": {
+				"type": "string",
+				"description": "URL-friendly slug in Chinese"
+			},
+			"news_content_id": {
+				"type": "string",
+				"description": "Article content in Indonesian"
+			},
+			"news_content_en": {
+				"type": "string",
+				"description": "Article content in English"
+			},
+			"news_content_cn": {
+				"type": "string",
+				"description": "Article content in Chinese"
+			},
+			"news_image": {
+				"type": "string",
+				"description": "URL of the article's main image"
+			},
+			"news_image_tags": {
+				"type": "string",
+				"description": "Alt text or tags for the article image"
+			},
+			"news_status": {
+				"type": "boolean",
+				"description": "Article publication status"
+			},
+			"news_published_at": {
+				"type": "string",
+				"format": "date-time",
+				"description": "When the article was published"
+			},
+			"news_category_id": {
+				"type": "string",
+				"format": "uuid",
+				"description": "Category identifier"
+			},
+			"news_category_name_id": {
+				"type": "string",
+				"description": "Category name in Indonesian"
+			},
+			"news_category_name_en": {
+				"type": "string",
+				"description": "Category name in English"
+			},
+			"news_category_name_cn": {
+				"type": "string",
+				"description": "Category name in Chinese"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time",
+				"description": "When the article was created"
+			},
+			"created_by": {
+				"type": "string",
+				"description": "User who created the article"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time",
+				"description": "When the article was last updated"
+			},
+			"updated_by": {
+				"type": "string",
+				"description": "User who last updated the article"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time",
+				"nullable": true,
+				"description": "When the article was deleted (null if not deleted)"
+			},
+			"deleted_by": {
+				"type": "string",
+				"nullable": true,
+				"description": "User who deleted the article (null if not deleted)"
+			}
+		}
+	}
+}
