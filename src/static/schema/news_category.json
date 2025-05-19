@@ -5,7 +5,13 @@
 			"news_category_id": {
 				"type": "string"
 			},
-			"news_category_name": {
+			"news_category_name_id": {
+				"type": "string"
+			},
+			"news_category_name_en": {
+				"type": "string"
+			},
+			"news_category_name_cn": {
 				"type": "string"
 			},
 			"news_category_description": {
@@ -37,7 +43,13 @@
 	"SchemaPostNewsCategory": {
 		"type": "object",
 		"properties": {
-			"news_category_name": {
+			"news_category_name_id": {
+				"type": "string"
+			},
+			"news_category_name_en": {
+				"type": "string"
+			},
+			"news_category_name_cn": {
 				"type": "string"
 			},
 			"news_category_description": {

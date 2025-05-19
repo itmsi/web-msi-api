@@ -1,0 +1,23 @@
+{
+	"SchemaResponsePublicArticleCategory": {
+		"type": "object",
+		"properties": {
+			"news_category_id": {
+				"type": "string"
+			},
+			"news_category_name_id": {
+				"type": "string"
+			},
+			"news_category_name_en": {
+				"type": "string"
+			},
+			"news_category_name_cn": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			}
+		}
+	}
+}

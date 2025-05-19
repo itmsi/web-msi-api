@@ -34,6 +34,8 @@ const galleryProduct = require('../../modules/gallery_product')
 const product360 = require('../../modules/360_product')
 const publicFlayerProduct = require('../../modules/public_flayer_product')
 const publicFeatureProduct = require('../../modules/public_feature_product')
+const publicArticleCategory = require('../../modules/public_article_category')
+const publicArticle = require('../../modules/public_article')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -49,6 +51,8 @@ routing.use(`${API_TAG}/public/product`, publicProduct)
 routing.use(`${API_TAG}/contact-us-user`, contactUsUser)
 routing.use(`${API_TAG}/public/flayer-product`, publicFlayerProduct)
 routing.use(`${API_TAG}/public/feature-product`, publicFeatureProduct)
+routing.use(`${API_TAG}/public/article-category`, publicArticleCategory)
+routing.use(`${API_TAG}/public/article`, publicArticle)
 
 // need token verify register here
 routing.use(`${API_TAG}/admin-menu`, verifyToken, adminMenu)
