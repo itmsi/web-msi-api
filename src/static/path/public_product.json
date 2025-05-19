@@ -58,6 +58,24 @@
 						"type": "string"
 					},
 					"description": "Language value is string with rule ex : ?language=id / ?language=en / ?language=cn"
+				},
+				{
+					"in": "query",
+					"name": "product_id",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Product ID value is string with rule ex : ?product_id=1234567890"
+				},
+				{
+					"in": "query",
+					"name": "type_product_id",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Type Product ID value is string with rule ex : ?type_product_id=1234567890"
 				}
 			],
 			"responses": {
