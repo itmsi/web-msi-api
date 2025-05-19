@@ -5,13 +5,31 @@
 			"news_id": {
 				"type": "string"
 			},
-			"news_title": {
+			"news_title_id": {
 				"type": "string"
 			},
-			"news_slug": {
+			"news_title_en": {
 				"type": "string"
 			},
-			"news_content": {
+			"news_title_cn": {
+				"type": "string"
+			},
+			"news_slug_id": {
+				"type": "string"
+			},
+			"news_slug_en": {
+				"type": "string"
+			},
+			"news_slug_cn": {
+				"type": "string"
+			},
+			"news_content_id": {
+				"type": "string"
+			},
+			"news_content_en": {
+				"type": "string"
+			},
+			"news_content_cn": {
 				"type": "string"
 			},
 			"news_category_id": {
@@ -38,13 +56,31 @@
 			"news_image_tags": {
 				"type": "string"
 			},
-			"news_meta_description": {
+			"news_meta_description_id": {
 				"type": "string"
 			},
-			"news_meta_keywords": {
+			"news_meta_description_en": {
 				"type": "string"
 			},
-			"news_meta_title": {
+			"news_meta_description_cn": {
+				"type": "string"
+			},
+			"news_meta_keywords_id": {
+				"type": "string"
+			},
+			"news_meta_keywords_en": {
+				"type": "string"
+			},
+			"news_meta_keywords_cn": {
+				"type": "string"
+			},
+			"news_meta_title_id": {
+				"type": "string"
+			},
+			"news_meta_title_en": {
+				"type": "string"
+			},
+			"news_meta_title_cn": {
 				"type": "string"
 			},
 			"news_status": {
@@ -80,13 +116,31 @@
 	"SchemaPostNews": {
 		"type": "object",
 		"properties": {
-			"news_title": {
+			"news_title_id": {
 				"type": "string"
 			},
-			"news_slug": {
+			"news_title_en": {
 				"type": "string"
 			},
-			"news_content": {
+			"news_title_cn": {
+				"type": "string"
+			},
+			"news_slug_id": {
+				"type": "string"
+			},
+			"news_slug_en": {
+				"type": "string"
+			},
+			"news_slug_cn": {
+				"type": "string"
+			},
+			"news_content_id": {
+				"type": "string"
+			},
+			"news_content_en": {
+				"type": "string"
+			},
+			"news_content_cn": {
 				"type": "string"
 			},
 			"news_category_id": {
@@ -113,13 +167,31 @@
 			"news_image_tags": {
 				"type": "string"
 			},
-			"news_meta_description": {
+			"news_meta_description_id": {
 				"type": "string"
 			},
-			"news_meta_keywords": {
+			"news_meta_description_en": {
 				"type": "string"
 			},
-			"news_meta_title": {
+			"news_meta_description_cn": {
+				"type": "string"
+			},
+			"news_meta_keywords_id": {
+				"type": "string"
+			},
+			"news_meta_keywords_en": {
+				"type": "string"
+			},
+			"news_meta_keywords_cn": {
+				"type": "string"
+			},
+			"news_meta_title_id": {
+				"type": "string"
+			},
+			"news_meta_title_en": {
+				"type": "string"
+			},
+			"news_meta_title_cn": {
 				"type": "string"
 			},
 			"news_status": {

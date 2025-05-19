@@ -6,28 +6,49 @@ const { checkSameValueinDb, checkSameValueinDbUpdateUuid } = require('../../repo
   ** More Documentation in here https://express-validator.github.io/docs/
 */
 const postValidation = [
-  check('news_title')
+  check('news_title_id')
     .isString()
-    .withMessage(lang.__('validator.string', { field: 'News Title' }))
+    .withMessage(lang.__('validator.string', { field: 'News Title ID' }))
     .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'News Title', max: 100 }))
+    .withMessage(lang.__('validator.max', { field: 'News Title ID', max: 100 }))
     .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'News Title' }))
+    .withMessage(lang.__('validator.required', { field: 'News Title ID' }))
     .custom(async (value) => {
       const msg = `News Title ${value}`
       const condition = {
-        news_title: value
+        news_title_id: value
       }
-      await checkSameValueinDb('mst_news', condition, 'news_title', lang.__('data.exist', { msg }))
+      await checkSameValueinDb('mst_news', condition, 'news_title_id', lang.__('data.exist', { msg }))
     }),
-  check('news_content')
+  check('news_title_en')
     .isString()
-    .withMessage(lang.__('validator.string', { field: 'News Content' }))
+    .withMessage(lang.__('validator.string', { field: 'News Title EN' }))
+    .isLength({ max: 100 })
+    .withMessage(lang.__('validator.max', { field: 'News Title EN', max: 100 }))
     .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'News Content' })),
-  check('news_status')
+    .withMessage(lang.__('validator.required', { field: 'News Title EN' })),
+  check('news_title_cn')
     .isString()
-    .withMessage(lang.__('validator.string', { field: 'News Status' }))
+    .withMessage(lang.__('validator.string', { field: 'News Title CN' }))
+    .isLength({ max: 100 })
+    .withMessage(lang.__('validator.max', { field: 'News Title CN', max: 100 }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'News Title CN' })),
+  check('news_content_id')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'News Content ID' }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'News Content ID' })),
+  check('news_content_en')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'News Content EN' }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'News Content EN' })),
+  check('news_content_cn')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'News Content CN' }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'News Status' }))
     .isLength({ max: 100 })
     .withMessage(lang.__('validator.max', { field: 'News Status', max: 100 }))
     .optional(true),
@@ -35,27 +56,45 @@ const postValidation = [
 ]
 
 const putValidation = [
-  check('news_category_name')
+  check('news_title_id')
     .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'News Category Name', max: 100 }))
+    .withMessage(lang.__('validator.max', { field: 'News Title ID', max: 100 }))
     .isString()
-    .withMessage(lang.__('validator.string', { field: 'News Category Name' }))
+    .withMessage(lang.__('validator.string', { field: 'News Title ID' }))
     .optional(true)
     .custom(async (value, { req }) => {
-      const condition = { news_category_name: value }
-      const msg = lang.__('data.exist', { msg: `News Category Name ${value}` })
-      await checkSameValueinDbUpdateUuid('mst_news_category', condition, 'news_category_id', req?.params?.news_category_id, msg)
+      const condition = { news_title_id: value }
+      const msg = lang.__('data.exist', { msg: `News Title ID ${value}` })
+      await checkSameValueinDbUpdateUuid('mst_news', condition, 'news_id', req?.params?.news_id, msg)
     }),
-  check('news_content')
+  check('news_title_en')
     .isString()
-    .withMessage(lang.__('validator.string', { field: 'News Content' }))
-    .optional(true),
-  check('news_status')
-    .isString()
-    .withMessage(lang.__('validator.string', { field: 'News Status' }))
+    .withMessage(lang.__('validator.string', { field: 'News Title EN' }))
     .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'News Status', max: 100 }))
+    .withMessage(lang.__('validator.max', { field: 'News Title EN', max: 100 }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'News Title EN' })),
+  check('news_title_cn')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'News Title CN' }))
+    .isLength({ max: 100 })
+    .withMessage(lang.__('validator.max', { field: 'News Title CN', max: 100 }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'News Title CN' })),
+  check('news_content_id')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'News Content ID' }))
     .optional(true),
+  check('news_content_en')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'News Content EN' }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'News Content EN' })),
+  check('news_content_cn')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'News Content CN' }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'News Content CN' })),
   (req, res, next) => { validateMiddleware(req, res, next) }
 ]
 
