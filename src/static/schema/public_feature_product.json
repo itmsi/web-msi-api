@@ -1,0 +1,41 @@
+{
+	"SchemaResponsePublicFeatureProduct": {
+		"type": "object",
+		"properties": {
+			"feature_product_id": {
+				"type": "string"
+			},
+			"product_id": {
+				"type": "string"
+			},
+			"feature_product_name_id": {
+				"type": "string"
+			},
+			"feature_product_name_en": {
+				"type": "string"
+			},
+			"feature_product_name_cn": {
+				"type": "string"
+			},
+			"feature_product_description": {
+				"type": "string"
+			},
+			"feature_product_file": {
+				"type": "string"
+			},
+			"product_name_id": {
+				"type": "string"
+			},
+			"product_name_en": {
+				"type": "string"
+			},
+			"product_name_cn": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			}
+		}
+	}
+}

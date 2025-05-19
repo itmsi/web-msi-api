@@ -30,6 +30,7 @@ const featureChildProduct = require('./feature_child_product.json')
 const galleryProduct = require('./gallery_product.json')
 const product360 = require('./product_360.json')
 const publicFlayerProduct = require('./public_flayer_product.json')
+const publicFeatureProduct = require('./public_feature_product.json')
 
 module.exports = {
   ...auth,
@@ -63,5 +64,6 @@ module.exports = {
   ...featureChildProduct,
   ...galleryProduct,
   ...product360,
-  ...publicFlayerProduct
+  ...publicFlayerProduct,
+  ...publicFeatureProduct
 }
