@@ -10,12 +10,12 @@ const {
 } = require('../../utils')
 const { lang } = require('../../lang')
 
-const TABLE = 'mst_gallery_product'
+const TABLE = 'mst_360_product'
 const TABLE_PRODUCT = 'mst_product'
 
 const COLUMN_ALL = [
-  `${TABLE}.gallery_product_id`, `${TABLE}.product_id`, `${TABLE}.gallery_product_alt`, `${TABLE}.gallery_product_image`,
-  `${TABLE}.gallery_product_description`,
+  `${TABLE}.product_360_id`, `${TABLE}.product_id`, `${TABLE}.product_360_alt`, `${TABLE}.product_360_image`,
+  `${TABLE}.product_360_description`,
   `${TABLE_PRODUCT}.product_name_id`,
   `${TABLE_PRODUCT}.product_name_en`,
   `${TABLE_PRODUCT}.product_name_cn`,
@@ -24,8 +24,8 @@ const COLUMN_ALL = [
 ]
 
 const COLUMN = [
-  `${TABLE}.gallery_product_id`, `${TABLE}.product_id`, `${TABLE}.gallery_product_alt`, `${TABLE}.gallery_product_image`,
-  `${TABLE}.gallery_product_description`,
+  `${TABLE}.product_360_id`, `${TABLE}.product_id`, `${TABLE}.product_360_alt`, `${TABLE}.product_360_image`,
+  `${TABLE}.product_360_description`,
   `${TABLE_PRODUCT}.product_name_id`,
   `${TABLE_PRODUCT}.product_name_en`,
   `${TABLE_PRODUCT}.product_name_cn`,
@@ -37,14 +37,14 @@ const DEFAULT_SORT = [COLUMN[0], 'DESC']
 const condition = (builder, where, search = null) => {
   builder.where(`${TABLE}.deleted_at`, null)
 
-  if (where.gallery_product_id) {
-    builder.where(`${TABLE}.gallery_product_id`, where.gallery_product_id)
+  if (where.product_360_id) {
+    builder.where(`${TABLE}.product_360_id`, where.product_360_id)
   }
 
   if (search) {
-    builder.whereILike(`${TABLE}.gallery_product_alt`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
-    builder.orWhereILike(`${TABLE}.gallery_product_image`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
-    builder.orWhereILike(`${TABLE}.gallery_product_description`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.whereILike(`${TABLE}.product_360_alt`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.orWhereILike(`${TABLE}.product_360_image`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.orWhereILike(`${TABLE}.product_360_description`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
     builder.orWhereILike(`${TABLE_PRODUCT}.product_name_id`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
     builder.orWhereILike(`${TABLE_PRODUCT}.product_name_en`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
     builder.orWhereILike(`${TABLE_PRODUCT}.product_name_cn`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
@@ -127,11 +127,11 @@ const getByParam = async (where, column = COLUMN_ALL) => {
   try {
     const [rows] = await sql(null).clone()
       .select(column)
-      .where(`${TABLE}.${PRIMARY_KEY.GALLERY_PRODUCT}`, where?.[PRIMARY_KEY.GALLERY_PRODUCT])
+      .where(`${TABLE}.${PRIMARY_KEY.PRODUCT_360}`, where?.[PRIMARY_KEY.PRODUCT_360])
     if (rows) {
       return mappingSuccess(lang.__('get.success'), rows)
     }
-    return mappingSuccess(lang.__('not.found.id', { id: where?.[PRIMARY_KEY.GALLERY_PRODUCT] }), rows)
+    return mappingSuccess(lang.__('not.found.id', { id: where?.[PRIMARY_KEY.PRODUCT_360] }), rows)
   } catch (error) {
     error.path = __filename
     return mappingError(error)
@@ -149,22 +149,22 @@ const update = async (where, payload, name = '') => {
     let { message, result } = ['', '']
     where[`${TABLE}.deleted_at`] = null
     if (payload.type_method === 'update') {
-      message = lang.__('updated.success', { id: where?.gallery_product_id })
+      message = lang.__('updated.success', { id: where?.product_360_id })
       result = await Repo.updated(TABLE, where, payload, COLUMN[0], name)
     } else {
       const format = todayFormat('YYYYMMDDhmmss')
-      message = lang.__('archive.success', { id: where?.gallery_product_id })
-      const [rows] = await pgCore(TABLE).select(['gallery_product_id', 'product_id', 'gallery_product_image', 'gallery_product_description']).where(where)
+      message = lang.__('archive.success', { id: where?.product_360_id })
+      const [rows] = await pgCore(TABLE).select(['product_360_id', 'product_id', 'product_360_image', 'product_360_description']).where(where)
       if (rows) {
-        payload.gallery_product_description = `archived-${format}-${rows.gallery_product_description}`
+        payload.product_360_description = `archived-${format}-${rows.product_360_description}`
       }
     }
     delete payload?.type_method
-    result = await pgCore(TABLE).where(where).update(payload).returning(['gallery_product_id'])
+    result = await pgCore(TABLE).where(where).update(payload).returning(['product_360_id'])
     if (result) {
       return mappingSuccess(message, result)
     }
-    return mappingSuccess(lang.__('not.found.id', { id: where?.gallery_product_id }), result)
+    return mappingSuccess(lang.__('not.found.id', { id: where?.product_360_id }), result)
   } catch (error) {
     error.path = __filename
     return mappingError(error)

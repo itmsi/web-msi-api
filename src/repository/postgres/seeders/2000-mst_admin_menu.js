@@ -499,6 +499,23 @@ exports.seed = async function (knex) {
       deleted_by: null,
       permission_name: 'management-language',
       heading_admin_menu_id: '7'
+    },
+    {
+      menu_id: '30',
+      parent: '5',
+      menu_name: 'Product 360',
+      menu_url: 'admin/management-product/product-360',
+      menu_status: '1',
+      menu_sort: '7',
+      menu_icon: 'far fa-circle nav-icon',
+      created_at: '2025-04-24 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null,
+      permission_name: 'product360',
+      heading_admin_menu_id: '3'
     }
   ];
   return knex('mst_admin_menu').del()
