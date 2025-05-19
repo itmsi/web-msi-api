@@ -12,13 +12,13 @@ const { lang } = require('../../lang')
 
 const TABLE = 'mst_news_category'
 const COLUMN_ALL = [
-  `${TABLE}.news_category_id`, `${TABLE}.news_category_name`, `${TABLE}.news_category_description`,
+  `${TABLE}.news_category_id`, `${TABLE}.news_category_name_id`, `${TABLE}.news_category_name_en`, `${TABLE}.news_category_name_cn`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
 
 const COLUMN = [
-  `${TABLE}.news_category_id`, `${TABLE}.news_category_name`, `${TABLE}.news_category_description`,
+  `${TABLE}.news_category_id`, `${TABLE}.news_category_name_id`, `${TABLE}.news_category_name_en`, `${TABLE}.news_category_name_cn`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
@@ -32,8 +32,9 @@ const condition = (builder, where, search = null) => {
   }
 
   if (search) {
-    builder.whereILike(`${TABLE}.news_category_name`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
-    builder.orWhereILike(`${TABLE}.news_category_description`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.whereILike(`${TABLE}.news_category_name_id`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.orWhereILike(`${TABLE}.news_category_name_en`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.orWhereILike(`${TABLE}.news_category_name_cn`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
   }
 
   return builder
@@ -139,9 +140,11 @@ const update = async (where, payload, name = '') => {
     } else {
       const format = todayFormat('YYYYMMDDhmmss')
       message = lang.__('archive.success', { id: where?.news_category_id })
-      const [rows] = await pgCore(TABLE).select(['news_category_name', 'news_category_description']).where(where)
+      const [rows] = await pgCore(TABLE).select(['news_category_name_id', 'news_category_name_en', 'news_category_name_cn', 'news_category_description']).where(where)
       if (rows) {
-        payload.news_category_name = `archived-${format}-${rows.news_category_name}`
+        payload.news_category_name_id = `archived-${format}-${rows.news_category_name_id}`
+        payload.news_category_name_en = `archived-${format}-${rows.news_category_name_en}`
+        payload.news_category_name_cn = `archived-${format}-${rows.news_category_name_cn}`
         payload.news_category_description = `archived-${format}-${rows.news_category_description}`
       }
     }
