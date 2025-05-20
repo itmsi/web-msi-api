@@ -9,6 +9,7 @@ const {
   generatePassword,
   MODEL_PROPERTIES: { PRIMARY_KEY }
 } = require('../../utils')
+const { generateCustomerNo } = require('../../utils/customer')
 const { lang } = require('../../lang')
 
 const TABLE = 'mst_customer'
@@ -68,21 +69,27 @@ const sql = (where, search = false) => {
  * @return {*}
  */
 const create = async (payload) => {
-  const transaction = await pgCore.transaction();
-
   try {
-    payload.password = generatePassword(payload.password)
-    const result = await Repo.insert(TABLE, payload, COLUMN[0])
+    // Generate customer number
+    const customerNo = await generateCustomerNo()
 
-    if (!result) {
-      transaction.rollback();
-      return mappingSuccess(lang.__('created.failed'), null, 200, false)
+    // Prepare customer data
+    const customerData = {
+      ...payload,
+      password: generatePassword(payload.password),
+      customer_no: customerNo,
+      registration_date: new Date(),
+      status: '1', // Active by default
+      created_at: new Date()
     }
 
-    transaction.commit();
-    return mappingSuccess(lang.__('created.success'), result)
+    // Insert into database
+    const [result] = await pgCore(TABLE)
+      .insert(customerData)
+      .returning('*')
+
+    return mappingSuccess(lang.__('create.success'), result)
   } catch (error) {
-    transaction.rollback();
     error.path = __filename
     return mappingError(error)
   }
