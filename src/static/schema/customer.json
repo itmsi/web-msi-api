@@ -1,0 +1,132 @@
+{
+	"SchemaResponseCustomer": {
+		"type": "object",
+		"properties": {
+			"customer_id": {
+				"type": "string"
+			},
+			"customer_no": {
+				"type": "string"
+			},
+			"first_name": {
+				"type": "string"
+			},
+			"last_name": {
+				"type": "string"
+			},
+			"email": {
+				"type": "string"
+			},
+			"mobile_phone": {
+				"type": "string"
+			},
+			"registration_date": {
+				"type": "string"
+			},
+			"birthplace": {
+				"type": "string"
+			},
+			"birthdate": {
+				"type": "string"
+			},
+			"ktp_no": {
+				"type": "string"
+			},
+			"address": {
+				"type": "string"
+			},
+			"company_name": {
+				"type": "string"
+			},
+			"company_address": {
+				"type": "string"
+			},
+			"company_phone": {
+				"type": "string"
+			},
+			"npwp": {
+				"type": "string"
+			},
+			"status": {
+				"type": "string"
+			},
+			"session": {
+				"type": "string"
+			},
+			"otp_reset": {
+				"type": "string"
+			},
+			"customer_point": {
+				"type": "integer"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostCustomer": {
+		"type": "object",
+		"properties": {
+			"customer_no": {
+				"type": "string"
+			},
+			"first_name": {
+				"type": "string"
+			},
+			"last_name": {
+				"type": "string"
+			},
+			"email": {
+				"type": "string"
+			},
+			"mobile_phone": {
+				"type": "string"
+			},
+			"birthplace": {
+				"type": "string"
+			},
+			"birthdate": {
+				"type": "string"
+			},
+			"ktp_no": {
+				"type": "string"
+			},
+			"address": {
+				"type": "string"
+			},
+			"company_name": {
+				"type": "string"
+			},
+			"company_address": {
+				"type": "string"
+			},
+			"company_phone": {
+				"type": "string"
+			},
+			"npwp": {
+				"type": "string"
+			},
+			"password": {
+				"type": "string"
+			}
+		}
+	}
+}
