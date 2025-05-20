@@ -198,5 +198,7 @@
 	"validator.integer": "Nilai {{field}} harus berupa bilangan bulat.",
 	"validator.data.duplicate": "Kendaraan, Syarat dan Durasi Aktif sudah ada",
 	"fetched.success": "fetched.success",
-	"get.not_found": "get.not_found"
+	"get.not_found": "get.not_found",
+	"validator.mobile_phone": "validator.mobile_phone",
+	"create.success": "create.success"
 }

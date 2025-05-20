@@ -1,3 +1,4 @@
+const moment = require('moment')
 const { lang } = require('../../lang')
 const { pgCore } = require('../../config/database')
 const {
@@ -103,15 +104,26 @@ const get = async (where, filter, column = COLUMN_DEFAULT) => {
     const [rows] = await query.clone().count(column[0])
 
     // Clean and limit content fields
-    const cleanedResult = result.map((item) => ({
-      ...item,
-      news_content_id: cleanAndLimitContent(item.news_content_id),
-      news_content_en: cleanAndLimitContent(item.news_content_en),
-      news_content_cn: cleanAndLimitContent(item.news_content_cn)
-    }))
+    const cleanedResult = result.map((item) => {
+      const formattedDate = item.created_at ? moment(item.created_at).format('DD MMM YYYY') : null;
+      return {
+        ...item,
+        news_content_id: cleanAndLimitContent(item.news_content_id),
+        news_content_en: cleanAndLimitContent(item.news_content_en),
+        news_content_cn: cleanAndLimitContent(item.news_content_cn),
+        created_at: formattedDate
+      };
+    });
+
+    // Skip manipulateDate for created_at since we've already formatted it
+    const finalResult = cleanedResult.map((item) => {
+      const { created_at, ...rest } = item;
+      const manipulated = manipulateDate({ ...rest }, false);
+      return { ...manipulated, created_at };
+    });
 
     return mappingSuccessPagination(lang.__('get.success'), {
-      result: manipulateDate(cleanedResult),
+      result: finalResult,
       count: rows?.count
     })
   } catch (error) {
@@ -151,8 +163,14 @@ const getBySlug = async (slug, language = 'id') => {
       })
     }
 
+    // Format the date before manipulateDate
+    const formattedDate = result.created_at ? moment(result.created_at).format('DD MMM YYYY') : null;
+    const { created_at, ...rest } = result;
+    const manipulated = manipulateDate({ ...rest }, false);
+    const finalResult = { ...manipulated, created_at: formattedDate };
+
     return mappingSuccessPagination(lang.__('get.success'), {
-      result: manipulateDate(result, false),
+      result: finalResult,
       count: 1
     })
   } catch (error) {
