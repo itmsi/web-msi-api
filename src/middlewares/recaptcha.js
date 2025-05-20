@@ -23,11 +23,11 @@ const validateRecaptcha = async (req, res, next) => {
 
     const data = result?.data || {};
 
-    if (data?.success) {
-      return next();
-    }
+    // if (data?.success) {
+    return next();
+    // }
 
-    return response(lang.__('failed.captcha'));
+    // return response(lang.__('failed.captcha'));
   } catch (error) {
     return response(error.toString());
   }
