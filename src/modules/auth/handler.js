@@ -31,7 +31,7 @@ const customerSignin = async (req, res) => {
   const password = req?.body?.password
   const result = await repository.customerSignin(email, password);
   if (result.status) {
-    customerSigninLimiter.resetKey(req.headers['realip'] ? req.headers['realip'] : req.headers['x-forwarded-for']);
+    customerSigninLimiter.resetKey(req.headers.realip ? req.headers.realip : req.headers['x-forwarded-for']);
   }
   return baseResponse(res, result)
 }
