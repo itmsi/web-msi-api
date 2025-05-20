@@ -48,10 +48,7 @@ const postValidation = [
     .isString()
     .withMessage(lang.__('validator.string', { field: 'News Content CN' }))
     .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'News Status' }))
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'News Status', max: 100 }))
-    .optional(true),
+    .withMessage(lang.__('validator.required', { field: 'News Content CN' })),
   (req, res, next) => { validateMiddleware(req, res, next) }
 ]
 
@@ -63,24 +60,24 @@ const putValidation = [
     .withMessage(lang.__('validator.string', { field: 'News Title ID' }))
     .optional(true)
     .custom(async (value, { req }) => {
+      if (!value) return true; // Skip validation if value is not provided
       const condition = { news_title_id: value }
       const msg = lang.__('data.exist', { msg: `News Title ID ${value}` })
       await checkSameValueinDbUpdateUuid('mst_news', condition, 'news_id', req?.params?.news_id, msg)
+      return true; // Return true if validation passes
     }),
   check('news_title_en')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'News Title EN' }))
     .isLength({ max: 100 })
     .withMessage(lang.__('validator.max', { field: 'News Title EN', max: 100 }))
-    .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'News Title EN' })),
+    .optional(true),
   check('news_title_cn')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'News Title CN' }))
     .isLength({ max: 100 })
     .withMessage(lang.__('validator.max', { field: 'News Title CN', max: 100 }))
-    .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'News Title CN' })),
+    .optional(true),
   check('news_content_id')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'News Content ID' }))
@@ -88,20 +85,18 @@ const putValidation = [
   check('news_content_en')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'News Content EN' }))
-    .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'News Content EN' })),
+    .optional(true),
   check('news_content_cn')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'News Content CN' }))
-    .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'News Content CN' })),
+    .optional(true),
   (req, res, next) => { validateMiddleware(req, res, next) }
 ]
 
 const paramValidation = [
   param('news_id')
     .isUUID(4)
-    .withMessage(lang.__('validator.string', { field: 'news_id' }))
+    .withMessage(lang.__('validator.uuid', { field: 'news_id' }))
     .notEmpty()
     .withMessage(lang.__('validator.required', { field: 'news_id' })),
   (req, res, next) => { validateMiddleware(req, res, next) }

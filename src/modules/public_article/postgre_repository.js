@@ -1,10 +1,10 @@
+const { lang } = require('../../lang')
 const { pgCore } = require('../../config/database')
 const {
   mappingError,
   mappingSuccessPagination,
   manipulateDate
 } = require('../../utils')
-const { lang } = require('../../lang')
 
 const TABLE = 'mst_news'
 const TABLE_CATEGORY = 'mst_news_category'
@@ -69,6 +69,17 @@ const condition = (builder, where, search = null) => {
   return builder
 }
 
+// Helper function to clean HTML and limit content
+const cleanAndLimitContent = (content) => {
+  if (!content) return '';
+  // Remove HTML tags
+  const withoutHtml = content.replace(/<[^>]*>/g, '');
+  // Remove extra whitespace and newlines
+  const cleaned = withoutHtml.replace(/\s+/g, ' ').trim();
+  // Limit to 200 characters
+  return cleaned.length > 200 ? `${cleaned.substring(0, 197)}...` : cleaned;
+}
+
 const sql = (where, search = false) => {
   let query = pgCore(TABLE)
     .leftJoin(TABLE_CATEGORY, `${TABLE}.news_category_id`, `${TABLE_CATEGORY}.news_category_id`)
@@ -84,16 +95,25 @@ const sql = (where, search = false) => {
 
 const get = async (where, filter, column = COLUMN_DEFAULT) => {
   try {
-    const result = await sql(where, filter.search).clone()
+    const query = sql(where, filter.search)
+    const result = await query.clone()
       .select(column)
-      .orderBy(`${filter.direction}`, filter.order)
+      .orderBy(filter.direction || DEFAULT_SORT[0], filter.order || DEFAULT_SORT[1])
       .limit(filter.limit)
       .offset(((filter.page - 1) * filter.limit))
 
-    const [rows] = await sql(where, filter.search).clone().count(column[0])
+    const [rows] = await query.clone().count(column[0])
+
+    // Clean and limit content fields
+    const cleanedResult = result.map((item) => ({
+      ...item,
+      news_content_id: cleanAndLimitContent(item.news_content_id),
+      news_content_en: cleanAndLimitContent(item.news_content_en),
+      news_content_cn: cleanAndLimitContent(item.news_content_cn)
+    }))
 
     return mappingSuccessPagination(lang.__('get.success'), {
-      result: manipulateDate(result),
+      result: manipulateDate(cleanedResult),
       count: rows?.count
     })
   } catch (error) {
@@ -109,6 +129,7 @@ const getBySlug = async (slug, language = 'id') => {
       .where(`${TABLE}.deleted_at`, null)
       .where(`${TABLE}.news_status`, '1')
       .where(`${TABLE}.news_published_at`, '<=', new Date())
+
     // Add language-specific slug condition
     switch (language) {
       case 'en':
