@@ -13,12 +13,14 @@ const { lang } = require('../../lang')
 const TABLE = 'mst_voucher'
 const COLUMN_ALL = [
   `${TABLE}.voucher_id`, `${TABLE}.voucher_code`, `${TABLE}.voucher_name`, `${TABLE}.voucher_description`,
+  `${TABLE}.discount_amount`, `${TABLE}.expiry_date`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
 
 const COLUMN = [
   `${TABLE}.voucher_id`, `${TABLE}.voucher_code`, `${TABLE}.voucher_name`, `${TABLE}.voucher_description`,
+  `${TABLE}.discount_amount`, `${TABLE}.expiry_date`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]

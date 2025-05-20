@@ -15,7 +15,7 @@ const { lang } = require('../../lang')
 const TABLE = 'mst_customer'
 const COLUMN_ALL = [
   `${TABLE}.customer_id`, `${TABLE}.customer_no`, `${TABLE}.first_name`, `${TABLE}.last_name`,
-  `${TABLE}.email`, `${TABLE}.password`, `${TABLE}.mobile_phone`, `${TABLE}.registration_date`,
+  `${TABLE}.email`, `${TABLE}.password`, `${TABLE}.salt`, `${TABLE}.mobile_phone`, `${TABLE}.registration_date`,
   `${TABLE}.birthplace`, `${TABLE}.birthdate`, `${TABLE}.ktp_no`, `${TABLE}.address`,
   `${TABLE}.company_name`, `${TABLE}.company_address`, `${TABLE}.company_phone`, `${TABLE}.npwp`,
   `${TABLE}.status`, `${TABLE}.session`, `${TABLE}.otp_reset`, `${TABLE}.customer_point`,
@@ -25,7 +25,7 @@ const COLUMN_ALL = [
 
 const COLUMN = [
   `${TABLE}.customer_id`, `${TABLE}.customer_no`, `${TABLE}.first_name`, `${TABLE}.last_name`,
-  `${TABLE}.email`, `${TABLE}.password`, `${TABLE}.mobile_phone`, `${TABLE}.registration_date`,
+  `${TABLE}.email`, `${TABLE}.password`, `${TABLE}.salt`, `${TABLE}.mobile_phone`, `${TABLE}.registration_date`,
   `${TABLE}.birthplace`, `${TABLE}.birthdate`, `${TABLE}.ktp_no`, `${TABLE}.address`,
   `${TABLE}.company_name`, `${TABLE}.company_address`, `${TABLE}.company_phone`, `${TABLE}.npwp`,
   `${TABLE}.status`, `${TABLE}.session`, `${TABLE}.otp_reset`, `${TABLE}.customer_point`,
@@ -73,10 +73,15 @@ const create = async (payload) => {
     // Generate customer number
     const customerNo = await generateCustomerNo()
 
+    // Prepare customer data with proper password handling
+    const passwordPayload = { password: payload.password }
+    const { password, salt } = generatePassword(passwordPayload)
+
     // Prepare customer data
     const customerData = {
       ...payload,
-      password: generatePassword(payload.password),
+      password,
+      salt,
       customer_no: customerNo,
       registration_date: new Date(),
       status: '1', // Active by default
@@ -155,7 +160,10 @@ const update = async (where, payload, name = '') => {
     if (payload.type_method === 'update') {
       message = lang.__('updated.success', { id: where?.customer_id })
       if (payload.password) {
-        payload.password = generatePassword(payload.password)
+        const passwordPayload = { password: payload.password }
+        const { password, salt } = generatePassword(passwordPayload)
+        payload.password = password
+        payload.salt = salt
       }
       result = await Repo.updated(TABLE, where, payload, COLUMN[0], name)
     } else {

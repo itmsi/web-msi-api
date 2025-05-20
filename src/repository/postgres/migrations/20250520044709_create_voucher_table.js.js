@@ -8,6 +8,8 @@ exports.up = function (knex) {
     table.string('voucher_code', 200).nullable()
     table.string('voucher_name', 220).nullable()
     table.string('voucher_description', 220).nullable()
+    table.string('discount_amount', 220).nullable()
+    table.date('expiry_date').nullable()
     table.timestamp('created_at').defaultTo(knex.fn.now())
     table.uuid('created_by').nullable()
     table.timestamp('updated_at').nullable()
