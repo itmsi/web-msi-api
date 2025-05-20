@@ -34,6 +34,7 @@ const publicFeatureProduct = require('./public_feature_product.json')
 const publicArticleCategory = require('./public_article_category.json')
 const publicArticle = require('./public_article.json')
 const customer = require('./customer.json')
+const voucher = require('./voucher.json')
 
 module.exports = {
   ...auth,
@@ -71,5 +72,6 @@ module.exports = {
   ...publicFeatureProduct,
   ...publicArticleCategory,
   ...publicArticle,
-  ...customer
+  ...customer,
+  ...voucher
 }
