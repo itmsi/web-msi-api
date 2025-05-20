@@ -8,9 +8,7 @@ const { lang } = require('../../lang')
 
 const TABLE = 'mst_news_category'
 const COLUMN_DEFAULT = [
-  `${TABLE}.news_category_id`, `${TABLE}.news_category_name_id`, `${TABLE}.news_category_name_en`, `${TABLE}.news_category_name_cn`,
-  `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
-  `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
+  `${TABLE}.news_category_name_id`, `${TABLE}.news_category_name_en`, `${TABLE}.news_category_name_cn`
 ]
 
 const DEFAULT_SORT = [`${TABLE}.news_category_id`, 'DESC']
