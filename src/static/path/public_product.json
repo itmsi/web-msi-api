@@ -91,5 +91,68 @@
 				}
 			}
 		}
+	},
+	"/public/product/{slug}": {
+		"get": {
+			"tags": [
+				"Product"
+			],
+			"summary": "Get product by slug",
+			"description": "Retrieve a single product by its slug in the specified language",
+			"parameters": [
+				{
+					"in": "path",
+					"name": "slug",
+					"required": true,
+					"schema": {
+						"type": "string"
+					},
+					"description": "The slug of the product to retrieve"
+				},
+				{
+					"in": "query",
+					"name": "language",
+					"required": false,
+					"schema": {
+						"type": "string",
+						"enum": ["id", "en", "cn"],
+						"default": "id"
+					},
+					"description": "Language of the product to retrieve (id/en/cn). Defaults to 'id'"
+				}
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponsePublicProduct"
+							}
+						}
+					}
+				},
+				"404": {
+					"description": "Product not found",
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"status": {
+										"type": "integer",
+										"example": 404
+									},
+									"message": {
+										"type": "string",
+										"example": "Product not found"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
