@@ -14,9 +14,9 @@ exports.up = function (knex) {
     table.string('tagline_banner_product_en', 200).nullable().comment('Tagline product');
     table.string('tagline_banner_product_cn', 200).nullable().comment('Tagline product');
     table.string('image_product', 200).nullable().comment('Image product');
-    table.string('product_description_id', 220).nullable().comment('Description product');
-    table.string('product_description_en', 220).nullable().comment('Description product');
-    table.string('product_description_cn', 220).nullable().comment('Description product');
+    table.text('product_description_id').nullable().comment('Description product');
+    table.text('product_description_en').nullable().comment('Description product');
+    table.text('product_description_cn').nullable().comment('Description product');
     table.timestamp('created_at').defaultTo(knex.fn.now())
     table.uuid('created_by').nullable()
     table.timestamp('updated_at').nullable()

@@ -20,6 +20,15 @@ const fetchPublic = async (req, res) => {
   return paginationResponsePublic(req, res, result)
 }
 
+const fetchPublicBySlug = async (req, res) => {
+  const { slug } = req.params
+  const { language = 'id' } = req.query
+
+  const result = await repository.getBySlug(slug, language)
+  return paginationResponsePublic(req, res, result)
+}
+
 module.exports = {
   fetchPublic,
+  fetchPublicBySlug
 }

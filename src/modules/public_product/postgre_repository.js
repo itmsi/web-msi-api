@@ -16,7 +16,9 @@ const PRODUCT_360_TABLE = 'mst_360_product'
 
 const COLUMN_DEFAULT = [
   `${TABLE}.product_id`, `${TABLE}.type_product_id`, `${TABLE}.product_name_id`, `${TABLE}.product_name_en`, `${TABLE}.product_name_cn`,
-  `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
+  `${TABLE}.product_description_id`, `${TABLE}.product_description_en`, `${TABLE}.product_description_cn`,
+  `${TABLE}.banner_product`, `${TABLE}.tagline_banner_product_id`, `${TABLE}.tagline_banner_product_en`, `${TABLE}.tagline_banner_product_cn`,
+  `${TABLE}.image_product`, `${TABLE}.slug_product`, `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`,
   `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
   `${FLAYER_TABLE}.flayer_product_id`,
@@ -44,6 +46,12 @@ const COLUMN_DEFAULT = [
   `${GALLERY_TABLE}.gallery_product_image`,
   `${PRODUCT_360_TABLE}.product_360_id`,
   `${PRODUCT_360_TABLE}.product_360_image`
+]
+
+const COLUMN_GET = [
+  `${TABLE}.product_id`, `${TABLE}.product_name_id`, `${TABLE}.product_name_en`, `${TABLE}.product_name_cn`,
+  `${TABLE}.image_product`, `${TABLE}.slug_product`,
+  `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`
 ]
 
 const DEFAULT_SORT = [`${TABLE}.product_id`, 'DESC']
@@ -97,15 +105,71 @@ const sql = (where, search = false) => {
   return query
 }
 
-const get = async (where, filter, column = COLUMN_DEFAULT) => {
+const get = async (where, filter, column = COLUMN_GET) => {
   try {
-    const result = await sql(where, filter.search).clone()
+    const query = sql(where, filter.search)
+    const result = await query.clone()
       .select(column)
-      .orderBy(`${filter.direction}`, filter.order)
+      .groupBy(
+        `${TABLE}.product_id`,
+        `${TABLE}.product_name_id`,
+        `${TABLE}.product_name_en`,
+        `${TABLE}.product_name_cn`,
+        `${TABLE}.image_product`,
+        `${TABLE}.slug_product`,
+        `${TYPE_TABLE}.type_product_name_id`,
+        `${TYPE_TABLE}.type_product_name_en`,
+        `${TYPE_TABLE}.type_product_name_cn`
+      )
+      .orderBy(filter.direction || DEFAULT_SORT[0], filter.order || DEFAULT_SORT[1])
       .limit(filter.limit)
       .offset(((filter.page - 1) * filter.limit))
 
-    const [rows] = await sql(where, filter.search).clone().count(`${TABLE}.product_id`)
+    const [rows] = await query.clone().count(column[0])
+
+    // Clean and limit content fields
+    const cleanedResult = result.map((item) => ({
+      ...item
+    }));
+
+    // Skip manipulateDate for created_at since we've already formatted it
+    const finalResult = cleanedResult.map((item) => {
+      const { created_at, ...rest } = item;
+      const manipulated = manipulateDate({ ...rest }, false);
+      return { ...manipulated, created_at };
+    });
+
+    return mappingSuccessPagination(lang.__('get.success'), {
+      result: finalResult,
+      count: rows?.count
+    })
+  } catch (error) {
+    error.path = __filename
+    return mappingError(error)
+  }
+}
+
+const getBySlug = async (slug, language = 'id') => {
+  try {
+    const query = pgCore(TABLE)
+      .leftJoin(TYPE_TABLE, `${TABLE}.type_product_id`, `${TYPE_TABLE}.type_product_id`)
+      .leftJoin(FLAYER_TABLE, `${TABLE}.product_id`, `${FLAYER_TABLE}.product_id`)
+      .leftJoin(FEATURE_TABLE, `${TABLE}.product_id`, `${FEATURE_TABLE}.product_id`)
+      .leftJoin(FEATURE_CHILD_TABLE, `${FEATURE_TABLE}.feature_product_id`, `${FEATURE_CHILD_TABLE}.feature_product_id`)
+      .leftJoin(GALLERY_TABLE, `${TABLE}.product_id`, `${GALLERY_TABLE}.product_id`)
+      .leftJoin(PRODUCT_360_TABLE, `${TABLE}.product_id`, `${PRODUCT_360_TABLE}.product_id`)
+      .where(`${TABLE}.deleted_at`, null)
+      .where(`${TABLE}.slug_product`, slug)
+
+    const result = await query
+      .select(COLUMN_DEFAULT)
+
+    if (!result || result.length === 0) {
+      return mappingError({
+        message: lang.__('get.not_found'),
+        status: 404
+      })
+    }
 
     // Transform the result to group by product and its related data
     const transformedResult = result.reduce((acc, curr) => {
@@ -118,6 +182,15 @@ const get = async (where, filter, column = COLUMN_DEFAULT) => {
           product_name_id: curr.product_name_id,
           product_name_en: curr.product_name_en,
           product_name_cn: curr.product_name_cn,
+          product_description_id: curr.product_description_id,
+          product_description_en: curr.product_description_en,
+          product_description_cn: curr.product_description_cn,
+          banner_product: curr.banner_product,
+          tagline_banner_product_id: curr.tagline_banner_product_id,
+          tagline_banner_product_en: curr.tagline_banner_product_en,
+          tagline_banner_product_cn: curr.tagline_banner_product_cn,
+          image_product: curr.image_product,
+          slug_product: curr.slug_product,
           type_product: {
             type_product_name_id: curr.type_product_name_id,
             type_product_name_en: curr.type_product_name_en,
@@ -196,8 +269,8 @@ const get = async (where, filter, column = COLUMN_DEFAULT) => {
     }, {})
 
     return mappingSuccessPagination(lang.__('get.success'), {
-      result: manipulateDate(Object.values(transformedResult)),
-      count: rows?.count
+      result: manipulateDate(Object.values(transformedResult)[0], false),
+      count: 1
     })
   } catch (error) {
     error.path = __filename
@@ -207,6 +280,7 @@ const get = async (where, filter, column = COLUMN_DEFAULT) => {
 
 module.exports = {
   get,
+  getBySlug,
   COLUMN_DEFAULT,
   DEFAULT_SORT,
   TABLE
