@@ -54,6 +54,15 @@
 						"type": "string"
 					},
 					"description": "Search value is string with rule ex : ?search=Hitam"
+				},
+				{
+					"in": "query",
+					"name": "product_360_type",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Product 360 Type value is string with rule ex : ?product_360_type=360"
 				}
 			],
 			"responses": {

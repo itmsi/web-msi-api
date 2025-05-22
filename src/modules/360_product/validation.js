@@ -13,6 +13,13 @@ const postValidation = [
     .withMessage(lang.__('validator.max', { field: 'Product ID', max: 100 }))
     .notEmpty()
     .withMessage(lang.__('validator.required', { field: 'Product ID' })),
+  check('product_360_type')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'Product 360 Type' }))
+    .isLength({ max: 100 })
+    .withMessage(lang.__('validator.max', { field: 'Product 360 Type', max: 100 }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Product 360 Type' })),
   check('product_360_image')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'Product 360 Image' }))
@@ -38,6 +45,13 @@ const putValidation = [
     .isString()
     .withMessage(lang.__('validator.string', { field: 'Product 360 Image' }))
     .optional(true),
+  check('product_360_type')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'Product 360 Type' }))
+    .isLength({ max: 100 })
+    .withMessage(lang.__('validator.max', { field: 'Product 360 Type', max: 100 }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Product 360 Type' })),
   check('product_id')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'Product ID' }))
