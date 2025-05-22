@@ -24,7 +24,10 @@ const storePublic = async (req, res) => {
     company_name: req.body.company_name,
     email: req.body.email,
     phone: req.body.phone,
-    approve: req.body.approve,
+    mining_type: req.body.mining_type,
+    wilayah: req.body.wilayah,
+    message: req.body.message,
+    product_name: req.body.product_name,
     created_at: new Date().toISOString()
   }
   const result = await repository.create(payload)
@@ -54,7 +57,7 @@ const update = async (req, res) => {
 const softDelete = async (req, res) => {
   const where = requestHttp(req)
   const payload = { type_method: 'soft-delete', ...decodeToken('deleted', req) }
-  const result = await repository.update(where, payload, 'approve')
+  const result = await repository.update(where, payload, 'message')
   return baseResponse(res, result)
 }
 

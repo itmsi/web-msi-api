@@ -1,0 +1,78 @@
+{
+	"SchemaResponseConsultation": {
+		"type": "object",
+		"properties": {
+			"consultation_id": {
+				"type": "string"
+			},
+			"company_name": {
+				"type": "string"
+			},
+			"email": {
+				"type": "string"
+			},
+			"phone": {
+				"type": "string"
+			},
+			"mining_type": {
+				"type": "string"
+			},
+			"product_name": {
+				"type": "string"
+			},
+			"wilayah": {
+				"type": "string"
+			},
+			"message": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostConsultation": {
+		"type": "object",
+		"properties": {
+			"company_name": {
+				"type": "string"
+			},
+			"email": {
+				"type": "string"
+			},
+			"phone": {
+				"type": "string"
+			},
+			"mining_type": {
+				"type": "string"
+			},
+			"wilayah": {
+				"type": "string"
+			},
+			"product_name": {
+				"type": "string"
+			},
+			"message": {
+				"type": "string"
+			}
+		}
+	}
+}
