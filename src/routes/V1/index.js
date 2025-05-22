@@ -86,5 +86,4 @@ routing.use(`${API_TAG}/gallery-product`, verifyToken, galleryProduct)
 routing.use(`${API_TAG}/product-360`, verifyToken, product360)
 routing.use(`${API_TAG}/customer`, verifyToken, customer)
 routing.use(`${API_TAG}/voucher`, verifyToken, voucher)
-
 module.exports = routing;

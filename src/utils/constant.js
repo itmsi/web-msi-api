@@ -166,7 +166,8 @@ module.exports = {
       FEATURE_CHILD_PRODUCT: 'mst_feature_child_product',
       GALLERY_PRODUCT: 'mst_gallery_product',
       PRODUCT_360: 'mst_360_product',
-      VOUCHER: 'mst_voucher'
+      VOUCHER: 'mst_voucher',
+      DATA_DOWNLOAD_FLYER_PRODUK: 'data_download_flayer_produk'
     },
     PRIMARY_KEY: {
       JENIS_AKUN: 'jenis_akun_id',
@@ -273,7 +274,8 @@ module.exports = {
       FEATURE_CHILD_PRODUCT: 'feature_child_product_id',
       GALLERY_PRODUCT: 'gallery_product_id',
       PRODUCT_360: 'product_360_id',
-      VOUCHER: 'voucher_id'
+      VOUCHER: 'voucher_id',
+      DATA_DOWNLOAD_FLYER_PRODUK: 'data_download_flayer_produk_id'
     }
   },
   FILE_DESCRIPTION: [
