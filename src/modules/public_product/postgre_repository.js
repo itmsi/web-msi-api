@@ -90,12 +90,30 @@ const condition = (builder, where, search = null) => {
 
 const sql = (where, search = false) => {
   let query = pgCore(TABLE)
-    .leftJoin(TYPE_TABLE, `${TABLE}.type_product_id`, `${TYPE_TABLE}.type_product_id`)
-    .leftJoin(FLAYER_TABLE, `${TABLE}.product_id`, `${FLAYER_TABLE}.product_id`)
-    .leftJoin(FEATURE_TABLE, `${TABLE}.product_id`, `${FEATURE_TABLE}.product_id`)
-    .leftJoin(FEATURE_CHILD_TABLE, `${FEATURE_TABLE}.feature_product_id`, `${FEATURE_CHILD_TABLE}.feature_product_id`)
-    .leftJoin(GALLERY_TABLE, `${TABLE}.product_id`, `${GALLERY_TABLE}.product_id`)
-    .leftJoin(PRODUCT_360_TABLE, `${TABLE}.product_id`, `${PRODUCT_360_TABLE}.product_id`)
+    .leftJoin(TYPE_TABLE, function () {
+      this.on(`${TABLE}.type_product_id`, '=', `${TYPE_TABLE}.type_product_id`)
+        .andOnNull(`${TYPE_TABLE}.deleted_at`)
+    })
+    .leftJoin(FLAYER_TABLE, function () {
+      this.on(`${TABLE}.product_id`, '=', `${FLAYER_TABLE}.product_id`)
+        .andOnNull(`${FLAYER_TABLE}.deleted_at`)
+    })
+    .leftJoin(FEATURE_TABLE, function () {
+      this.on(`${TABLE}.product_id`, '=', `${FEATURE_TABLE}.product_id`)
+        .andOnNull(`${FEATURE_TABLE}.deleted_at`)
+    })
+    .leftJoin(FEATURE_CHILD_TABLE, function () {
+      this.on(`${FEATURE_TABLE}.feature_product_id`, '=', `${FEATURE_CHILD_TABLE}.feature_product_id`)
+        .andOnNull(`${FEATURE_CHILD_TABLE}.deleted_at`)
+    })
+    .leftJoin(GALLERY_TABLE, function () {
+      this.on(`${TABLE}.product_id`, '=', `${GALLERY_TABLE}.product_id`)
+        .andOnNull(`${GALLERY_TABLE}.deleted_at`)
+    })
+    .leftJoin(PRODUCT_360_TABLE, function () {
+      this.on(`${TABLE}.product_id`, '=', `${PRODUCT_360_TABLE}.product_id`)
+        .andOnNull(`${PRODUCT_360_TABLE}.deleted_at`)
+    })
 
   if (where != null) {
     query = query.where((builder) => {
@@ -153,12 +171,30 @@ const get = async (where, filter, column = COLUMN_GET) => {
 const getBySlug = async (slug, language = 'id') => {
   try {
     const query = pgCore(TABLE)
-      .leftJoin(TYPE_TABLE, `${TABLE}.type_product_id`, `${TYPE_TABLE}.type_product_id`)
-      .leftJoin(FLAYER_TABLE, `${TABLE}.product_id`, `${FLAYER_TABLE}.product_id`)
-      .leftJoin(FEATURE_TABLE, `${TABLE}.product_id`, `${FEATURE_TABLE}.product_id`)
-      .leftJoin(FEATURE_CHILD_TABLE, `${FEATURE_TABLE}.feature_product_id`, `${FEATURE_CHILD_TABLE}.feature_product_id`)
-      .leftJoin(GALLERY_TABLE, `${TABLE}.product_id`, `${GALLERY_TABLE}.product_id`)
-      .leftJoin(PRODUCT_360_TABLE, `${TABLE}.product_id`, `${PRODUCT_360_TABLE}.product_id`)
+      .leftJoin(TYPE_TABLE, function () {
+        this.on(`${TABLE}.type_product_id`, '=', `${TYPE_TABLE}.type_product_id`)
+          .andOnNull(`${TYPE_TABLE}.deleted_at`)
+      })
+      .leftJoin(FLAYER_TABLE, function () {
+        this.on(`${TABLE}.product_id`, '=', `${FLAYER_TABLE}.product_id`)
+          .andOnNull(`${FLAYER_TABLE}.deleted_at`)
+      })
+      .leftJoin(FEATURE_TABLE, function () {
+        this.on(`${TABLE}.product_id`, '=', `${FEATURE_TABLE}.product_id`)
+          .andOnNull(`${FEATURE_TABLE}.deleted_at`)
+      })
+      .leftJoin(FEATURE_CHILD_TABLE, function () {
+        this.on(`${FEATURE_TABLE}.feature_product_id`, '=', `${FEATURE_CHILD_TABLE}.feature_product_id`)
+          .andOnNull(`${FEATURE_CHILD_TABLE}.deleted_at`)
+      })
+      .leftJoin(GALLERY_TABLE, function () {
+        this.on(`${TABLE}.product_id`, '=', `${GALLERY_TABLE}.product_id`)
+          .andOnNull(`${GALLERY_TABLE}.deleted_at`)
+      })
+      .leftJoin(PRODUCT_360_TABLE, function () {
+        this.on(`${TABLE}.product_id`, '=', `${PRODUCT_360_TABLE}.product_id`)
+          .andOnNull(`${PRODUCT_360_TABLE}.deleted_at`)
+      })
       .where(`${TABLE}.deleted_at`, null)
       .where(`${TABLE}.slug_product`, slug)
 
@@ -211,37 +247,45 @@ const getBySlug = async (slug, language = 'id') => {
         }
       }
 
-      // Add feature if exists and not already added
-      const hasFeature = curr.feature_product_id
-        && !acc[productId].features.find((f) => f.feature_product_id === curr.feature_product_id)
+      // Handle features and their children
+      if (curr.feature_product_id) {
+        // Find existing feature or create new one
+        const findFeature = (f) => f.feature_product_id === curr.feature_product_id
+        let feature = acc[productId].features.find(findFeature)
 
-      if (hasFeature) {
-        const feature = {
-          feature_product_id: curr.feature_product_id,
-          feature_product_title_id: curr.feature_product_title_id,
-          feature_product_title_en: curr.feature_product_title_en,
-          feature_product_title_cn: curr.feature_product_title_cn,
-          feature_product_description_id: curr.feature_product_description_id,
-          feature_product_description_en: curr.feature_product_description_en,
-          feature_product_description_cn: curr.feature_product_description_cn,
-          feature_children: []
+        if (!feature) {
+          feature = {
+            feature_product_id: curr.feature_product_id,
+            feature_product_title_id: curr.feature_product_title_id,
+            feature_product_title_en: curr.feature_product_title_en,
+            feature_product_title_cn: curr.feature_product_title_cn,
+            feature_product_description_id: curr.feature_product_description_id,
+            feature_product_description_en: curr.feature_product_description_en,
+            feature_product_description_cn: curr.feature_product_description_cn,
+            feature_children: []
+          }
+          acc[productId].features.push(feature)
         }
 
-        // Add feature child if exists
+        // Add feature child if exists and not already added
         if (curr.feature_child_product_id) {
-          feature.feature_children.push({
-            feature_child_product_id: curr.feature_child_product_id,
-            feature_child_product_title_id: curr.feature_child_product_title_id,
-            feature_child_product_title_en: curr.feature_child_product_title_en,
-            feature_child_product_title_cn: curr.feature_child_product_title_cn,
-            feature_child_product_description_id: curr.feature_child_product_description_id,
-            feature_child_product_description_en: curr.feature_child_product_description_en,
-            feature_child_product_description_cn: curr.feature_child_product_description_cn,
-            feature_child_product_image: curr.feature_child_product_image
-          })
-        }
+          const childExists = feature.feature_children.some(
+            (child) => child.feature_child_product_id === curr.feature_child_product_id
+          )
 
-        acc[productId].features.push(feature)
+          if (!childExists) {
+            feature.feature_children.push({
+              feature_child_product_id: curr.feature_child_product_id,
+              feature_child_product_title_id: curr.feature_child_product_title_id,
+              feature_child_product_title_en: curr.feature_child_product_title_en,
+              feature_child_product_title_cn: curr.feature_child_product_title_cn,
+              feature_child_product_description_id: curr.feature_child_product_description_id,
+              feature_child_product_description_en: curr.feature_child_product_description_en,
+              feature_child_product_description_cn: curr.feature_child_product_description_cn,
+              feature_child_product_image: curr.feature_child_product_image
+            })
+          }
+        }
       }
 
       // Add gallery if exists and not already added
