@@ -83,7 +83,7 @@
 				"content": {
 					"application/json": {
 						"schema": {
-							"$ref": "#/components/schemas/SchemaPostBanner"
+							"$ref": "#/components/schemas/SchemaPostDownloadFlayerProduct"
 						}
 					}
 				}
@@ -159,7 +159,7 @@
 				"content": {
 					"application/json": {
 						"schema": {
-							"$ref": "#/components/schemas/SchemaPostBanner"
+							"$ref": "#/components/schemas/SchemaPostDownloadFlayerProduct"
 						}
 					}
 				}

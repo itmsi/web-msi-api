@@ -2,7 +2,7 @@ const { Router } = require('express')
 const {
   store, fetch, fetchByParam, update, softDelete
 } = require('./handler')
-const { postValidation, putValidation, paramValidation } = require('./validation')
+const { postValidation, putValidation } = require('./validation')
 
 const router = Router()
 
@@ -12,7 +12,7 @@ const router = Router()
 router.post('/', postValidation, store)
 router.post('/public/download-flayer-product', postValidation, store)
 router.get('/', fetch)
-router.get('/:data_download_flayer_produk_id', paramValidation, fetchByParam)
+router.get('/:data_download_flayer_produk_id', fetchByParam)
 router.put('/:data_download_flayer_produk_id', putValidation, update)
 router.delete('/:data_download_flayer_produk_id', softDelete)
 
