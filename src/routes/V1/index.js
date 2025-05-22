@@ -57,6 +57,8 @@ routing.use(`${API_TAG}/public/flayer-product`, publicFlayerProduct)
 routing.use(`${API_TAG}/public/feature-product`, publicFeatureProduct)
 routing.use(`${API_TAG}/public/article-category`, publicArticleCategory)
 routing.use(`${API_TAG}/public/article`, publicArticle)
+routing.use(`${API_TAG}/download-flayer-product`, downloadFlayerProduct)
+routing.use(`${API_TAG}/public/download-flayer-product`, downloadFlayerProduct)
 
 // need token verify register here
 routing.use(`${API_TAG}/admin-menu`, verifyToken, adminMenu)
@@ -87,5 +89,5 @@ routing.use(`${API_TAG}/gallery-product`, verifyToken, galleryProduct)
 routing.use(`${API_TAG}/product-360`, verifyToken, product360)
 routing.use(`${API_TAG}/customer`, verifyToken, customer)
 routing.use(`${API_TAG}/voucher`, verifyToken, voucher)
-routing.use(`${API_TAG}/download-flayer-product`, verifyToken, downloadFlayerProduct)
+
 module.exports = routing;

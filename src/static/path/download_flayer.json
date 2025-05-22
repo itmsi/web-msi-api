@@ -209,5 +209,34 @@
 				}
 			}
 		}
+	},
+	"/public/download-flayer-product": {
+		"post": {
+			"tags": [
+				"Download Flayer Product"
+			],
+			"requestBody": {
+				"required": false,
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/SchemaPostDownloadFlayerProduct"
+						}
+					}
+				}
+			},
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
