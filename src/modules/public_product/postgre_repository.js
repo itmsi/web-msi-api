@@ -45,7 +45,8 @@ const COLUMN_DEFAULT = [
   `${GALLERY_TABLE}.gallery_product_id`,
   `${GALLERY_TABLE}.gallery_product_image`,
   `${PRODUCT_360_TABLE}.product_360_id`,
-  `${PRODUCT_360_TABLE}.product_360_image`
+  `${PRODUCT_360_TABLE}.product_360_image`,
+  `${PRODUCT_360_TABLE}.product_360_type`
 ]
 
 const COLUMN_GET = [
@@ -206,7 +207,7 @@ const getBySlug = async (slug, language = 'id') => {
           },
           features: [],
           galleries: [],
-          product_360: []
+          product_360: {}
         }
       }
 
@@ -254,15 +255,22 @@ const getBySlug = async (slug, language = 'id') => {
         })
       }
 
-      // Add product 360 if exists and not already added
-      const hasProduct360 = curr.product_360_id
-        && !acc[productId].product_360.find((p) => p.product_360_id === curr.product_360_id)
+      // Add product 360 if exists and group by type
+      if (curr.product_360_id) {
+        const type = curr.product_360_type || 'default'
+        if (!acc[productId].product_360[type]) {
+          acc[productId].product_360[type] = []
+        }
 
-      if (hasProduct360) {
-        acc[productId].product_360.push({
-          product_360_id: curr.product_360_id,
-          product_360_image: curr.product_360_image
-        })
+        // Check if this product_360_id is not already added for this type
+        const exists = acc[productId].product_360[type]
+          .find((p) => p.product_360_id === curr.product_360_id)
+        if (!exists) {
+          acc[productId].product_360[type].push({
+            product_360_id: curr.product_360_id,
+            product_360_image: curr.product_360_image
+          })
+        }
       }
 
       return acc

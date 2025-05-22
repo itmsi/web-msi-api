@@ -16,6 +16,7 @@ const TABLE_PRODUCT = 'mst_product'
 const COLUMN_ALL = [
   `${TABLE}.product_360_id`, `${TABLE}.product_id`, `${TABLE}.product_360_alt`, `${TABLE}.product_360_image`,
   `${TABLE}.product_360_description`,
+  `${TABLE}.product_360_type`,
   `${TABLE_PRODUCT}.product_name_id`,
   `${TABLE_PRODUCT}.product_name_en`,
   `${TABLE_PRODUCT}.product_name_cn`,
@@ -26,6 +27,7 @@ const COLUMN_ALL = [
 const COLUMN = [
   `${TABLE}.product_360_id`, `${TABLE}.product_id`, `${TABLE}.product_360_alt`, `${TABLE}.product_360_image`,
   `${TABLE}.product_360_description`,
+  `${TABLE}.product_360_type`,
   `${TABLE_PRODUCT}.product_name_id`,
   `${TABLE_PRODUCT}.product_name_en`,
   `${TABLE_PRODUCT}.product_name_cn`,
@@ -39,6 +41,10 @@ const condition = (builder, where, search = null) => {
 
   if (where.product_360_id) {
     builder.where(`${TABLE}.product_360_id`, where.product_360_id)
+  }
+
+  if (where.product_360_type) {
+    builder.where(`${TABLE}.product_360_type`, where.product_360_type)
   }
 
   if (search) {
