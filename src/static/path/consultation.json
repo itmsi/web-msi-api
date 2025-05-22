@@ -1,8 +1,8 @@
 {
-	"/contact-us-user": {
+	"/consultation": {
 		"get": {
 			"tags": [
-				"Contact Us User"
+				"Consultation"
 			],
 			"security": [
 				{
@@ -71,7 +71,7 @@
 		},
 		"post": {
 			"tags": [
-				"Contact Us User"
+				"Consultation"
 			],
 			"security": [
 				{
@@ -83,7 +83,7 @@
 				"content": {
 					"application/json": {
 						"schema": {
-							"$ref": "#/components/schemas/SchemaPostContactUsUser"
+							"$ref": "#/components/schemas/SchemaPostConsultation"
 						}
 					}
 				}
@@ -102,10 +102,10 @@
 			}
 		}
 	},
-	"/contact-us-user/{contact_us_user_id}": {
+	"/consultation/{consultation_id}": {
 		"get": {
 			"tags": [
-				"Contact Us User"
+				"Consultation"
 			],
 			"security": [
 				{
@@ -115,7 +115,7 @@
 			"parameters": [
 				{
 					"in": "path",
-					"name": "contact_us_user_id",
+					"name": "consultation_id",
 					"required": true,
 					"schema": {
 						"type": "string"
@@ -137,7 +137,7 @@
 		},
 		"put": {
 			"tags": [
-				"Contact Us User"
+				"Consultation"
 			],
 			"security": [
 				{
@@ -147,7 +147,7 @@
 			"parameters": [
 				{
 					"in": "path",
-					"name": "contact_us_user_id",
+					"name": "consultation_id",
 					"required": true,
 					"schema": {
 						"type": "string"
@@ -159,7 +159,7 @@
 				"content": {
 					"application/json": {
 						"schema": {
-							"$ref": "#/components/schemas/SchemaPostContactUsUser"
+							"$ref": "#/components/schemas/SchemaPostConsultation"
 						}
 					}
 				}
@@ -179,7 +179,7 @@
 		},
 		"delete": {
 			"tags": [
-				"Contact Us User"
+				"Consultation"
 			],
 			"security": [
 				{
@@ -189,7 +189,7 @@
 			"parameters": [
 				{
 					"in": "path",
-					"name": "contact_us_user_id",
+					"name": "consultation_id",
 					"required": true,
 					"schema": {
 						"type": "string"
@@ -210,17 +210,17 @@
 			}
 		}
 	},
-	"/public/contact-us-user": {
+	"/public/consultation": {
 		"post": {
 			"tags": [
-				"Contact Us User"
+				"Consultation"
 			],
 			"requestBody": {
 				"required": false,
 				"content": {
 					"application/json": {
 						"schema": {
-							"$ref": "#/components/schemas/SchemaPostContactUsUser"
+							"$ref": "#/components/schemas/SchemaPostConsultation"
 						}
 					}
 				}

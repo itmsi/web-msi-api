@@ -35,6 +35,8 @@ const publicArticleCategory = require('./public_article_category.json')
 const publicArticle = require('./public_article.json')
 const customer = require('./customer.json')
 const voucher = require('./voucher.json')
+const downloadFlayerProduct = require('./download_flayer.json')
+const consultation = require('./consultation.json')
 
 module.exports = {
   ...auth,
@@ -73,5 +75,7 @@ module.exports = {
   ...publicArticleCategory,
   ...publicArticle,
   ...customer,
-  ...voucher
+  ...voucher,
+  ...downloadFlayerProduct,
+  ...consultation
 }

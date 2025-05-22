@@ -38,6 +38,8 @@ const publicArticleCategory = require('../../modules/public_article_category')
 const publicArticle = require('../../modules/public_article')
 const customer = require('../../modules/customer')
 const voucher = require('../../modules/voucher')
+const downloadFlayerProduct = require('../../modules/download_flayer_product')
+const consultation = require('../../modules/consultation')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -56,6 +58,10 @@ routing.use(`${API_TAG}/public/flayer-product`, publicFlayerProduct)
 routing.use(`${API_TAG}/public/feature-product`, publicFeatureProduct)
 routing.use(`${API_TAG}/public/article-category`, publicArticleCategory)
 routing.use(`${API_TAG}/public/article`, publicArticle)
+routing.use(`${API_TAG}/download-flayer-product`, downloadFlayerProduct)
+routing.use(`${API_TAG}/public/download-flayer-product`, downloadFlayerProduct)
+routing.use(`${API_TAG}/consultation`, consultation)
+routing.use(`${API_TAG}/public/consultation`, consultation)
 
 // need token verify register here
 routing.use(`${API_TAG}/admin-menu`, verifyToken, adminMenu)
