@@ -11,6 +11,9 @@
 			"order_banner": {
 				"type": "integer"
 			},
+			"banner_type": {
+				"type": "string"
+			},
 			"title_banner_id": {
 				"type": "string"
 			},

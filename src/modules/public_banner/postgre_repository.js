@@ -9,7 +9,7 @@ const { lang } = require('../../lang')
 const TABLE = 'mst_banner'
 const COLUMN_DEFAULT = [
   `${TABLE}.banner_id`, `${TABLE}.page_banner`, `${TABLE}.order_banner`, `${TABLE}.title_banner_id`, `${TABLE}.title_banner_en`, `${TABLE}.title_banner_cn`,
-  `${TABLE}.banner_tagline_id`, `${TABLE}.banner_tagline_en`, `${TABLE}.banner_tagline_cn`,
+  `${TABLE}.banner_tagline_id`, `${TABLE}.banner_tagline_en`, `${TABLE}.banner_tagline_cn`, `${TABLE}.banner_type`,
   `${TABLE}.file_banner`, `${TABLE}.link_banner`, `${TABLE}.description_banner`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
