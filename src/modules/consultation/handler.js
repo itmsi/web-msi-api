@@ -22,6 +22,7 @@ const store = async (req, res) => {
 const storePublic = async (req, res) => {
   const payload = {
     company_name: req.body.company_name,
+    username: req.body.username,
     email: req.body.email,
     phone: req.body.phone,
     mining_type: req.body.mining_type,

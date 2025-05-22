@@ -5,6 +5,9 @@
 			"consultation_id": {
 				"type": "string"
 			},
+			"username": {
+				"type": "string"
+			},
 			"company_name": {
 				"type": "string"
 			},
@@ -53,6 +56,9 @@
 		"type": "object",
 		"properties": {
 			"company_name": {
+				"type": "string"
+			},
+			"username": {
 				"type": "string"
 			},
 			"email": {

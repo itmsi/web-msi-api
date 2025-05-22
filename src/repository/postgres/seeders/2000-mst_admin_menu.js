@@ -601,6 +601,23 @@ exports.seed = async function (knex) {
       deleted_by: null,
       permission_name: 'downloadflayerproduct',
       heading_admin_menu_id: '8'
+    },
+    {
+      menu_id: '36',
+      parent: '31',
+      menu_name: 'Consultation',
+      menu_url: 'admin/management-member/consultation',
+      menu_status: '1',
+      menu_sort: '5',
+      menu_icon: 'far fa-circle nav-icon',
+      created_at: '2025-04-24 11:54:24.776 +0700',
+      created_by: null,
+      updated_at: null,
+      updated_by: null,
+      deleted_at: null,
+      deleted_by: null,
+      permission_name: 'consultation',
+      heading_admin_menu_id: '8'
     }
   ];
   return knex('mst_admin_menu').del()
