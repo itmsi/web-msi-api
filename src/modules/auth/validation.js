@@ -53,4 +53,40 @@ const siginConductorValidation = [
   },
 ];
 
-module.exports = { siginValidation, siginCustomerValidation, siginConductorValidation }
+const registerCustomerValidation = [
+  check('first_name')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'First Name' }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'First Name' })),
+  check('last_name')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'Last Name' }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Last Name' })),
+  check('email')
+    .isEmail()
+    .withMessage(lang.__('validator.email', { field: 'Email' }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Email' })),
+  check('password')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'Password' }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Password' })),
+  check('mobile_phone')
+    .isMobilePhone()
+    .withMessage(lang.__('validator.mobile_phone', { field: 'Mobile Phone' }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Mobile Phone' })),
+  (req, res, next) => {
+    validateMiddleware(req, res, next);
+  },
+];
+
+module.exports = {
+  siginValidation,
+  siginCustomerValidation,
+  siginConductorValidation,
+  registerCustomerValidation
+}
