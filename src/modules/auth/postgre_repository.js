@@ -1,4 +1,3 @@
-const jwtEncode = require('jwt-decode');
 const { pgCore } = require('../../config/database');
 const {
   mappingSuccess,
@@ -6,8 +5,9 @@ const {
   setPayloadToken,
   isValidPassword,
   ROLE,
-  HTTP,
+  generatePassword,
 } = require('../../utils');
+const { generateCustomerNo } = require('../../utils/customer')
 const { lang } = require('../../lang');
 const {
   TABLE,
@@ -351,6 +351,38 @@ const meClient = async (where, column = COLUMN_CLIENT_ME) => {
   }
 };
 
+const registerCustomer = async (payload) => {
+  try {
+    // Generate customer number
+    const customerNo = await generateCustomerNo()
+
+    // Prepare customer data with proper password handling
+    const passwordPayload = { password: payload.password }
+    const { password, salt } = generatePassword(passwordPayload)
+
+    // Prepare customer data
+    const customerData = {
+      ...payload,
+      password,
+      salt,
+      customer_no: customerNo,
+      registration_date: new Date(),
+      status: '1', // Active by default
+      created_at: new Date()
+    }
+
+    // Insert into database
+    const [result] = await pgCore(TABLE_CUSTOMER)
+      .insert(customerData)
+      .returning('*')
+
+    return mappingSuccess(lang.__('create.success'), result)
+  } catch (error) {
+    error.path = __filename
+    return mappingError(error)
+  }
+}
+
 module.exports = {
   getByParam,
   getByParamInspection,
@@ -363,4 +395,5 @@ module.exports = {
   clientSignin,
   meClient,
   refreshTokenClient,
+  registerCustomer
 };

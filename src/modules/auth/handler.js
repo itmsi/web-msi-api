@@ -86,6 +86,11 @@ const meClient = async (req, res) => {
   return baseResponse(res, result)
 }
 
+const registerCustomer = async (req, res) => {
+  const result = await repository.registerCustomer(req.body)
+  return baseResponse(res, result)
+}
+
 module.exports = {
   signin,
   customerSignin,
@@ -97,5 +102,6 @@ module.exports = {
   refreshTokenClient,
   meClient,
   signinInspection,
-  me
+  me,
+  registerCustomer
 }

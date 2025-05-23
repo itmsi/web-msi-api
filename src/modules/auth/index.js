@@ -1,11 +1,23 @@
 const { Router } = require('express')
 const {
   signin, refreshToken, me, customerSignin, conductorSignin, refreshTokenCustomer, meCustomer,
-  clientSignin, meClient, refreshTokenClient, signinInspection
+  clientSignin, meClient, refreshTokenClient, signinInspection, registerCustomer
 } = require('./handler')
-const { siginValidation, siginCustomerValidation, siginConductorValidation } = require('./validation')
 const {
-  verifyToken, verifyTokenCustomer, verifyTokenClient, validateRecaptcha, adminSigninLimiter, conductorSigninLimiter, customerSigninLimiter, clientSigninLimiter,
+  siginValidation,
+  siginCustomerValidation,
+  siginConductorValidation,
+  registerCustomerValidation
+} = require('./validation')
+const {
+  verifyToken,
+  verifyTokenCustomer,
+  verifyTokenClient,
+  validateRecaptcha,
+  adminSigninLimiter,
+  conductorSigninLimiter,
+  customerSigninLimiter,
+  clientSigninLimiter,
 } = require('../../middlewares')
 
 const router = Router()
@@ -20,7 +32,7 @@ router.get('/refresh-token', verifyToken, refreshToken)
 router.get('/me', verifyToken, me)
 // router.post('/customer/signin', customerSigninLimiter, siginCustomerValidation, customerSignin)
 /**
- * @description Customer Signin
+ * @description Customer Signin untuk member
  * @route POST /customer/signin
  * @access Public
  * @param {string} username
@@ -31,6 +43,7 @@ router.get('/me', verifyToken, me)
 router.post('/customer/signin', customerSigninLimiter, siginCustomerValidation, validateRecaptcha, customerSignin)
 router.get('/customer/me', verifyTokenCustomer, meCustomer)
 router.get('/customer/refresh-token', verifyTokenCustomer, refreshTokenCustomer)
+router.post('/customer/register', registerCustomerValidation, validateRecaptcha, registerCustomer)
 
 /**
  * @description Client Signin
