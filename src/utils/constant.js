@@ -168,7 +168,8 @@ module.exports = {
       PRODUCT_360: 'mst_360_product',
       VOUCHER: 'mst_voucher',
       DATA_DOWNLOAD_FLYER_PRODUK: 'data_download_flayer_produk',
-      CONSULTATION: 'mst_consultation'
+      CONSULTATION: 'mst_consultation',
+      MEMBER_VOUCHER: 'member_vouchers'
     },
     PRIMARY_KEY: {
       JENIS_AKUN: 'jenis_akun_id',
@@ -277,7 +278,8 @@ module.exports = {
       PRODUCT_360: 'product_360_id',
       VOUCHER: 'voucher_id',
       DATA_DOWNLOAD_FLYER_PRODUK: 'data_download_flayer_produk_id',
-      CONSULTATION: 'consultation_id'
+      CONSULTATION: 'consultation_id',
+      MEMBER_VOUCHER: 'member_voucher_id'
     }
   },
   FILE_DESCRIPTION: [
