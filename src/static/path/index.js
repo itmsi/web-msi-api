@@ -37,6 +37,8 @@ const customer = require('./customer.json')
 const voucher = require('./voucher.json')
 const downloadFlayerProduct = require('./download_flayer.json')
 const consultation = require('./consultation.json')
+const memberVoucher = require('./member_voucher.json')
+const publicMemberVoucher = require('./public_member_voucher.json')
 
 module.exports = {
   ...auth,
@@ -77,5 +79,7 @@ module.exports = {
   ...customer,
   ...voucher,
   ...downloadFlayerProduct,
-  ...consultation
+  ...consultation,
+  ...memberVoucher,
+  ...publicMemberVoucher
 }

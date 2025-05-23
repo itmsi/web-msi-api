@@ -233,17 +233,28 @@ const getBySlug = async (slug, language = 'id') => {
             type_product_name_en: curr.type_product_name_en,
             type_product_name_cn: curr.type_product_name_cn
           },
-          flayer: {
+          flayers: [],
+          features: [],
+          galleries: [],
+          product_360: {}
+        }
+      }
+
+      // Add flayer if exists and not already added
+      if (curr.flayer_product_id) {
+        const flayerExists = acc[productId].flayers.some(
+          (flayer) => flayer.flayer_product_id === curr.flayer_product_id
+        )
+
+        if (!flayerExists) {
+          acc[productId].flayers.push({
             flayer_product_id: curr.flayer_product_id,
             flayer_product_name_id: curr.flayer_product_name_id,
             flayer_product_name_en: curr.flayer_product_name_en,
             flayer_product_name_cn: curr.flayer_product_name_cn,
             flayer_product_description: curr.flayer_product_description,
             flayer_product_file: curr.flayer_product_file
-          },
-          features: [],
-          galleries: [],
-          product_360: {}
+          })
         }
       }
 

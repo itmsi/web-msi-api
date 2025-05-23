@@ -1,5 +1,5 @@
 const express = require('express')
-const { verifyToken } = require('../../middlewares')
+const { verifyToken, verifyTokenCustomer } = require('../../middlewares')
 const auth = require('../../modules/auth')
 const adminMenu = require('../../modules/admin_menu')
 const roles = require('../../modules/roles')
@@ -40,6 +40,7 @@ const customer = require('../../modules/customer')
 const voucher = require('../../modules/voucher')
 const downloadFlayerProduct = require('../../modules/download_flayer_product')
 const consultation = require('../../modules/consultation')
+const memberVoucher = require('../../modules/member_voucher')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -62,6 +63,7 @@ routing.use(`${API_TAG}/download-flayer-product`, downloadFlayerProduct)
 routing.use(`${API_TAG}/public/download-flayer-product`, downloadFlayerProduct)
 routing.use(`${API_TAG}/consultation`, consultation)
 routing.use(`${API_TAG}/public/consultation`, consultation)
+routing.use(`${API_TAG}/public/member-voucher`, verifyTokenCustomer, memberVoucher)
 
 // need token verify register here
 routing.use(`${API_TAG}/admin-menu`, verifyToken, adminMenu)
@@ -92,5 +94,5 @@ routing.use(`${API_TAG}/gallery-product`, verifyToken, galleryProduct)
 routing.use(`${API_TAG}/product-360`, verifyToken, product360)
 routing.use(`${API_TAG}/customer`, verifyToken, customer)
 routing.use(`${API_TAG}/voucher`, verifyToken, voucher)
-
+routing.use(`${API_TAG}/member-voucher`, verifyToken, memberVoucher)
 module.exports = routing;

@@ -1,0 +1,229 @@
+{
+	"/member-voucher": {
+		"get": {
+			"tags": [
+				"Member Voucher"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"parameters": [
+				{
+					"in": "query",
+					"name": "limit",
+					"required": false,
+					"schema": {
+						"type": "integer"
+					},
+					"description": "Limit value is number by default limit is 10. ex : ?limit=100"
+				},
+				{
+					"in": "query",
+					"name": "page",
+					"required": false,
+					"schema": {
+						"type": "number"
+					},
+					"description": "Page value is number. ex : ?page=1"
+				},
+				{
+					"in": "query",
+					"name": "direction",
+					"required": false,
+					"schema": {
+						"type": "array or string"
+					},
+					"description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id"
+				},
+				{
+					"in": "query",
+					"name": "order",
+					"required": false,
+					"schema": {
+						"type": "array or string"
+					},
+					"description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc"
+				},
+				{
+					"in": "query",
+					"name": "search",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Search value is string with rule ex : ?search=Hitam"
+				},
+				{
+					"in": "query",
+					"name": "member_id",
+					"required": false,
+					"schema": {
+						"type": "string"
+					}
+				},
+				{
+					"in": "query",
+					"name": "voucher_id",
+					"required": false,
+					"schema": {
+						"type": "string"
+					}
+				}
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaPaginationResponse"
+							}
+						}
+					}
+				}
+			}
+		},
+		"post": {
+			"tags": [
+				"Member Voucher"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"requestBody": {
+				"required": false,
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/SchemaPostMemberVoucher"
+						}
+					}
+				}
+			},
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"/member-voucher/{member_voucher_id}": {
+		"get": {
+			"tags": [
+				"Member Voucher"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"parameters": [
+				{
+					"in": "path",
+					"name": "member_voucher_id",
+					"required": true,
+					"schema": {
+						"type": "string"
+					}
+				}
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				}
+			}
+		},
+		"put": {
+			"tags": [
+				"Member Voucher"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"parameters": [
+				{
+					"in": "path",
+					"name": "member_voucher_id",
+					"required": true,
+					"schema": {
+						"type": "string"
+					}
+				}
+			],
+			"requestBody": {
+				"required": false,
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/SchemaPostMemberVoucher"
+						}
+					}
+				}
+			},
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				}
+			}
+		},
+		"delete": {
+			"tags": [
+				"Member Voucher"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"parameters": [
+				{
+					"in": "path",
+					"name": "member_voucher_id",
+					"required": true,
+					"schema": {
+						"type": "string"
+					}
+				}
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
