@@ -20,6 +20,7 @@ const COLUMN_ALL = [
   `${TABLE_PRODUCT}.product_name_id`,
   `${TABLE_PRODUCT}.product_name_en`,
   `${TABLE_PRODUCT}.product_name_cn`,
+  `${TABLE}.sub_type_name`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
@@ -31,6 +32,7 @@ const COLUMN = [
   `${TABLE_PRODUCT}.product_name_id`,
   `${TABLE_PRODUCT}.product_name_en`,
   `${TABLE_PRODUCT}.product_name_cn`,
+  `${TABLE}.sub_type_name`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]

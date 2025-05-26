@@ -46,7 +46,9 @@ const COLUMN_DEFAULT = [
   `${GALLERY_TABLE}.gallery_product_image`,
   `${PRODUCT_360_TABLE}.product_360_id`,
   `${PRODUCT_360_TABLE}.product_360_image`,
-  `${PRODUCT_360_TABLE}.product_360_type`
+  `${PRODUCT_360_TABLE}.product_360_type`,
+  `${PRODUCT_360_TABLE}.sub_type_name`
+
 ]
 
 const COLUMN_GET = [
@@ -313,18 +315,33 @@ const getBySlug = async (slug, language = 'id') => {
       // Add product 360 if exists and group by type
       if (curr.product_360_id) {
         const type = curr.product_360_type || 'default'
-        if (!acc[productId].product_360[type]) {
-          acc[productId].product_360[type] = []
-        }
 
-        // Check if this product_360_id is not already added for this type
-        const exists = acc[productId].product_360[type]
-          .find((p) => p.product_360_id === curr.product_360_id)
-        if (!exists) {
-          acc[productId].product_360[type].push({
-            product_360_id: curr.product_360_id,
+        if (type === 'interior' && curr.sub_type_name) {
+          // For interior type, store just the image path
+          const subType = curr.sub_type_name
+          const key = `interior_${subType}`
+
+          acc[productId].product_360[key] = curr.product_360_image
+        } else if (type === 'exterior') {
+          // For exterior type, keep array structure
+          if (!acc[productId].product_360[type]) {
+            acc[productId].product_360[type] = []
+          }
+
+          // Check if this product_360_id is not already added
+          const exists = acc[productId].product_360[type]
+            .find((p) => p.product_360_id === curr.product_360_id)
+          if (!exists) {
+            acc[productId].product_360[type].push({
+              product_360_id: curr.product_360_id,
+              product_360_image: curr.product_360_image
+            })
+          }
+        } else {
+          // For other types, store as single object
+          acc[productId].product_360[type] = {
             product_360_image: curr.product_360_image
-          })
+          }
         }
       }
 
