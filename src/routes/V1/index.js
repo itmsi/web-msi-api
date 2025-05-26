@@ -41,6 +41,7 @@ const voucher = require('../../modules/voucher')
 const downloadFlayerProduct = require('../../modules/download_flayer_product')
 const consultation = require('../../modules/consultation')
 const memberVoucher = require('../../modules/member_voucher')
+const publicMemberVoucher = require('../../modules/public_member_voucher')
 const publicVoucher = require('../../modules/public_voucher')
 
 const routing = express();
@@ -64,7 +65,7 @@ routing.use(`${API_TAG}/download-flayer-product`, downloadFlayerProduct)
 routing.use(`${API_TAG}/public/download-flayer-product`, downloadFlayerProduct)
 routing.use(`${API_TAG}/consultation`, consultation)
 routing.use(`${API_TAG}/public/consultation`, consultation)
-routing.use(`${API_TAG}/public/member-voucher`, verifyTokenCustomer, memberVoucher)
+routing.use(`${API_TAG}/public/member-voucher`, verifyTokenCustomer, publicMemberVoucher)
 routing.use(`${API_TAG}/public/voucher`, verifyTokenCustomer, publicVoucher)
 
 // need token verify register here

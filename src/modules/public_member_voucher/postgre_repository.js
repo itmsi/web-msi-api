@@ -11,20 +11,21 @@ const {
 const { lang } = require('../../lang')
 
 const TABLE = 'member_vouchers'
-const VOUCHER_TABLE = 'mst_voucher'
-const MEMBER_TABLE = 'mst_customer'
 const COLUMN_ALL = [
   `${TABLE}.member_voucher_id`, `${TABLE}.member_id`, `${TABLE}.voucher_id`,
   `${TABLE}.expired_date`, `${TABLE}.status_approve`, `${TABLE}.description`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
-  `${TABLE}.deleted_at`, `${TABLE}.deleted_by`,
-  `${VOUCHER_TABLE}.voucher_id`, `${VOUCHER_TABLE}.voucher_code`, `${VOUCHER_TABLE}.voucher_name`,
-  `${VOUCHER_TABLE}.discount_amount`, `${VOUCHER_TABLE}.expiry_date`,
-  `${MEMBER_TABLE}.first_name`, `${MEMBER_TABLE}.last_name`, `${MEMBER_TABLE}.customer_no`
+  `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
 
-const DEFAULT_SORT = [COLUMN_ALL[0], 'DESC']
+const COLUMN = [
+  `${TABLE}.member_voucher_id`, `${TABLE}.member_id`, `${TABLE}.voucher_id`,
+  `${TABLE}.expired_date`, `${TABLE}.status_approve`, `${TABLE}.description`,
+  `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
+  `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
+]
 
+const DEFAULT_SORT = [COLUMN[0], 'DESC']
 const condition = (builder, where, search = null) => {
   builder.where(`${TABLE}.deleted_at`, null)
 
@@ -41,10 +42,8 @@ const condition = (builder, where, search = null) => {
   }
 
   if (search) {
-    builder.where(function () {
-      this.whereILike(`${TABLE}.member_id`, `%${search}%`)
-        .orWhereILike(`${TABLE}.voucher_id`, `%${search}%`)
-    })
+    builder.whereILike(`${TABLE}.member_id`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.orWhereILike(`${TABLE}.voucher_id`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
   }
 
   return builder
@@ -52,8 +51,6 @@ const condition = (builder, where, search = null) => {
 
 const sql = (where, search = false) => {
   let query = pgCore(TABLE)
-  query = query.leftJoin(VOUCHER_TABLE, `${TABLE}.voucher_id`, `${VOUCHER_TABLE}.voucher_id`)
-  query = query.leftJoin(MEMBER_TABLE, `${TABLE}.member_id`, `${MEMBER_TABLE}.customer_id`)
 
   if (where != null) {
     query = query.where((builder) => {
@@ -73,7 +70,7 @@ const create = async (payload) => {
   const transaction = await pgCore.transaction();
 
   try {
-    const result = await Repo.insert(TABLE, payload, COLUMN_ALL[0])
+    const result = await Repo.insert(TABLE, payload, COLUMN[0])
 
     if (!result) {
       transaction.rollback();
@@ -95,7 +92,7 @@ const create = async (payload) => {
  * @param {*} filter
  * @return {*}
  */
-const get = async (where, filter, column = COLUMN_ALL) => {
+const get = async (where, filter, column = COLUMN) => {
   try {
     const result = await sql(where, filter.search).clone()
       .select(column)
@@ -123,7 +120,7 @@ const get = async (where, filter, column = COLUMN_ALL) => {
  */
 const getByParam = async (where, column = COLUMN_ALL) => {
   try {
-    const [rows] = await sql(where).clone()
+    const [rows] = await sql(null).clone()
       .select(column)
       .where(`${TABLE}.${PRIMARY_KEY.MEMBER_VOUCHER}`, where?.[PRIMARY_KEY.MEMBER_VOUCHER])
     if (rows) {
@@ -143,15 +140,12 @@ const getByParam = async (where, column = COLUMN_ALL) => {
  * @return {*}
  */
 const update = async (where, payload, name = '') => {
-  const transaction = await pgCore.transaction();
-
   try {
     let { message, result } = ['', '']
     where[`${TABLE}.deleted_at`] = null
-
     if (payload.type_method === 'update') {
       message = lang.__('updated.success', { id: where?.[PRIMARY_KEY.MEMBER_VOUCHER] })
-      result = await Repo.updated(TABLE, where, payload, COLUMN_ALL[0], name)
+      result = await Repo.updated(TABLE, where, payload, COLUMN[0], name)
     } else {
       const format = todayFormat('YYYYMMDDhmmss')
       message = lang.__('archive.success', { id: where?.[PRIMARY_KEY.MEMBER_VOUCHER] })
@@ -160,19 +154,13 @@ const update = async (where, payload, name = '') => {
         payload.description = `archived-${format}-${rows.description}`
       }
     }
-
     delete payload?.type_method
     result = await pgCore(TABLE).where(where).update(payload).returning(['member_voucher_id'])
-
     if (result) {
-      await transaction.commit();
       return mappingSuccess(message, result)
     }
-
-    await transaction.rollback();
     return mappingSuccess(lang.__('not.found.id', { id: where?.[PRIMARY_KEY.MEMBER_VOUCHER] }), result)
   } catch (error) {
-    await transaction.rollback();
     error.path = __filename
     return mappingError(error)
   }
@@ -183,7 +171,7 @@ module.exports = {
   get,
   update,
   getByParam,
-  COLUMN: COLUMN_ALL,
+  COLUMN,
   DEFAULT_SORT,
   TABLE
 }

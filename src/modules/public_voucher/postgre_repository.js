@@ -8,15 +8,25 @@ const { lang } = require('../../lang')
 
 const TABLE = 'mst_voucher'
 const COLUMN_DEFAULT = [
-  `${TABLE}.voucher_id`, `${TABLE}.voucher_code`, `${TABLE}.voucher_name`, `${TABLE}.voucher_description`,
-  `${TABLE}.discount_amount`, `${TABLE}.expired_date`
+  `${TABLE}.voucher_id`,
+  `${TABLE}.voucher_code`,
+  `${TABLE}.voucher_name`,
+  `${TABLE}.voucher_description`,
+  `${TABLE}.discount_amount`,
+  `${TABLE}.expiry_date`,
+  `${TABLE}.created_at`,
+  `${TABLE}.created_by`,
+  `${TABLE}.updated_at`,
+  `${TABLE}.updated_by`,
+  `${TABLE}.deleted_at`,
+  `${TABLE}.deleted_by`
 ]
 
 const DEFAULT_SORT = [`${TABLE}.voucher_id`, 'DESC']
 
-const condition = (builder, where, search = null) => {
+const condition = (builder, where) => {
   builder.where(`${TABLE}.deleted_at`, null)
-  builder.where(`${TABLE}.expired_date`, '>=', new Date())
+  builder.where(`${TABLE}.expiry_date`, '>=', new Date())
 
   if (where?.voucher_id) {
     builder.where(`${TABLE}.voucher_id`, where.voucher_id)
@@ -25,12 +35,12 @@ const condition = (builder, where, search = null) => {
   return builder
 }
 
-const sql = (where, search = false) => {
+const sql = (where) => {
   let query = pgCore(TABLE)
 
   if (where != null) {
     query = query.where((builder) => {
-      condition(builder, where, search)
+      condition(builder, where)
     })
   }
 
@@ -39,13 +49,13 @@ const sql = (where, search = false) => {
 
 const get = async (where, filter, column = COLUMN_DEFAULT) => {
   try {
-    const result = await sql(where, filter.search).clone()
+    const result = await sql(where).clone()
       .select(column)
       .orderBy(`${filter.direction}`, filter.order)
       .limit(filter.limit)
       .offset(((filter.page - 1) * filter.limit))
 
-    const [rows] = await sql(where, filter.search).clone().count(column[0])
+    const [rows] = await sql(where).clone().count(column[0])
 
     return mappingSuccessPagination(lang.__('get.success'), {
       result: manipulateDate(result),
