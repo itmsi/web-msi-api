@@ -1,5 +1,6 @@
 const { pgCore } = require('../../config/database')
 const Repo = require('../../repository/postgres/core_postgres')
+const { publishToRabbitMqQueueSingle } = require('../../config/rabbitmq')
 const {
   mappingSuccess,
   mappingError,
@@ -9,6 +10,7 @@ const {
   MODEL_PROPERTIES: { PRIMARY_KEY }
 } = require('../../utils')
 const { lang } = require('../../lang')
+const { VOUCHER_QUEUE, VOUCHER_EXCHANGE } = require('./consumer')
 
 const TABLE = 'member_vouchers'
 const VOUCHER_TABLE = 'mst_voucher'
@@ -73,17 +75,17 @@ const create = async (payload) => {
   const transaction = await pgCore.transaction();
 
   try {
-    const result = await Repo.insert(TABLE, payload, COLUMN_ALL[0])
+    const result = await Repo.insert(TABLE, payload, COLUMN_ALL[0], transaction)
 
     if (!result) {
-      transaction.rollback();
+      await transaction.rollback();
       return mappingSuccess(lang.__('created.failed'), null, 200, false)
     }
 
-    transaction.commit();
+    await transaction.commit();
     return mappingSuccess(lang.__('created.success'), result)
   } catch (error) {
-    transaction.rollback();
+    await transaction.rollback();
     error.path = __filename
     return mappingError(error)
   }
@@ -146,12 +148,66 @@ const update = async (where, payload, name = '') => {
   const transaction = await pgCore.transaction();
 
   try {
-    let { message, result } = ['', '']
+    let message = ''
     where[`${TABLE}.deleted_at`] = null
 
-    if (payload.type_method === 'update') {
-      message = lang.__('updated.success', { id: where?.[PRIMARY_KEY.MEMBER_VOUCHER] })
-      result = await Repo.updated(TABLE, where, payload, COLUMN_ALL[0], name)
+    const typeMethod = payload.type_method
+    delete payload.type_method
+
+    if (typeMethod === 'update') {
+      message = lang.__('updated.success', { id: where?.member_voucher_id })
+      const result = await Repo.updated(TABLE, where, payload, COLUMN_ALL[0], name, transaction)
+
+      if (result) {
+        if (payload.status_approve === 1) {
+          // First check if the member_voucher exists
+          const member_voucher = await pgCore(TABLE)
+            .select('*')
+            .where('member_voucher_id', where.member_voucher_id)
+            .first();
+
+          if (!member_voucher) {
+            throw new Error(`Member voucher with ID ${where.member_voucher_id} not found`);
+          }
+
+          const voucher = await pgCore(VOUCHER_TABLE)
+            .select('*')
+            .where('voucher_id', member_voucher.voucher_id)
+            .first();
+
+          if (!voucher) {
+            throw new Error(`Voucher with ID ${member_voucher.voucher_id} not found`);
+          }
+
+          const member = await pgCore(MEMBER_TABLE)
+            .select('*')
+            .where('customer_id', member_voucher.member_id)
+            .first();
+
+          if (!member) {
+            throw new Error(`Member with ID ${member_voucher.member_id} not found`);
+          }
+
+          const publishPayload = {
+            ...member_voucher,
+            voucher_name: voucher.voucher_name,
+            voucher_code: voucher.voucher_code,
+            expiry_date: voucher.expiry_date,
+            customer_no: member.customer_no,
+            first_name: member.first_name,
+            last_name: member.last_name,
+            email: member.email
+          }
+
+          // Publish message to RabbitMQ
+          publishToRabbitMqQueueSingle(VOUCHER_EXCHANGE, VOUCHER_QUEUE, {
+            type: 'APPROVE_VOUCHER',
+            data: publishPayload
+          });
+        }
+        await transaction.commit();
+        return mappingSuccess(message, result)
+      }
     } else {
       const format = todayFormat('YYYYMMDDhmmss')
       message = lang.__('archive.success', { id: where?.[PRIMARY_KEY.MEMBER_VOUCHER] })
@@ -159,18 +215,17 @@ const update = async (where, payload, name = '') => {
       if (rows) {
         payload.description = `archived-${format}-${rows.description}`
       }
-    }
 
-    delete payload?.type_method
-    result = await pgCore(TABLE).where(where).update(payload).returning(['member_voucher_id'])
+      const result = await pgCore(TABLE).where(where).update(payload).returning(['member_voucher_id'])
 
-    if (result) {
-      await transaction.commit();
-      return mappingSuccess(message, result)
+      if (result) {
+        await transaction.commit();
+        return mappingSuccess(message, result)
+      }
     }
 
     await transaction.rollback();
-    return mappingSuccess(lang.__('not.found.id', { id: where?.[PRIMARY_KEY.MEMBER_VOUCHER] }), result)
+    return mappingSuccess(lang.__('not.found.id', { id: where?.[PRIMARY_KEY.MEMBER_VOUCHER] }), null)
   } catch (error) {
     await transaction.rollback();
     error.path = __filename
