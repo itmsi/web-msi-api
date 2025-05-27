@@ -8,7 +8,8 @@
     "dev": "nodemon src/server.js",
     "migrate": "knex --knexfile src/knexfile.js migrate:latest",
     "consumer": "node src/scripts/start-consumer.js",
-    "consumer-career": "node src/scripts/start-consumer-career.js"
+    "consumer-career": "node src/scripts/start-consumer-career.js",
+    "consumer-voucher": "node src/scripts/start-consumer-voucher.js"
   },
   "repository": {
     "type": "git",
@@ -48,6 +49,7 @@
     "nodemailer": "^6.7.7",
     "pdfmake": "^0.2.6",
     "pg": "^8.7.3",
+    "qrcode": "^1.5.4",
     "sharp": "^0.32.6",
     "swagger-ui-express": "^4.4.0",
     "xss-clean": "^0.1.1"
