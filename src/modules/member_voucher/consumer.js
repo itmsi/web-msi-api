@@ -171,7 +171,6 @@ const processApproveVoucherMessage = async (data) => {
     <body>
       <div class="container">
         <div class="header">
-          <img src="data:image/png;base64,${LOGO_BASE64}" alt="Motor Sights International Logo" class="logo" style="max-width: 200px; height: auto; display: block; margin: 0 auto 10px auto;">
           <h2>🎉 Congratulations!</h2>
           <p class="subtitle">You've been selected as a winner!</p>
         </div>
@@ -187,9 +186,6 @@ const processApproveVoucherMessage = async (data) => {
         </div>
 
         <div class="qr-container">
-          <div class="qr-code">
-            <img src="data:image/png;base64,${qrCodeBase64}" alt="Voucher QR Code" style="width: 300px; height: 300px;" />
-          </div>
           <div class="voucher-code">
             <strong>Voucher Code:</strong> ${data.voucher_code}
           </div>
@@ -198,8 +194,7 @@ const processApproveVoucherMessage = async (data) => {
         <div class="instructions">
           <h3>How to Redeem Your Voucher</h3>
           <ul>
-            <li>📱 <strong>Scan the QR Code:</strong> Present the QR code above when making your payment for instant redemption</li>
-            <li>📧 <strong>Show Email:</strong> Alternatively, you can show this email with the voucher code</li>
+            <li>📧 <strong>Show Email:</strong> you can show this email with the voucher code</li>
             <li>⏰ <strong>Valid Until:</strong> Please use your voucher before the expiration date</li>
           </ul>
         </div>
@@ -209,7 +204,7 @@ const processApproveVoucherMessage = async (data) => {
         <div class="footer">
           <p>This is an automated message. Please do not reply directly to this email.</p>
           <p>For security reasons, please do not share your voucher code or QR code with others.</p>
-          <p>© ${new Date().getFullYear()} Your Company Name. All rights reserved.</p>
+          <p>© ${new Date().getFullYear()} Motor Sights International. All rights reserved.</p>
         </div>
       </div>
     </body>
