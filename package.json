@@ -9,7 +9,8 @@
     "migrate": "knex --knexfile src/knexfile.js migrate:latest",
     "consumer": "node src/scripts/start-consumer.js",
     "consumer-career": "node src/scripts/start-consumer-career.js",
-    "consumer-voucher": "node src/scripts/start-consumer-voucher.js"
+    "consumer-voucher": "node src/scripts/start-consumer-voucher.js",
+    "consumer-claim-voucher": "node src/scripts/start-consumer-claim-voucher.js"
   },
   "repository": {
     "type": "git",
