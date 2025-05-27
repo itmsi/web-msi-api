@@ -15,6 +15,18 @@ const processMemberVoucherMessage = async (data) => {
       throw new Error('Invalid message data: missing required fields');
     }
 
+    // Check for existing member voucher
+    const existingVoucher = await transaction(TABLE)
+      .where({
+        member_id: data.member_id,
+        voucher_id: data.voucher_id
+      })
+      .first();
+
+    if (existingVoucher) {
+      throw new Error('Member already has this voucher');
+    }
+
     // Insert member voucher into database using transaction
     const [result] = await transaction(TABLE)
       .insert({
