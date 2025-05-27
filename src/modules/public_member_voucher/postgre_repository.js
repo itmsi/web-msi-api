@@ -1,5 +1,6 @@
 const { pgCore } = require('../../config/database')
 const Repo = require('../../repository/postgres/core_postgres')
+const { publishToRabbitMqQueueSingle } = require('../../config/rabbitmq')
 const {
   mappingSuccess,
   mappingError,
@@ -9,8 +10,10 @@ const {
   MODEL_PROPERTIES: { PRIMARY_KEY }
 } = require('../../utils')
 const { lang } = require('../../lang')
+const { MEMBER_VOUCHER_QUEUE, MEMBER_VOUCHER_EXCHANGE } = require('./consumer')
 
 const TABLE = 'member_vouchers'
+
 const COLUMN_ALL = [
   `${TABLE}.member_voucher_id`, `${TABLE}.member_id`, `${TABLE}.voucher_id`,
   `${TABLE}.expired_date`, `${TABLE}.status_approve`, `${TABLE}.description`,
@@ -67,20 +70,24 @@ const sql = (where, search = false) => {
  * @return {*}
  */
 const create = async (payload) => {
-  const transaction = await pgCore.transaction();
-
   try {
-    const result = await Repo.insert(TABLE, payload, COLUMN[0])
-
-    if (!result) {
-      transaction.rollback();
-      return mappingSuccess(lang.__('created.failed'), null, 200, false)
+    // Publish to RabbitMQ for async processing
+    const rabbitMQPayload = {
+      data: payload,
+      action: {
+        type: 'CREATE',
+        process: 'MEMBER_VOUCHER'
+      }
     }
 
-    transaction.commit();
-    return mappingSuccess(lang.__('created.success'), result)
+    await publishToRabbitMqQueueSingle(
+      MEMBER_VOUCHER_EXCHANGE,
+      MEMBER_VOUCHER_QUEUE,
+      rabbitMQPayload
+    )
+
+    return mappingSuccess(lang.__('created.success'), { message: 'Request queued for processing' })
   } catch (error) {
-    transaction.rollback();
     error.path = __filename
     return mappingError(error)
   }
@@ -173,5 +180,7 @@ module.exports = {
   getByParam,
   COLUMN,
   DEFAULT_SORT,
-  TABLE
+  TABLE,
+  MEMBER_VOUCHER_QUEUE,
+  MEMBER_VOUCHER_EXCHANGE
 }
