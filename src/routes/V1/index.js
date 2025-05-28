@@ -43,6 +43,7 @@ const consultation = require('../../modules/consultation')
 const memberVoucher = require('../../modules/member_voucher')
 const publicMemberVoucher = require('../../modules/public_member_voucher')
 const publicVoucher = require('../../modules/public_voucher')
+const specificationProduct = require('../../modules/specification_product')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -98,4 +99,5 @@ routing.use(`${API_TAG}/product-360`, verifyToken, product360)
 routing.use(`${API_TAG}/customer`, verifyToken, customer)
 routing.use(`${API_TAG}/voucher`, verifyToken, voucher)
 routing.use(`${API_TAG}/member-voucher`, verifyToken, memberVoucher)
+routing.use(`${API_TAG}/specification-product`, verifyToken, specificationProduct)
 module.exports = routing;

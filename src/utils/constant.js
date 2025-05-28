@@ -169,7 +169,10 @@ module.exports = {
       VOUCHER: 'mst_voucher',
       DATA_DOWNLOAD_FLYER_PRODUK: 'data_download_flayer_produk',
       CONSULTATION: 'mst_consultation',
-      MEMBER_VOUCHER: 'member_vouchers'
+      MEMBER_VOUCHER: 'member_vouchers',
+      SPECIFICATION_PRODUCT: 'mst_specification_product',
+      SPECIFICATION_LABEL: 'mst_specification_label',
+      SPECIFICATION_VALUE: 'mst_specification_value'
     },
     PRIMARY_KEY: {
       JENIS_AKUN: 'jenis_akun_id',
@@ -279,7 +282,10 @@ module.exports = {
       VOUCHER: 'voucher_id',
       DATA_DOWNLOAD_FLYER_PRODUK: 'data_download_flayer_produk_id',
       CONSULTATION: 'consultation_id',
-      MEMBER_VOUCHER: 'member_voucher_id'
+      MEMBER_VOUCHER: 'member_voucher_id',
+      SPECIFICATION_PRODUCT: 'specification_product_id',
+      SPECIFICATION_LABEL: 'specification_label_id',
+      SPECIFICATION_VALUE: 'specification_value_id'
     }
   },
   FILE_DESCRIPTION: [
