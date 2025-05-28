@@ -1,0 +1,72 @@
+{
+	"SchemaResponseSpecificationProductValue": {
+		"type": "object",
+		"properties": {
+			"specification_value_id": {
+				"type": "string"
+			},
+			"specification_label_id": {
+				"type": "string"
+			},
+			"product_id": {
+				"type": "string"
+			},
+			"specification_value_name": {
+				"type": "string"
+			},
+			"specification_label_name": {
+				"type": "string"
+			},
+			"product_name": {
+				"type": "string"
+			},
+			"specification_id": {
+				"type": "string"
+			},
+			"specification_name": {
+				"type": "string"
+			},
+			"description": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostSpecificationProductValue": {
+		"type": "object",
+		"properties": {
+			"product_id": {
+				"type": "string"
+			},
+			"specification_label_id": {
+				"type": "string"
+			},
+			"specification_value_name": {
+				"type": "string"
+			},
+			"description": {
+				"type": "string"
+			}
+		}
+	}
+}

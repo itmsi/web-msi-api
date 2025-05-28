@@ -39,6 +39,10 @@ const downloadFlayerProduct = require('./download_flayer.json')
 const consultation = require('./consultation.json')
 const memberVoucher = require('./member_voucher.json')
 const publicMemberVoucher = require('./public_member_voucher.json')
+const specificationProduct = require('./specification_product.json')
+const specificationProductLabel = require('./specification_product_label.json')
+const specificationProductValue = require('./specification_product_value.json')
+const publicSpecification = require('./public_specification.json')
 
 module.exports = {
   ...auth,
@@ -81,5 +85,9 @@ module.exports = {
   ...downloadFlayerProduct,
   ...consultation,
   ...memberVoucher,
-  ...publicMemberVoucher
+  ...publicMemberVoucher,
+  ...specificationProduct,
+  ...specificationProductLabel,
+  ...specificationProductValue,
+  ...publicSpecification
 }

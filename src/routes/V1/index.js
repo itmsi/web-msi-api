@@ -43,6 +43,10 @@ const consultation = require('../../modules/consultation')
 const memberVoucher = require('../../modules/member_voucher')
 const publicMemberVoucher = require('../../modules/public_member_voucher')
 const publicVoucher = require('../../modules/public_voucher')
+const specificationProduct = require('../../modules/specification_product')
+const specificationProductLabel = require('../../modules/specification_product_label')
+const specificationProductValue = require('../../modules/specification_product_value')
+const publicSpecification = require('../../modules/public_specification')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -67,6 +71,7 @@ routing.use(`${API_TAG}/consultation`, consultation)
 routing.use(`${API_TAG}/public/consultation`, consultation)
 routing.use(`${API_TAG}/public/member-voucher`, verifyTokenCustomer, publicMemberVoucher)
 routing.use(`${API_TAG}/public/voucher`, verifyTokenCustomer, publicVoucher)
+routing.use(`${API_TAG}/public/specification`, publicSpecification)
 
 // need token verify register here
 routing.use(`${API_TAG}/admin-menu`, verifyToken, adminMenu)
@@ -98,4 +103,8 @@ routing.use(`${API_TAG}/product-360`, verifyToken, product360)
 routing.use(`${API_TAG}/customer`, verifyToken, customer)
 routing.use(`${API_TAG}/voucher`, verifyToken, voucher)
 routing.use(`${API_TAG}/member-voucher`, verifyToken, memberVoucher)
+routing.use(`${API_TAG}/specification-product`, verifyToken, specificationProduct)
+routing.use(`${API_TAG}/specification-product-label`, verifyToken, specificationProductLabel)
+routing.use(`${API_TAG}/specification-product-value`, verifyToken, specificationProductValue)
+
 module.exports = routing;
