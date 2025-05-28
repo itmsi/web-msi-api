@@ -26,6 +26,10 @@ const condition = (builder, where, search = null) => {
     builder.where(`${TABLE}.specification_id`, where.specification_id)
   }
 
+  if (where?.slug_product) {
+    builder.where(`${TABLE_PRODUCT}.slug_product`, where.slug_product)
+  }
+
   if (search) {
     switch (where?.language) {
       case 'id':
