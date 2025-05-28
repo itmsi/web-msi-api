@@ -40,6 +40,7 @@ const consultation = require('./consultation.json')
 const memberVoucher = require('./member_voucher.json')
 const specificationProduct = require('./specification_product.json')
 const specificationProductLabel = require('./specification_product_label.json')
+const specificationProductValue = require('./specification_product_value.json')
 
 module.exports = {
   ...auth,
@@ -83,5 +84,6 @@ module.exports = {
   ...consultation,
   ...memberVoucher,
   ...specificationProduct,
-  ...specificationProductLabel
+  ...specificationProductLabel,
+  ...specificationProductValue
 }
