@@ -1,0 +1,19 @@
+{
+	"SchemaResponsePublicSpecification": {
+		"type": "object",
+		"properties": {
+			"specification_name": {
+				"type": "string"
+			},
+			"specification_label_name": {
+				"type": "string"
+			},
+			"specification_value_name": {
+				"type": "string"
+			},
+			"product_name_en": {
+				"type": "string"
+			}
+		}
+	}
+}
