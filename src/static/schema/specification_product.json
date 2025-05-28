@@ -2,7 +2,7 @@
 	"SchemaResponseSpecificationProduct": {
 		"type": "object",
 		"properties": {
-			"specification_product_id": {
+			"specification_id": {
 				"type": "string"
 			},
 			"specification_name": {

@@ -102,7 +102,7 @@
 			}
 		}
 	},
-	"/specification-product/{specification_product_id}": {
+	"/specification-product/{specification_id}": {
 		"get": {
 			"tags": [
 				"Specification Product"
@@ -115,7 +115,7 @@
 			"parameters": [
 				{
 					"in": "path",
-					"name": "specification_product_id",
+					"name": "specification_id",
 					"required": true,
 					"schema": {
 						"type": "string"
@@ -147,7 +147,7 @@
 			"parameters": [
 				{
 					"in": "path",
-					"name": "specification_product_id",
+					"name": "specification_id",
 					"required": true,
 					"schema": {
 						"type": "string"
@@ -189,7 +189,7 @@
 			"parameters": [
 				{
 					"in": "path",
-					"name": "specification_product_id",
+					"name": "specification_id",
 					"required": true,
 					"schema": {
 						"type": "string"
