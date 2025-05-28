@@ -58,6 +58,15 @@
 						"type": "string"
 					},
 					"description": "Language value is string with rule ex : ?language=id / ?language=en / ?language=cn"
+				},
+				{
+					"in": "query",
+					"name": "slug_product",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Slug product value is string with rule ex : ?slug_product=hitam"
 				}
 			],
 			"responses": {
