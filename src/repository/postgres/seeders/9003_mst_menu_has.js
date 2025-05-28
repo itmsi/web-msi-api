@@ -127,8 +127,5 @@ exports.seed = function (knex) {
       deleted_by: null
     }
   ]
-  return knex('mst_menu_has_permissions').del()
-    .then(() =>
-      // Inserts seed entries
-      knex('mst_menu_has_permissions').insert(data));
+  return knex('mst_menu_has_permissions').insert(data);
 };
