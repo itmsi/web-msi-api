@@ -283,7 +283,7 @@ module.exports = {
       DATA_DOWNLOAD_FLYER_PRODUK: 'data_download_flayer_produk_id',
       CONSULTATION: 'consultation_id',
       MEMBER_VOUCHER: 'member_voucher_id',
-      SPECIFICATION_PRODUCT: 'specification_product_id',
+      SPECIFICATION_PRODUCT: 'specification_id',
       SPECIFICATION_LABEL: 'specification_label_id',
       SPECIFICATION_VALUE: 'specification_value_id'
     }

@@ -42,11 +42,11 @@ const condition = (builder, where, search = null) => {
   }
 
   if (where.specification_label_id) {
-    builder.where(`${TABLE}.specification_label_id`, where.specification_label_id)
+    builder.where(`${TABLE_SPECIFICATION_LABEL}.specification_label_id`, where.specification_label_id)
   }
 
   if (where.specification_id) {
-    builder.where(`${TABLE}.specification_id`, where.specification_id)
+    builder.where(`${TABLE_SPECIFICATION}.specification_id`, where.specification_id)
   }
 
   if (search) {
@@ -149,26 +149,39 @@ const getByParam = async (where, column = COLUMN_ALL) => {
  * @param {*} payload
  * @return {*}
  */
-const update = async (where, payload, name = '') => {
+const update = async (where, payload) => {
   try {
     let { message, result } = ['', '']
     where[`${TABLE}.deleted_at`] = null
+
+    // Only include fields that exist in the table based on migration
+    const updatePayload = {
+      specification_value_name: payload.specification_value_name,
+      specification_label_id: payload.specification_label_id,
+      product_id: payload.product_id,
+      description: payload.description,
+      updated_at: payload.updated_at,
+      updated_by: payload.updated_by
+    }
+
     if (payload.type_method === 'update') {
       message = lang.__('updated.success', { id: where?.[PRIMARY_KEY.SPECIFICATION_VALUE] })
-      result = await Repo.updated(TABLE, where, payload, COLUMN[0], name)
     } else {
       const format = todayFormat('YYYYMMDDhmmss')
       message = lang.__('archive.success', { id: where?.[PRIMARY_KEY.SPECIFICATION_VALUE] })
       const [rows] = await pgCore(TABLE).select(['specification_value_name']).where(where)
       if (rows) {
-        payload.specification_value_name = `archived-${format}-${rows.specification_value_name}`
+        updatePayload.specification_value_name = `archived-${format}-${rows.specification_value_name}`
+        updatePayload.deleted_at = payload.deleted_at
+        updatePayload.deleted_by = payload.deleted_by
       }
     }
-    delete payload?.type_method
+
     result = await pgCore(TABLE)
       .where(where)
-      .update(payload)
+      .update(updatePayload)
       .returning([PRIMARY_KEY.SPECIFICATION_VALUE])
+
     if (result) {
       return mappingSuccess(message, result)
     }
