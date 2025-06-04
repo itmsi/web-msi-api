@@ -50,6 +50,8 @@ const publicLocationArea = require('./public_location_area.json')
 const publicReligion = require('./public_religion.json')
 const publicMaritalStatus = require('./public_marital_status.json')
 const publicDegree = require('./public_degree.json')
+const publicProvince = require('./public_province.json')
+const publicCity = require('./public_city.json')
 
 module.exports = {
   ...auth,
@@ -103,5 +105,7 @@ module.exports = {
   ...publicLocationArea,
   ...publicReligion,
   ...publicMaritalStatus,
-  ...publicDegree
+  ...publicDegree,
+  ...publicProvince,
+  ...publicCity
 }
