@@ -67,8 +67,22 @@ const get = async (where, filter, column = COLUMN) => {
 
     const [rows] = await sql(where, filter.search).clone().count(column[0])
 
+    // Transform result to add slug_career
+    const transformedResult = manipulateDate(result).map((item) => ({
+      ...item,
+      slug_career: [
+        item.job_career_name,
+        item.departement_name,
+        item.location_name
+      ]
+        .filter(Boolean) // Remove null/undefined values
+        .join(' ')
+        .toLowerCase()
+        .replace(/\s+/g, '-') // Replace spaces with hyphens
+    }))
+
     return mappingSuccessPagination(lang.__('get.success'), {
-      result: manipulateDate(result),
+      result: transformedResult,
       count: rows?.count
     })
   } catch (error) {
