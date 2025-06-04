@@ -1,0 +1,156 @@
+{
+	"SchemaResponsePublicCareerApply": {
+		"type": "object",
+		"properties": {
+			"career_apply_id": {
+				"type": "string"
+			},
+			"career_apply_name": {
+				"type": "string"
+			},
+			"career_apply_nik": {
+				"type": "string"
+			},
+			"career_apply_email": {
+				"type": "string"
+			},
+			"career_apply_phone": {
+				"type": "string"
+			},
+			"career_apply_gender": {
+				"type": "string"
+			},
+			"career_apply_street": {
+				"type": "string"
+			},
+			"career_apply_university": {
+				"type": "string"
+			},
+			"career_apply_faculty": {
+				"type": "string"
+			},
+			"career_apply_gpa": {
+				"type": "string"
+			},
+			"career_apply_graduation_date": {
+				"type": "string"
+			},
+			"career_apply_cv": {
+				"type": "string"
+			},
+			"career_apply_description": {
+				"type": "string"
+			},
+			"departement_id": {
+				"type": "string"
+			},
+			"job_career_id": {
+				"type": "string"
+			},
+			"location_area_id": {
+				"type": "string"
+			},
+			"religion_id": {
+				"type": "string"
+			},
+			"marital_status_id": {
+				"type": "string"
+			},
+			"degree_id": {
+				"type": "string"
+			},
+			"province_id": {
+				"type": "string"
+			},
+			"city_id": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostPublicCareerApply": {
+		"type": "object",
+		"properties": {
+			"career_apply_name": {
+				"type": "string"
+			},
+			"career_apply_nik": {
+				"type": "string"
+			},
+			"career_apply_email": {
+				"type": "string"
+			},
+			"career_apply_phone": {
+				"type": "string"
+			},
+			"career_apply_gender": {
+				"type": "string"
+			},
+			"career_apply_street": {
+				"type": "string"
+			},
+			"career_apply_university": {
+				"type": "string"
+			},
+			"career_apply_faculty": {
+				"type": "string"
+			},
+			"career_apply_gpa": {
+				"type": "string"
+			},
+			"career_apply_graduation_date": {
+				"type": "string"
+			},
+			"career_apply_cv": {
+				"type": "string"
+			},
+			"career_apply_description": {
+				"type": "string"
+			},
+			"departement_id": {
+				"type": "string"
+			},
+			"job_career_id": {
+				"type": "string"
+			},
+			"location_area_id": {
+				"type": "string"
+			},
+			"religion_id": {
+				"type": "string"
+			},
+			"marital_status_id": {
+				"type": "string"
+			},
+			"degree_id": {
+				"type": "string"
+			},
+			"province_id": {
+				"type": "string"
+			},
+			"city_id": {
+				"type": "string"
+			}
+		}
+	}
+}

@@ -1,8 +1,8 @@
 {
-	"/public/job-career": {
+	"/public/departement": {
 		"get": {
 			"tags": [
-				"Job Career"
+				"Departement"
 			],
 			"parameters": [
 				{
@@ -49,17 +49,7 @@
 						"type": "string"
 					},
 					"description": "Search value is string with rule ex : ?search=Hitam"
-				},
-				{
-					"in": "query",
-					"name": "slug",
-					"required": false,
-					"schema": {
-						"type": "string"
-					},
-					"description": "Job Career Type value is string with rule ex : ?job_career_type=360"
 				}
-
 			],
 			"responses": {
 				"200": {

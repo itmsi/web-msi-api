@@ -48,6 +48,14 @@ const specificationProductLabel = require('../../modules/specification_product_l
 const specificationProductValue = require('../../modules/specification_product_value')
 const publicSpecification = require('../../modules/public_specification')
 const publicJobCareer = require('../../modules/public_job_career')
+const publicCareerApply = require('../../modules/public_career_apply')
+const publicDepartement = require('../../modules/public_departement')
+const publicLocationArea = require('../../modules/public_location_area')
+const publicReligion = require('../../modules/public_religion')
+const publicMaritalStatus = require('../../modules/public_marital_status')
+const publicDegree = require('../../modules/public_degree')
+const publicProvince = require('../../modules/public_province')
+const publicCity = require('../../modules/public_city')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -74,6 +82,14 @@ routing.use(`${API_TAG}/public/member-voucher`, verifyTokenCustomer, publicMembe
 routing.use(`${API_TAG}/public/voucher`, verifyTokenCustomer, publicVoucher)
 routing.use(`${API_TAG}/public/specification`, publicSpecification)
 routing.use(`${API_TAG}/public/job-career`, publicJobCareer)
+routing.use(`${API_TAG}/public/career-apply`, publicCareerApply)
+routing.use(`${API_TAG}/public/departement`, publicDepartement)
+routing.use(`${API_TAG}/public/location-area`, publicLocationArea)
+routing.use(`${API_TAG}/public/religion`, publicReligion)
+routing.use(`${API_TAG}/public/marital-status`, publicMaritalStatus)
+routing.use(`${API_TAG}/public/degree`, publicDegree)
+routing.use(`${API_TAG}/public/province`, publicProvince)
+routing.use(`${API_TAG}/public/city`, publicCity)
 
 // need token verify register here
 routing.use(`${API_TAG}/admin-menu`, verifyToken, adminMenu)

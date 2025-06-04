@@ -1,0 +1,31 @@
+{
+	"/public/career-apply": {
+		"post": {
+			"tags": [
+				"Career Apply"
+			],
+			"requestBody": {
+				"required": false,
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/SchemaPostPublicCareerApply"
+						}
+					}
+				}
+			},
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
