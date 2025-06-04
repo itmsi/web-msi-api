@@ -43,6 +43,7 @@ const specificationProduct = require('./specification_product.json')
 const specificationProductLabel = require('./specification_product_label.json')
 const specificationProductValue = require('./specification_product_value.json')
 const publicSpecification = require('./public_specification.json')
+const publicJobCareer = require('./public_job_career.json')
 
 module.exports = {
   ...auth,
@@ -89,5 +90,6 @@ module.exports = {
   ...specificationProduct,
   ...specificationProductLabel,
   ...specificationProductValue,
-  ...publicSpecification
+  ...publicSpecification,
+  ...publicJobCareer
 }
