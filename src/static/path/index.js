@@ -48,6 +48,7 @@ const publicCareerApply = require('./public_career_apply.json')
 const publicDepartement = require('./public_departement.json')
 const publicLocationArea = require('./public_location_area.json')
 const publicReligion = require('./public_religion.json')
+const publicMaritalStatus = require('./public_marital_status.json')
 
 module.exports = {
   ...auth,
@@ -99,5 +100,6 @@ module.exports = {
   ...publicCareerApply,
   ...publicDepartement,
   ...publicLocationArea,
-  ...publicReligion
+  ...publicReligion,
+  ...publicMaritalStatus
 }
