@@ -53,6 +53,7 @@ const publicDepartement = require('../../modules/public_departement')
 const publicLocationArea = require('../../modules/public_location_area')
 const publicReligion = require('../../modules/public_religion')
 const publicMaritalStatus = require('../../modules/public_marital_status')
+const publicDegree = require('../../modules/public_degree')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -84,6 +85,7 @@ routing.use(`${API_TAG}/public/departement`, publicDepartement)
 routing.use(`${API_TAG}/public/location-area`, publicLocationArea)
 routing.use(`${API_TAG}/public/religion`, publicReligion)
 routing.use(`${API_TAG}/public/marital-status`, publicMaritalStatus)
+routing.use(`${API_TAG}/public/degree`, publicDegree)
 
 // need token verify register here
 routing.use(`${API_TAG}/admin-menu`, verifyToken, adminMenu)
