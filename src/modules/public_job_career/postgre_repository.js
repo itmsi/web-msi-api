@@ -12,7 +12,7 @@ const LOCATION_TABLE = 'mst_location'
 
 const COLUMN = [
   `${TABLE}.job_career_id`, `${TABLE}.job_career_name`, `${TABLE}.job_career_description`,
-
+  `${TABLE}.slug`,
   `${TABLE}.departement_id`, `${TABLE}.location_id`, `${TABLE}.job_career_content`,
   `${TABLE}.created_at`,
   `${DEPARTMENT_TABLE}.departement_name`, `${LOCATION_TABLE}.location_name`
@@ -73,22 +73,8 @@ const get = async (where, filter, column = COLUMN) => {
 
     const [rows] = await sql(where, filter.search).clone().count(column[0])
 
-    // Transform result to add slug_career
-    const transformedResult = manipulateDate(result).map((item) => ({
-      ...item,
-      slug_career: [
-        item.job_career_name,
-        item.departement_name,
-        item.location_name
-      ]
-        .filter(Boolean) // Remove null/undefined values
-        .join(' ')
-        .toLowerCase()
-        .replace(/\s+/g, '-') // Replace spaces with hyphens
-    }))
-
     return mappingSuccessPagination(lang.__('get.success'), {
-      result: transformedResult,
+      result: manipulateDate(result),
       count: rows?.count
     })
   } catch (error) {
