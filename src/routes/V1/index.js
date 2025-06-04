@@ -51,6 +51,7 @@ const publicJobCareer = require('../../modules/public_job_career')
 const publicCareerApply = require('../../modules/public_career_apply')
 const publicDepartement = require('../../modules/public_departement')
 const publicLocationArea = require('../../modules/public_location_area')
+const publicReligion = require('../../modules/public_religion')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -80,6 +81,7 @@ routing.use(`${API_TAG}/public/job-career`, publicJobCareer)
 routing.use(`${API_TAG}/public/career-apply`, publicCareerApply)
 routing.use(`${API_TAG}/public/departement`, publicDepartement)
 routing.use(`${API_TAG}/public/location-area`, publicLocationArea)
+routing.use(`${API_TAG}/public/religion`, publicReligion)
 
 // need token verify register here
 routing.use(`${API_TAG}/admin-menu`, verifyToken, adminMenu)
