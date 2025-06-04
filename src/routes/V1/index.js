@@ -48,6 +48,8 @@ const specificationProductLabel = require('../../modules/specification_product_l
 const specificationProductValue = require('../../modules/specification_product_value')
 const publicSpecification = require('../../modules/public_specification')
 const publicJobCareer = require('../../modules/public_job_career')
+const publicCareerApply = require('../../modules/public_career_apply')
+const publicDepartement = require('../../modules/public_departement')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -74,6 +76,8 @@ routing.use(`${API_TAG}/public/member-voucher`, verifyTokenCustomer, publicMembe
 routing.use(`${API_TAG}/public/voucher`, verifyTokenCustomer, publicVoucher)
 routing.use(`${API_TAG}/public/specification`, publicSpecification)
 routing.use(`${API_TAG}/public/job-career`, publicJobCareer)
+routing.use(`${API_TAG}/public/career-apply`, publicCareerApply)
+routing.use(`${API_TAG}/public/departement`, publicDepartement)
 
 // need token verify register here
 routing.use(`${API_TAG}/admin-menu`, verifyToken, adminMenu)
