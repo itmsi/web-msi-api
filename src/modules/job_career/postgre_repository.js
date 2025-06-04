@@ -15,6 +15,7 @@ const DEPARTMENT_TABLE = 'mst_departement'
 const LOCATION_TABLE = 'mst_location'
 const COLUMN_ALL = [
   `${TABLE}.job_career_id`, `${TABLE}.job_career_name`, `${TABLE}.job_career_description`,
+  `${TABLE}.slug`,
   `${TABLE}.departement_id`, `${TABLE}.location_id`, `${TABLE}.job_career_content`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`,
@@ -23,6 +24,7 @@ const COLUMN_ALL = [
 
 const COLUMN = [
   `${TABLE}.job_career_id`, `${TABLE}.job_career_name`, `${TABLE}.job_career_description`,
+  `${TABLE}.slug`,
   `${TABLE}.departement_id`, `${TABLE}.location_id`, `${TABLE}.job_career_content`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`,

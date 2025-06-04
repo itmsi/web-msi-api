@@ -12,6 +12,7 @@ const LOCATION_TABLE = 'mst_location'
 
 const COLUMN = [
   `${TABLE}.job_career_id`, `${TABLE}.job_career_name`, `${TABLE}.job_career_description`,
+
   `${TABLE}.departement_id`, `${TABLE}.location_id`, `${TABLE}.job_career_content`,
   `${TABLE}.created_at`,
   `${DEPARTMENT_TABLE}.departement_name`, `${LOCATION_TABLE}.location_name`
@@ -28,9 +29,14 @@ const condition = (builder, where, search = null) => {
     builder.where(`${TABLE}.location_id`, where.location_id)
   }
 
+  if (where.slug) {
+    builder.where(`${TABLE}.slug`, where.slug)
+  }
+
   if (search) {
     builder.whereILike(`${TABLE}.job_career_name`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
-    builder.orWhereILike(`${TABLE}.job_career_description`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.orWhereILike(`${DEPARTMENT_TABLE}.departement_name`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
+    builder.orWhereILike(`${LOCATION_TABLE}.location_name`, `%${search}%`).andWhere(`${TABLE}.deleted_at`, null)
   }
 
   return builder
