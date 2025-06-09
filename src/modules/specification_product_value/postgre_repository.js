@@ -14,12 +14,16 @@ const TABLE = 'mst_specification_values'
 const TABLE_SPECIFICATION = 'mst_specifications'
 const TABLE_SPECIFICATION_LABEL = 'mst_specification_labels'
 const TABLE_PRODUCT = 'mst_product'
+const TABLE_PRODUCT_MODEL = 'mst_product_model'
+const TABLE_PRODUCT_DIMENSI = 'mst_product_dimensi'
 
 const COLUMN_ALL = [
   `${TABLE}.specification_value_id`, `${TABLE}.specification_value_name`,
   `${TABLE_SPECIFICATION}.specification_id`, `${TABLE_SPECIFICATION}.specification_name`,
   `${TABLE_SPECIFICATION_LABEL}.specification_label_id`, `${TABLE_SPECIFICATION_LABEL}.specification_label_name`,
   `${TABLE_PRODUCT}.product_id`, `${TABLE_PRODUCT}.product_name_en`,
+  `${TABLE_PRODUCT_MODEL}.product_model_id`, `${TABLE_PRODUCT_MODEL}.product_model_name`,
+  `${TABLE_PRODUCT_DIMENSI}.product_dimensi_id`, `${TABLE_PRODUCT_DIMENSI}.product_dimensi_value`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
@@ -29,6 +33,8 @@ const COLUMN = [
   `${TABLE_SPECIFICATION}.specification_id`, `${TABLE_SPECIFICATION}.specification_name`,
   `${TABLE_SPECIFICATION_LABEL}.specification_label_id`, `${TABLE_SPECIFICATION_LABEL}.specification_label_name`,
   `${TABLE_PRODUCT}.product_id`, `${TABLE_PRODUCT}.product_name_en`,
+  `${TABLE_PRODUCT_MODEL}.product_model_id`, `${TABLE_PRODUCT_MODEL}.product_model_name`,
+  `${TABLE_PRODUCT_DIMENSI}.product_dimensi_id`, `${TABLE_PRODUCT_DIMENSI}.product_dimensi_value`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
@@ -60,7 +66,9 @@ const sql = (where, search = false) => {
   let query = pgCore(TABLE)
     .leftJoin(TABLE_SPECIFICATION_LABEL, `${TABLE}.specification_label_id`, `${TABLE_SPECIFICATION_LABEL}.specification_label_id`)
     .leftJoin(TABLE_SPECIFICATION, `${TABLE_SPECIFICATION_LABEL}.specification_id`, `${TABLE_SPECIFICATION}.specification_id`)
-    .leftJoin(TABLE_PRODUCT, `${TABLE}.product_id`, `${TABLE_PRODUCT}.product_id`)
+    .leftJoin(TABLE_PRODUCT_DIMENSI, `${TABLE}.product_dimensi_id`, `${TABLE_PRODUCT_DIMENSI}.product_dimensi_id`)
+    .leftJoin(TABLE_PRODUCT_MODEL, `${TABLE_PRODUCT_DIMENSI}.product_model_id`, `${TABLE_PRODUCT_MODEL}.product_model_id`)
+    .leftJoin(TABLE_PRODUCT, `${TABLE_PRODUCT_MODEL}.product_id`, `${TABLE_PRODUCT}.product_id`)
 
   if (where != null) {
     query = query.where((builder) => {

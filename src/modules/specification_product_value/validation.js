@@ -10,11 +10,11 @@ const postValidation = [
     .withMessage(lang.__('validator.string', { field: 'Specification' }))
     .notEmpty()
     .withMessage(lang.__('validator.required', { field: 'Specification' })),
-  check('product_id')
+  check('product_dimensi_id')
     .isUUID(4)
-    .withMessage(lang.__('validator.string', { field: 'Product' }))
+    .withMessage(lang.__('validator.string', { field: 'Product Dimensi' }))
     .notEmpty()
-    .withMessage(lang.__('validator.required', { field: 'Product' })),
+    .withMessage(lang.__('validator.required', { field: 'Product Dimensi' })),
   check('specification_value_name')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'Specification Value' }))
@@ -28,9 +28,9 @@ const putValidation = [
     .isUUID(4)
     .withMessage(lang.__('validator.string', { field: 'Specification' }))
     .optional(),
-  check('product_id')
+  check('product_dimensi_id')
     .isUUID(4)
-    .withMessage(lang.__('validator.string', { field: 'Product' }))
+    .withMessage(lang.__('validator.string', { field: 'Product Dimensi' }))
     .optional(),
   check('specification_value_name')
     .isString()
