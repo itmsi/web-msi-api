@@ -166,7 +166,7 @@ const update = async (where, payload) => {
     const updatePayload = {
       specification_value_name: payload.specification_value_name,
       specification_label_id: payload.specification_label_id,
-      product_id: payload.product_id,
+      product_dimensi_id: payload.product_dimensi_id,
       description: payload.description,
       updated_at: payload.updated_at,
       updated_by: payload.updated_by
