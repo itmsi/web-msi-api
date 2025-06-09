@@ -20,6 +20,21 @@ const fetchPublic = async (req, res) => {
   return paginationResponsePublic(req, res, result)
 }
 
+const fetchAllPublic = async (req, res) => {
+  const where = req.query; // dynamicFilterJoin(req, repository.COLUMN)
+  const result = await repository.getAll(where)
+  return paginationResponsePublic(req, res, result)
+}
+
+const fetchRawPublic = async (req, res) => {
+  const where = req.query; // dynamicFilterJoin(req, repository.COLUMN)
+  const filter = paging(req, repository.DEFAULT_SORT)
+  const result = await repository.getRaw(where, filter)
+  return paginationResponsePublic(req, res, result)
+}
+
 module.exports = {
   fetchPublic,
+  fetchAllPublic,
+  fetchRawPublic,
 }
