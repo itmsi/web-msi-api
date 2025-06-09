@@ -15,6 +15,7 @@ const PRODUCT_TABLE = 'mst_product'
 
 const COLUMN_ALL = [
   `${TABLE}.product_model_id`, `${TABLE}.product_id`, `${TABLE}.product_model_name`, `${TABLE}.product_model_description`,
+  `${TABLE}.product_model_foto`,
   `${PRODUCT_TABLE}.product_name_id`, `${PRODUCT_TABLE}.product_name_en`, `${PRODUCT_TABLE}.product_name_cn`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
@@ -22,6 +23,7 @@ const COLUMN_ALL = [
 
 const COLUMN = [
   `${TABLE}.product_model_id`, `${TABLE}.product_id`, `${TABLE}.product_model_name`, `${TABLE}.product_model_description`,
+  `${TABLE}.product_model_foto`,
   `${PRODUCT_TABLE}.product_name_id`, `${PRODUCT_TABLE}.product_name_en`, `${PRODUCT_TABLE}.product_name_cn`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
