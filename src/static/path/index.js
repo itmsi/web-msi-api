@@ -53,6 +53,7 @@ const publicDegree = require('./public_degree.json')
 const publicProvince = require('./public_province.json')
 const publicCity = require('./public_city.json')
 const productModel = require('./product_model.json')
+const productDimensi = require('./product_dimensi.json')
 
 module.exports = {
   ...auth,
@@ -109,5 +110,6 @@ module.exports = {
   ...publicDegree,
   ...publicProvince,
   ...publicCity,
-  ...productModel
+  ...productModel,
+  ...productDimensi
 }

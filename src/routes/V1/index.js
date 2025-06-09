@@ -57,6 +57,7 @@ const publicDegree = require('../../modules/public_degree')
 const publicProvince = require('../../modules/public_province')
 const publicCity = require('../../modules/public_city')
 const productModel = require('../../modules/product_model')
+const productDimensi = require('../../modules/product_dimensi')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -126,5 +127,5 @@ routing.use(`${API_TAG}/specification-product`, verifyToken, specificationProduc
 routing.use(`${API_TAG}/specification-product-label`, verifyToken, specificationProductLabel)
 routing.use(`${API_TAG}/specification-product-value`, verifyToken, specificationProductValue)
 routing.use(`${API_TAG}/product-model`, verifyToken, productModel)
-
+routing.use(`${API_TAG}/product-dimensi`, verifyToken, productDimensi)
 module.exports = routing;
