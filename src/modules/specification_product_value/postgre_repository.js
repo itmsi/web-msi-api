@@ -78,6 +78,7 @@ const sql = (where, search = false) => {
 
   return query
 }
+
 /**
  *
  *
@@ -103,6 +104,77 @@ const create = async (payload) => {
     return mappingError(error)
   }
 }
+
+/**
+ * Insert or Update function that checks if record exists based on
+ * product_dimensi_id and specification_label_id
+ * If record exists, it updates the data, otherwise it inserts new data
+ * @param {*} payload
+ * @return {*}
+ */
+const createOrUpdate = async (payload) => {
+  const transaction = await pgCore.transaction();
+
+  try {
+    // Check if record exists based on product_dimensi_id and specification_label_id
+    const existingRecord = await pgCore(TABLE)
+      .select(['specification_value_id'])
+      .where({
+        product_dimensi_id: payload.product_dimensi_id,
+        specification_label_id: payload.specification_label_id,
+        deleted_at: null
+      })
+      .first();
+
+    let result;
+    let message;
+
+    if (existingRecord) {
+      // Record exists, perform update
+      const updatePayload = {
+        specification_value_name: payload.specification_value_name,
+        description: payload.description,
+        updated_at: payload.updated_at,
+        updated_by: payload.updated_by
+      };
+
+      result = await pgCore(TABLE)
+        .where({
+          specification_value_id: existingRecord.specification_value_id
+        })
+        .update(updatePayload)
+        .returning([COLUMN[0]]);
+
+      message = lang.__('updated.success', { id: existingRecord.specification_value_id });
+    } else {
+      // Record doesn't exist, perform insert
+      const insertPayload = {
+        specification_value_name: payload.specification_value_name,
+        specification_label_id: payload.specification_label_id,
+        product_dimensi_id: payload.product_dimensi_id,
+        description: payload.description,
+        created_at: payload.created_at,
+        created_by: payload.created_by
+      };
+
+      result = await Repo.insert(TABLE, insertPayload, COLUMN[0]);
+      message = lang.__('created.success');
+    }
+
+    if (!result) {
+      await transaction.rollback();
+      return mappingSuccess(existingRecord ? lang.__('updated.failed') : lang.__('created.failed'), null, 200, false);
+    }
+
+    await transaction.commit();
+    return mappingSuccess(message, result);
+  } catch (error) {
+    await transaction.rollback();
+    error.path = __filename;
+    return mappingError(error);
+  }
+}
+
 /**
  *
  *
@@ -202,6 +274,7 @@ const update = async (where, payload) => {
 
 module.exports = {
   create,
+  createOrUpdate,
   get,
   update,
   getByParam,
