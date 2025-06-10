@@ -57,23 +57,18 @@ const sql = (where, search = false) => {
   let query = pgCore(TABLE)
     .leftJoin(TABLE_SPECIFICATION_LABEL, function () {
       this.on(`${TABLE}.specification_id`, '=', `${TABLE_SPECIFICATION_LABEL}.specification_id`)
-        .andOnNull(`${TABLE_SPECIFICATION_LABEL}.deleted_at`)
     })
     .leftJoin(TABLE_SPECIFICATION_VALUE, function () {
       this.on(`${TABLE_SPECIFICATION_LABEL}.specification_label_id`, '=', `${TABLE_SPECIFICATION_VALUE}.specification_label_id`)
-        .andOnNull(`${TABLE_SPECIFICATION_VALUE}.deleted_at`)
     })
     .leftJoin(TABLE_PRODUCT_DIMENSI, function () {
       this.on(`${TABLE_SPECIFICATION_VALUE}.product_dimensi_id`, '=', `${TABLE_PRODUCT_DIMENSI}.product_dimensi_id`)
-        .andOnNull(`${TABLE_PRODUCT_DIMENSI}.deleted_at`)
     })
     .leftJoin(TABLE_PRODUCT_MODEL, function () {
       this.on(`${TABLE_PRODUCT_DIMENSI}.product_model_id`, '=', `${TABLE_PRODUCT_MODEL}.product_model_id`)
-        .andOnNull(`${TABLE_PRODUCT_MODEL}.deleted_at`)
     })
     .leftJoin(TABLE_PRODUCT, function () {
       this.on(`${TABLE_PRODUCT_MODEL}.product_id`, '=', `${TABLE_PRODUCT}.product_id`)
-        .andOnNull(`${TABLE_PRODUCT}.deleted_at`)
     })
 
   if (where != null) {
