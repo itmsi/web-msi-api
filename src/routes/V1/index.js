@@ -58,6 +58,8 @@ const publicProvince = require('../../modules/public_province')
 const publicCity = require('../../modules/public_city')
 const productModel = require('../../modules/product_model')
 const productDimensi = require('../../modules/product_dimensi')
+const review = require('../../modules/review')
+const publicReview = require('../../modules/public_review')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -92,6 +94,7 @@ routing.use(`${API_TAG}/public/marital-status`, publicMaritalStatus)
 routing.use(`${API_TAG}/public/degree`, publicDegree)
 routing.use(`${API_TAG}/public/province`, publicProvince)
 routing.use(`${API_TAG}/public/city`, publicCity)
+routing.use(`${API_TAG}/public/review`, publicReview)
 
 // need token verify register here
 routing.use(`${API_TAG}/admin-menu`, verifyToken, adminMenu)
@@ -128,4 +131,5 @@ routing.use(`${API_TAG}/specification-product-label`, verifyToken, specification
 routing.use(`${API_TAG}/specification-product-value`, verifyToken, specificationProductValue)
 routing.use(`${API_TAG}/product-model`, verifyToken, productModel)
 routing.use(`${API_TAG}/product-dimensi`, verifyToken, productDimensi)
+routing.use(`${API_TAG}/review`, verifyToken, review)
 module.exports = routing;

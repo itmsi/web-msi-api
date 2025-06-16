@@ -46,6 +46,7 @@ const publicJobCareer = require('./public_job_career.json')
 const publicCareerApply = require('./public_career_apply.json')
 const productModel = require('./product_model.json')
 const productDimensi = require('./product_dimensi.json')
+const review = require('./review.json')
 
 module.exports = {
   ...auth,
@@ -95,5 +96,6 @@ module.exports = {
   ...publicJobCareer,
   ...publicCareerApply,
   ...productModel,
-  ...productDimensi
+  ...productDimensi,
+  ...review
 }

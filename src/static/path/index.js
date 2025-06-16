@@ -54,6 +54,8 @@ const publicProvince = require('./public_province.json')
 const publicCity = require('./public_city.json')
 const productModel = require('./product_model.json')
 const productDimensi = require('./product_dimensi.json')
+const review = require('./review.json')
+const publicReview = require('./public_review.json')
 
 module.exports = {
   ...auth,
@@ -111,5 +113,7 @@ module.exports = {
   ...publicProvince,
   ...publicCity,
   ...productModel,
-  ...productDimensi
+  ...productDimensi,
+  ...review,
+  ...publicReview
 }
