@@ -13,6 +13,7 @@ const COLUMN = [
   `${TABLE}.review_id`, `${TABLE}.review_name`, `${TABLE}.review_email`, `${TABLE}.review_location`,
   `${TABLE}.review_type_of_review`,
   `${TABLE}.review_description`,
+  `${TABLE}.review_phone`,
   `${TABLE}.created_at`, `${TABLE}.created_by`
 ]
 
