@@ -11,6 +11,9 @@
 			"review_email": {
 				"type": "string"
 			},
+			"review_phone": {
+				"type": "string"
+			},
 			"review_location": {
 				"type": "string"
 			},
@@ -50,6 +53,9 @@
 				"type": "string"
 			},
 			"review_email": {
+				"type": "string"
+			},
+			"review_phone": {
 				"type": "string"
 			},
 			"review_location": {
