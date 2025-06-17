@@ -12,11 +12,13 @@ const { lang } = require('../../lang')
 
 const TABLE = 'mst_flayer_product'
 const PRODUCT_TABLE = 'mst_product'
+const TYPE_TABLE = 'mst_type_product'
 
 const COLUMN_ALL = [
   `${TABLE}.flayer_product_id`, `${TABLE}.product_id`, `${TABLE}.flayer_product_name_id`, `${TABLE}.flayer_product_name_en`, `${TABLE}.flayer_product_name_cn`,
   `${TABLE}.flayer_product_description`, `${TABLE}.flayer_product_file`,
   `${PRODUCT_TABLE}.product_name_id`, `${PRODUCT_TABLE}.product_name_en`, `${PRODUCT_TABLE}.product_name_cn`,
+  `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
@@ -25,6 +27,7 @@ const COLUMN = [
   `${TABLE}.flayer_product_id`, `${TABLE}.product_id`, `${TABLE}.flayer_product_name_id`, `${TABLE}.flayer_product_name_en`, `${TABLE}.flayer_product_name_cn`,
   `${TABLE}.flayer_product_description`, `${TABLE}.flayer_product_file`,
   `${PRODUCT_TABLE}.product_name_id`, `${PRODUCT_TABLE}.product_name_en`, `${PRODUCT_TABLE}.product_name_cn`,
+  `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
@@ -50,7 +53,7 @@ const condition = (builder, where, search = null) => {
 const sql = (where, search = false) => {
   let query = pgCore(TABLE)
     .leftJoin(PRODUCT_TABLE, `${TABLE}.product_id`, `${PRODUCT_TABLE}.product_id`)
-
+    .leftJoin(TYPE_TABLE, `${PRODUCT_TABLE}.type_product_id`, `${TYPE_TABLE}.type_product_id`)
   if (where != null) {
     query = query.where((builder) => {
       condition(builder, where, search)

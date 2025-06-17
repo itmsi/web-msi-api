@@ -13,11 +13,13 @@ const { lang } = require('../../lang')
 const TABLE = 'mst_product_dimensi'
 const TABLE_MODEL = 'mst_product_model'
 const PRODUCT_TABLE = 'mst_product'
+const TYPE_TABLE = 'mst_type_product'
 
 const COLUMN_ALL = [
   `${TABLE}.product_dimensi_id`, `${TABLE}.product_model_id`, `${TABLE}.product_dimensi_value`, `${TABLE}.product_dimensi_description`,
   `${TABLE_MODEL}.product_model_name`,
   `${PRODUCT_TABLE}.product_name_id`, `${PRODUCT_TABLE}.product_name_en`, `${PRODUCT_TABLE}.product_name_cn`,
+  `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
@@ -26,6 +28,7 @@ const COLUMN = [
   `${TABLE}.product_dimensi_id`, `${TABLE}.product_model_id`, `${TABLE}.product_dimensi_value`, `${TABLE}.product_dimensi_description`,
   `${TABLE_MODEL}.product_model_name`,
   `${PRODUCT_TABLE}.product_name_id`, `${PRODUCT_TABLE}.product_name_en`, `${PRODUCT_TABLE}.product_name_cn`,
+  `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
@@ -50,7 +53,7 @@ const sql = (where, search = false) => {
   let query = pgCore(TABLE)
     .leftJoin(TABLE_MODEL, `${TABLE}.product_model_id`, `${TABLE_MODEL}.product_model_id`)
     .leftJoin(PRODUCT_TABLE, `${TABLE_MODEL}.product_id`, `${PRODUCT_TABLE}.product_id`)
-
+    .leftJoin(TYPE_TABLE, `${PRODUCT_TABLE}.type_product_id`, `${TYPE_TABLE}.type_product_id`)
   if (where != null) {
     query = query.where((builder) => {
       condition(builder, where, search)

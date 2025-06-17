@@ -12,6 +12,7 @@ const { lang } = require('../../lang')
 
 const TABLE = 'mst_360_product'
 const TABLE_PRODUCT = 'mst_product'
+const TYPE_TABLE = 'mst_type_product'
 
 const COLUMN_ALL = [
   `${TABLE}.product_360_id`, `${TABLE}.product_id`, `${TABLE}.product_360_alt`, `${TABLE}.product_360_image`,
@@ -20,6 +21,7 @@ const COLUMN_ALL = [
   `${TABLE_PRODUCT}.product_name_id`,
   `${TABLE_PRODUCT}.product_name_en`,
   `${TABLE_PRODUCT}.product_name_cn`,
+  `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
   `${TABLE}.sub_type_name`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
@@ -32,6 +34,7 @@ const COLUMN = [
   `${TABLE_PRODUCT}.product_name_id`,
   `${TABLE_PRODUCT}.product_name_en`,
   `${TABLE_PRODUCT}.product_name_cn`,
+  `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
   `${TABLE}.sub_type_name`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
@@ -64,7 +67,7 @@ const condition = (builder, where, search = null) => {
 const sql = (where, search = false) => {
   let query = pgCore(TABLE)
   query = query.leftJoin(TABLE_PRODUCT, `${TABLE_PRODUCT}.product_id`, `${TABLE}.product_id`)
-
+  query = query.leftJoin(TYPE_TABLE, `${TABLE_PRODUCT}.type_product_id`, `${TYPE_TABLE}.type_product_id`)
   if (where != null) {
     query = query.where((builder) => {
       condition(builder, where, search)
