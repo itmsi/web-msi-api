@@ -60,6 +60,7 @@ const sql = (where, search = false) => {
     })
     .leftJoin(TABLE_SPECIFICATION_VALUE, function () {
       this.on(`${TABLE_SPECIFICATION_LABEL}.specification_label_id`, '=', `${TABLE_SPECIFICATION_VALUE}.specification_label_id`)
+      this.on(`${TABLE_SPECIFICATION_VALUE}.deleted_at`, '=', null)
     })
     .leftJoin(TABLE_PRODUCT_DIMENSI, function () {
       this.on(`${TABLE_SPECIFICATION_VALUE}.product_dimensi_id`, '=', `${TABLE_PRODUCT_DIMENSI}.product_dimensi_id`)
