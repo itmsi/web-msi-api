@@ -14,12 +14,18 @@ const TABLE_PRODUCT_DIMENSI = 'mst_product_dimensi'
 
 const COLUMN_DEFAULT = [
   `${TABLE}.specification_name`,
+  `${TABLE}.deleted_at as specification_deleted_at`,
   `${TABLE_SPECIFICATION_LABEL}.specification_label_name`,
+  `${TABLE_SPECIFICATION_LABEL}.deleted_at as label_deleted_at`,
   `${TABLE_SPECIFICATION_VALUE}.specification_value_name`,
+  `${TABLE_SPECIFICATION_VALUE}.deleted_at as value_deleted_at`,
   `${TABLE_PRODUCT}.product_name_en`,
+  `${TABLE_PRODUCT}.deleted_at as product_deleted_at`,
   `${TABLE_PRODUCT_MODEL}.product_model_name`,
   `${TABLE_PRODUCT_MODEL}.product_model_foto`,
+  `${TABLE_PRODUCT_MODEL}.deleted_at as model_deleted_at`,
   `${TABLE_PRODUCT_DIMENSI}.product_dimensi_value`,
+  `${TABLE_PRODUCT_DIMENSI}.deleted_at as dimensi_deleted_at`,
 ]
 
 const DEFAULT_SORT = [`${TABLE}.specification_id`, 'DESC']
@@ -57,18 +63,23 @@ const sql = (where, search = false) => {
   let query = pgCore(TABLE)
     .leftJoin(TABLE_SPECIFICATION_LABEL, function () {
       this.on(`${TABLE}.specification_id`, '=', `${TABLE_SPECIFICATION_LABEL}.specification_id`)
+        .andOnNull(`${TABLE_SPECIFICATION_LABEL}.deleted_at`)
     })
     .leftJoin(TABLE_SPECIFICATION_VALUE, function () {
       this.on(`${TABLE_SPECIFICATION_LABEL}.specification_label_id`, '=', `${TABLE_SPECIFICATION_VALUE}.specification_label_id`)
+        .andOnNull(`${TABLE_SPECIFICATION_VALUE}.deleted_at`)
     })
     .leftJoin(TABLE_PRODUCT_DIMENSI, function () {
       this.on(`${TABLE_SPECIFICATION_VALUE}.product_dimensi_id`, '=', `${TABLE_PRODUCT_DIMENSI}.product_dimensi_id`)
+        .andOnNull(`${TABLE_PRODUCT_DIMENSI}.deleted_at`)
     })
     .leftJoin(TABLE_PRODUCT_MODEL, function () {
       this.on(`${TABLE_PRODUCT_DIMENSI}.product_model_id`, '=', `${TABLE_PRODUCT_MODEL}.product_model_id`)
+        .andOnNull(`${TABLE_PRODUCT_MODEL}.deleted_at`)
     })
     .leftJoin(TABLE_PRODUCT, function () {
       this.on(`${TABLE_PRODUCT_MODEL}.product_id`, '=', `${TABLE_PRODUCT}.product_id`)
+        .andOnNull(`${TABLE_PRODUCT}.deleted_at`)
     })
 
   if (where != null) {
@@ -92,6 +103,12 @@ const transformToNestedStructure = (flatData) => {
     const labelName = row.specification_label_name
     const valueName = row.specification_value_name
     const modelFoto = row.product_model_foto
+
+    // Check if any record is deleted (deleted_at is not null)
+    if (row.specification_deleted_at || row.label_deleted_at || row.value_deleted_at
+        || row.product_deleted_at || row.model_deleted_at || row.dimensi_deleted_at) {
+      return
+    }
 
     // Skip if any required field is null/undefined
     if (!productName || !modelName || !dimensiValue
