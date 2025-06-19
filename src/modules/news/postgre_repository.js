@@ -8,6 +8,7 @@ const {
   todayFormat,
   MODEL_PROPERTIES: { PRIMARY_KEY }
 } = require('../../utils')
+const { formatDateToYYYYMMDD } = require('../../utils/date')
 const { lang } = require('../../lang')
 
 const TABLE = 'mst_news'
@@ -138,8 +139,16 @@ const get = async (where, filter, column = COLUMN) => {
       })
     }
 
+    // Convert news_published_at to YYYY-mm-dd format
+    const formattedResult = result.map((item) => {
+      if (item.news_published_at) {
+        item.news_published_at = formatDateToYYYYMMDD(item.news_published_at)
+      }
+      return item
+    })
+
     return mappingSuccessPagination(lang.__('get.success'), {
-      result: manipulateDate(result),
+      result: manipulateDate(formattedResult),
       count: rows?.count || 0
     })
   } catch (error) {
@@ -160,7 +169,12 @@ const getByParam = async (where, column = COLUMN_ALL) => {
     const [rows] = await sql(null).clone()
       .select(column)
       .where(`${TABLE}.${PRIMARY_KEY.NEWS}`, where?.[PRIMARY_KEY.NEWS])
+
     if (rows) {
+      // Convert news_published_at to YYYY-mm-dd format
+      if (rows.news_published_at) {
+        rows.news_published_at = formatDateToYYYYMMDD(rows.news_published_at)
+      }
       return mappingSuccess(lang.__('get.success'), rows)
     }
     return mappingSuccess(lang.__('not.found.id', { id: where?.news_id }), rows)
@@ -215,5 +229,6 @@ module.exports = {
   getByParam,
   COLUMN,
   DEFAULT_SORT,
-  TABLE
+  TABLE,
+  formatDateToYYYYMMDD
 }
