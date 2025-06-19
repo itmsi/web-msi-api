@@ -15,7 +15,10 @@ const COLUMN_DEFAULT = [
   `${TABLE}.news_content_id`, `${TABLE}.news_content_en`, `${TABLE}.news_content_cn`,
   `${TABLE}.news_image`, `${TABLE}.news_image_tags`,
   `${TABLE_CATEGORY}.news_category_name_id`, `${TABLE_CATEGORY}.news_category_name_en`, `${TABLE_CATEGORY}.news_category_name_cn`,
-  `${TABLE}.created_at`, `${TABLE}.news_published_at`
+  `${TABLE}.created_at`, `${TABLE}.news_published_at`,
+  `${TABLE}.news_meta_title_id`, `${TABLE}.news_meta_title_en`, `${TABLE}.news_meta_title_cn`,
+  `${TABLE}.news_meta_description_id`, `${TABLE}.news_meta_description_en`, `${TABLE}.news_meta_description_cn`,
+  `${TABLE}.news_meta_keywords_id`, `${TABLE}.news_meta_keywords_en`, `${TABLE}.news_meta_keywords_cn`
 ]
 
 const DEFAULT_SORT = [`${TABLE}.news_published_at`, 'DESC']
