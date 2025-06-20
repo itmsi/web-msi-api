@@ -62,6 +62,7 @@ const create = async (payload) => {
   const transaction = await pgCore.transaction();
 
   try {
+    payload.slug_type_product = payload.type_product_name_en.toLowerCase().replace(/\s+/g, '-')
     const result = await Repo.insert(TABLE, payload, COLUMN[0])
 
     if (!result) {
@@ -137,6 +138,7 @@ const update = async (where, payload, name = '') => {
     where[`${TABLE}.deleted_at`] = null
     if (payload.type_method === 'update') {
       message = lang.__('updated.success', { id: where?.[PRIMARY_KEY.TYPE_PRODUCT] })
+      payload.slug_type_product = payload.type_product_name_en.toLowerCase().replace(/\s+/g, '-')
       result = await Repo.updated(TABLE, where, payload, COLUMN[0], name)
     } else {
       const format = todayFormat('YYYYMMDDhmmss')

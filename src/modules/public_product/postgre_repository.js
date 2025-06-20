@@ -21,6 +21,7 @@ const COLUMN_DEFAULT = [
   `${TABLE}.image_product`, `${TABLE}.slug_product`, `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`,
   `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
+  `${TYPE_TABLE}.slug_type_product`,
   `${FLAYER_TABLE}.flayer_product_id`,
   `${FLAYER_TABLE}.flayer_product_name_id`,
   `${FLAYER_TABLE}.flayer_product_name_en`,
@@ -55,7 +56,8 @@ const COLUMN_DEFAULT = [
 const COLUMN_GET = [
   `${TABLE}.product_id`, `${TABLE}.product_name_id`, `${TABLE}.product_name_en`, `${TABLE}.product_name_cn`,
   `${TABLE}.image_product`, `${TABLE}.slug_product`,
-  `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`
+  `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
+  `${TYPE_TABLE}.slug_type_product as type_product_slug`
 ]
 
 const DEFAULT_SORT = [`${TABLE}.product_id`, 'DESC']
@@ -141,7 +143,8 @@ const get = async (where, filter, column = COLUMN_GET) => {
         `${TABLE}.slug_product`,
         `${TYPE_TABLE}.type_product_name_id`,
         `${TYPE_TABLE}.type_product_name_en`,
-        `${TYPE_TABLE}.type_product_name_cn`
+        `${TYPE_TABLE}.type_product_name_cn`,
+        `${TYPE_TABLE}.slug_type_product`
       )
       .orderBy(filter.direction || DEFAULT_SORT[0], filter.order || DEFAULT_SORT[1])
       .limit(filter.limit)
@@ -171,7 +174,7 @@ const get = async (where, filter, column = COLUMN_GET) => {
   }
 }
 
-const getBySlug = async (slug) => {
+const getBySlug = async (slug, typeSlug) => {
   try {
     const query = pgCore(TABLE)
       .leftJoin(TYPE_TABLE, function () {
@@ -200,7 +203,7 @@ const getBySlug = async (slug) => {
       })
       .where(`${TABLE}.deleted_at`, null)
       .where(`${TABLE}.slug_product`, slug)
-
+      .where(`${TYPE_TABLE}.slug_type_product`, typeSlug)
     const result = await query
       .select(COLUMN_DEFAULT)
       .orderBy(`${FEATURE_TABLE}.no_order`, 'ASC')
@@ -236,7 +239,8 @@ const getBySlug = async (slug) => {
           type_product: {
             type_product_name_id: curr.type_product_name_id,
             type_product_name_en: curr.type_product_name_en,
-            type_product_name_cn: curr.type_product_name_cn
+            type_product_name_cn: curr.type_product_name_cn,
+            slug_type_product: curr.slug_type_product
           },
           flayers: [],
           features: [],

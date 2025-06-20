@@ -92,7 +92,7 @@
 			}
 		}
 	},
-	"/public/product/{slug}": {
+	"/public/product/{slug}/{type}": {
 		"get": {
 			"tags": [
 				"Product"
@@ -108,6 +108,15 @@
 						"type": "string"
 					},
 					"description": "The slug of the product to retrieve"
+				},
+				{
+					"in": "path",
+					"name": "type",
+					"required": true,
+					"schema": {
+						"type": "string"
+					},
+					"description": "The type of the product to retrieve"
 				},
 				{
 					"in": "query",
