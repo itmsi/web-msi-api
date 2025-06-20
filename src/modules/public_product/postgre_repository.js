@@ -174,7 +174,7 @@ const get = async (where, filter, column = COLUMN_GET) => {
   }
 }
 
-const getBySlug = async (slug, typeSlug) => {
+const getBySlug = async (typeSlug, slug) => {
   try {
     const query = pgCore(TABLE)
       .leftJoin(TYPE_TABLE, function () {

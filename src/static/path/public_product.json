@@ -92,7 +92,7 @@
 			}
 		}
 	},
-	"/public/product/{slug}/{type}": {
+	"/public/product/{type}/{slug}": {
 		"get": {
 			"tags": [
 				"Product"
@@ -102,21 +102,21 @@
 			"parameters": [
 				{
 					"in": "path",
-					"name": "slug",
-					"required": true,
-					"schema": {
-						"type": "string"
-					},
-					"description": "The slug of the product to retrieve"
-				},
-				{
-					"in": "path",
 					"name": "type",
 					"required": true,
 					"schema": {
 						"type": "string"
 					},
 					"description": "The type of the product to retrieve"
+				},
+				{
+					"in": "path",
+					"name": "slug",
+					"required": true,
+					"schema": {
+						"type": "string"
+					},
+					"description": "The slug of the product to retrieve"
 				},
 				{
 					"in": "query",
