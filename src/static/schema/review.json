@@ -1,0 +1,72 @@
+{
+	"SchemaResponseReview": {
+		"type": "object",
+		"properties": {
+			"review_id": {
+				"type": "string"
+			},
+			"review_name": {
+				"type": "string"
+			},
+			"review_email": {
+				"type": "string"
+			},
+			"review_phone": {
+				"type": "string"
+			},
+			"review_location": {
+				"type": "string"
+			},
+			"review_type_of_review": {
+				"type": "string"
+			},
+			"review_description": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostReview": {
+		"type": "object",
+		"properties": {
+			"review_name": {
+				"type": "string"
+			},
+			"review_email": {
+				"type": "string"
+			},
+			"review_phone": {
+				"type": "string"
+			},
+			"review_location": {
+				"type": "string"
+			},
+			"review_type_of_review": {
+				"type": "string"
+			},
+			"review_description": {
+				"type": "string"
+			}
+		}
+	}
+}

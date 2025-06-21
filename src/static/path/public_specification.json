@@ -82,5 +82,43 @@
 				}
 			}
 		}
+	},
+	"/public/specification/all": {
+		"get": {
+			"tags": [
+				"Specification"
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponsePublicSpecification"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"/public/specification/raw": {
+		"get": {
+			"tags": [
+				"Specification"
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponsePublicSpecification"
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }

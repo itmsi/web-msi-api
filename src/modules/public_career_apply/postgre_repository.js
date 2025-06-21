@@ -76,38 +76,46 @@ const create = async (payload) => {
   const transaction = await pgCore.transaction();
 
   try {
-    const result = await Repo.insert(TABLE, payload, COLUMN[0])
+    // Step 1: Insert data first and wait for it to complete using insertTrx
+    const result = await Repo.insertTrx(TABLE, payload, COLUMN[0], transaction);
 
     if (!result) {
-      transaction.rollback();
+      await transaction.rollback();
       return mappingSuccess(lang.__('created.failed'), null, 200, false)
     }
 
-    // Get the joined data for the newly created record
-    const [joinedData] = await sql({ career_apply_id: result.career_apply_id }).clone()
+    // Step 2: Commit the transaction first to ensure insert is saved
+    await transaction.commit();
+
+    // Step 3: Only after successful insert and commit, get the joined data
+    const [joinedData] = await sql({ career_apply_id: result.career_apply_id })
       .select(COLUMN_ALL)
       .where(`${TABLE}.career_apply_id`, result.career_apply_id);
 
-    // Publish message to RabbitMQ with joined data
-    publishToRabbitMqQueueSingle(CAREER_APPLY_EXCHANGE, CAREER_APPLY_QUEUE, {
-      type: 'NEW_CAREER_APPLY',
-      data: {
-        ...payload,
-        job_career_name: joinedData?.job_career_name,
-        departement_name: joinedData?.departement_name,
-        location_area_name: joinedData?.location_area_name,
-        religion_name: joinedData?.religion_name,
-        marital_status_name: joinedData?.marital_status_name,
-        degree_name: joinedData?.degree_name,
-        province_name: joinedData?.province_name,
-        city_name: joinedData?.city_name
-      }
-    });
+    // Step 4: Only after getting joined data, publish to RabbitMQ
+    if (joinedData) {
+      await publishToRabbitMqQueueSingle(CAREER_APPLY_EXCHANGE, CAREER_APPLY_QUEUE, {
+        type: 'NEW_CAREER_APPLY',
+        data: {
+          ...payload,
+          job_career_name: joinedData?.job_career_name,
+          departement_name: joinedData?.departement_name,
+          location_area_name: joinedData?.location_area_name,
+          religion_name: joinedData?.religion_name,
+          marital_status_name: joinedData?.marital_status_name,
+          degree_name: joinedData?.degree_name,
+          province_name: joinedData?.province_name,
+          city_name: joinedData?.city_name
+        }
+      });
+    }
 
-    transaction.commit();
     return mappingSuccess(lang.__('created.success'), result)
   } catch (error) {
-    transaction.rollback();
+    // If any error occurs, rollback the transaction
+    if (transaction) {
+      await transaction.rollback();
+    }
     error.path = __filename
     return mappingError(error)
   }

@@ -21,6 +21,7 @@ const COLUMN_DEFAULT = [
   `${TABLE}.image_product`, `${TABLE}.slug_product`, `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`,
   `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
+  `${TYPE_TABLE}.slug_type_product`,
   `${FLAYER_TABLE}.flayer_product_id`,
   `${FLAYER_TABLE}.flayer_product_name_id`,
   `${FLAYER_TABLE}.flayer_product_name_en`,
@@ -34,6 +35,7 @@ const COLUMN_DEFAULT = [
   `${FEATURE_TABLE}.feature_product_description_id`,
   `${FEATURE_TABLE}.feature_product_description_en`,
   `${FEATURE_TABLE}.feature_product_description_cn`,
+  `${FEATURE_TABLE}.no_order`,
   `${FEATURE_CHILD_TABLE}.feature_child_product_id`,
   `${FEATURE_CHILD_TABLE}.feature_child_product_title_id`,
   `${FEATURE_CHILD_TABLE}.feature_child_product_title_en`,
@@ -54,7 +56,8 @@ const COLUMN_DEFAULT = [
 const COLUMN_GET = [
   `${TABLE}.product_id`, `${TABLE}.product_name_id`, `${TABLE}.product_name_en`, `${TABLE}.product_name_cn`,
   `${TABLE}.image_product`, `${TABLE}.slug_product`,
-  `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`
+  `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
+  `${TYPE_TABLE}.slug_type_product as type_product_slug`
 ]
 
 const DEFAULT_SORT = [`${TABLE}.product_id`, 'DESC']
@@ -140,7 +143,8 @@ const get = async (where, filter, column = COLUMN_GET) => {
         `${TABLE}.slug_product`,
         `${TYPE_TABLE}.type_product_name_id`,
         `${TYPE_TABLE}.type_product_name_en`,
-        `${TYPE_TABLE}.type_product_name_cn`
+        `${TYPE_TABLE}.type_product_name_cn`,
+        `${TYPE_TABLE}.slug_type_product`
       )
       .orderBy(filter.direction || DEFAULT_SORT[0], filter.order || DEFAULT_SORT[1])
       .limit(filter.limit)
@@ -170,7 +174,7 @@ const get = async (where, filter, column = COLUMN_GET) => {
   }
 }
 
-const getBySlug = async (slug, language = 'id') => {
+const getBySlug = async (typeSlug, slug) => {
   try {
     const query = pgCore(TABLE)
       .leftJoin(TYPE_TABLE, function () {
@@ -199,9 +203,11 @@ const getBySlug = async (slug, language = 'id') => {
       })
       .where(`${TABLE}.deleted_at`, null)
       .where(`${TABLE}.slug_product`, slug)
-
+      .where(`${TYPE_TABLE}.slug_type_product`, typeSlug)
     const result = await query
       .select(COLUMN_DEFAULT)
+      .orderBy(`${FEATURE_TABLE}.no_order`, 'ASC')
+      .orderBy(`${TABLE}.product_id`, 'ASC')
 
     if (!result || result.length === 0) {
       return mappingError({
@@ -233,7 +239,8 @@ const getBySlug = async (slug, language = 'id') => {
           type_product: {
             type_product_name_id: curr.type_product_name_id,
             type_product_name_en: curr.type_product_name_en,
-            type_product_name_cn: curr.type_product_name_cn
+            type_product_name_cn: curr.type_product_name_cn,
+            slug_type_product: curr.slug_type_product
           },
           flayers: [],
           features: [],
@@ -275,7 +282,8 @@ const getBySlug = async (slug, language = 'id') => {
             feature_product_description_id: curr.feature_product_description_id,
             feature_product_description_en: curr.feature_product_description_en,
             feature_product_description_cn: curr.feature_product_description_cn,
-            feature_children: []
+            feature_children: [],
+            no_order: curr.no_order
           }
           acc[productId].features.push(feature)
         }
@@ -347,6 +355,18 @@ const getBySlug = async (slug, language = 'id') => {
 
       return acc
     }, {})
+
+    // Sort features by no_order
+    Object.values(transformedResult).forEach((product) => {
+      if (product.features && product.features.length > 0) {
+        product.features.sort((a, b) => {
+          // Handle null/undefined no_order values
+          const orderA = a.no_order ? parseInt(a.no_order, 10) : 999999
+          const orderB = b.no_order ? parseInt(b.no_order, 10) : 999999
+          return orderA - orderB
+        })
+      }
+    })
 
     return mappingSuccessPagination(lang.__('get.success'), {
       result: manipulateDate(Object.values(transformedResult)[0], false),

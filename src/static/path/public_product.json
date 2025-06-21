@@ -92,7 +92,7 @@
 			}
 		}
 	},
-	"/public/product/{slug}": {
+	"/public/product/{type}/{slug}": {
 		"get": {
 			"tags": [
 				"Product"
@@ -100,6 +100,15 @@
 			"summary": "Get product by slug",
 			"description": "Retrieve a single product by its slug in the specified language",
 			"parameters": [
+				{
+					"in": "path",
+					"name": "type",
+					"required": true,
+					"schema": {
+						"type": "string"
+					},
+					"description": "The type of the product to retrieve"
+				},
 				{
 					"in": "path",
 					"name": "slug",

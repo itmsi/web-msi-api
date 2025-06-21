@@ -12,11 +12,14 @@ const { lang } = require('../../lang')
 
 const TABLE = 'mst_feature_product'
 const PRODUCT_TABLE = 'mst_product'
+const TYPE_TABLE = 'mst_type_product'
 
 const COLUMN_ALL = [
   `${TABLE}.feature_product_id`, `${TABLE}.product_id`, `${TABLE}.feature_product_title_id`, `${TABLE}.feature_product_title_en`, `${TABLE}.feature_product_title_cn`,
   `${TABLE}.feature_product_description_id`, `${TABLE}.feature_product_description_en`, `${TABLE}.feature_product_description_cn`,
+  `${TABLE}.no_order`,
   `${PRODUCT_TABLE}.product_name_id`, `${PRODUCT_TABLE}.product_name_en`, `${PRODUCT_TABLE}.product_name_cn`,
+  `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
@@ -24,12 +27,14 @@ const COLUMN_ALL = [
 const COLUMN = [
   `${TABLE}.feature_product_id`, `${TABLE}.product_id`, `${TABLE}.feature_product_title_id`, `${TABLE}.feature_product_title_en`, `${TABLE}.feature_product_title_cn`,
   `${TABLE}.feature_product_description_id`, `${TABLE}.feature_product_description_en`, `${TABLE}.feature_product_description_cn`,
+  `${TABLE}.no_order`,
   `${PRODUCT_TABLE}.product_name_id`, `${PRODUCT_TABLE}.product_name_en`, `${PRODUCT_TABLE}.product_name_cn`,
+  `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
 
-const DEFAULT_SORT = [COLUMN[0], 'DESC']
+const DEFAULT_SORT = [`${TABLE}.no_order`, 'ASC']
 const condition = (builder, where, search = null) => {
   builder.where(`${TABLE}.deleted_at`, null)
 
@@ -49,7 +54,7 @@ const condition = (builder, where, search = null) => {
 const sql = (where, search = false) => {
   let query = pgCore(TABLE)
     .leftJoin(PRODUCT_TABLE, `${TABLE}.product_id`, `${PRODUCT_TABLE}.product_id`)
-
+    .leftJoin(TYPE_TABLE, `${PRODUCT_TABLE}.type_product_id`, `${TYPE_TABLE}.type_product_id`)
   if (where != null) {
     query = query.where((builder) => {
       condition(builder, where, search)

@@ -52,6 +52,10 @@ const publicMaritalStatus = require('./public_marital_status.json')
 const publicDegree = require('./public_degree.json')
 const publicProvince = require('./public_province.json')
 const publicCity = require('./public_city.json')
+const productModel = require('./product_model.json')
+const productDimensi = require('./product_dimensi.json')
+const review = require('./review.json')
+const publicReview = require('./public_review.json')
 
 module.exports = {
   ...auth,
@@ -107,5 +111,9 @@ module.exports = {
   ...publicMaritalStatus,
   ...publicDegree,
   ...publicProvince,
-  ...publicCity
+  ...publicCity,
+  ...productModel,
+  ...productDimensi,
+  ...review,
+  ...publicReview
 }

@@ -172,7 +172,10 @@ module.exports = {
       MEMBER_VOUCHER: 'member_vouchers',
       SPECIFICATION_PRODUCT: 'mst_specification_product',
       SPECIFICATION_LABEL: 'mst_specification_label',
-      SPECIFICATION_VALUE: 'mst_specification_value'
+      SPECIFICATION_VALUE: 'mst_specification_value',
+      PRODUCT_MODEL: 'mst_product_model',
+      PRODUCT_DIMENSI: 'mst_product_dimensi',
+      REVIEW: 'mst_review'
     },
     PRIMARY_KEY: {
       JENIS_AKUN: 'jenis_akun_id',
@@ -285,7 +288,10 @@ module.exports = {
       MEMBER_VOUCHER: 'member_voucher_id',
       SPECIFICATION_PRODUCT: 'specification_id',
       SPECIFICATION_LABEL: 'specification_label_id',
-      SPECIFICATION_VALUE: 'specification_value_id'
+      SPECIFICATION_VALUE: 'specification_value_id',
+      PRODUCT_MODEL: 'product_model_id',
+      PRODUCT_DIMENSI: 'product_dimensi_id',
+      REVIEW: 'review_id'
     }
   },
   FILE_DESCRIPTION: [

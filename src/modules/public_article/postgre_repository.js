@@ -15,7 +15,10 @@ const COLUMN_DEFAULT = [
   `${TABLE}.news_content_id`, `${TABLE}.news_content_en`, `${TABLE}.news_content_cn`,
   `${TABLE}.news_image`, `${TABLE}.news_image_tags`,
   `${TABLE_CATEGORY}.news_category_name_id`, `${TABLE_CATEGORY}.news_category_name_en`, `${TABLE_CATEGORY}.news_category_name_cn`,
-  `${TABLE}.created_at`
+  `${TABLE}.created_at`, `${TABLE}.news_published_at`,
+  `${TABLE}.news_meta_title_id`, `${TABLE}.news_meta_title_en`, `${TABLE}.news_meta_title_cn`,
+  `${TABLE}.news_meta_description_id`, `${TABLE}.news_meta_description_en`, `${TABLE}.news_meta_description_cn`,
+  `${TABLE}.news_meta_keywords_id`, `${TABLE}.news_meta_keywords_en`, `${TABLE}.news_meta_keywords_cn`
 ]
 
 const DEFAULT_SORT = [`${TABLE}.news_published_at`, 'DESC']
@@ -105,7 +108,7 @@ const get = async (where, filter, column = COLUMN_DEFAULT) => {
 
     // Clean and limit content fields
     const cleanedResult = result.map((item) => {
-      const formattedDate = item.created_at ? moment(item.created_at).format('DD MMM YYYY') : null;
+      const formattedDate = item.news_published_at ? moment(item.news_published_at).format('DD MMM YYYY') : null;
       return {
         ...item,
         news_content_id: cleanAndLimitContent(item.news_content_id),
@@ -164,8 +167,8 @@ const getBySlug = async (slug, language = 'id') => {
     }
 
     // Format the date before manipulateDate
-    const formattedDate = result.created_at ? moment(result.created_at).format('DD MMM YYYY') : null;
-    const { created_at, ...rest } = result;
+    const formattedDate = result.news_published_at ? moment(result.news_published_at).format('DD MMM YYYY') : null;
+    const { news_published_at, ...rest } = result;
     const manipulated = manipulateDate({ ...rest }, false);
     const finalResult = { ...manipulated, created_at: formattedDate };
 

@@ -8,6 +8,12 @@
 			"specification_label_id": {
 				"type": "string"
 			},
+			"product_dimensi_id": {
+				"type": "string"
+			},
+			"product_dimensi_value": {
+				"type": "string"
+			},
 			"product_id": {
 				"type": "string"
 			},
@@ -55,7 +61,7 @@
 	"SchemaPostSpecificationProductValue": {
 		"type": "object",
 		"properties": {
-			"product_id": {
+			"product_dimensi_id": {
 				"type": "string"
 			},
 			"specification_label_id": {

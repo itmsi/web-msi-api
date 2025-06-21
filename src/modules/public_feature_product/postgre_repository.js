@@ -11,12 +11,13 @@ const PRODUCT_TABLE = 'mst_product'
 const COLUMN_DEFAULT = [
   `${TABLE}.feature_product_id`, `${TABLE}.product_id`, `${TABLE}.feature_product_title_id`, `${TABLE}.feature_product_title_en`, `${TABLE}.feature_product_title_cn`,
   `${PRODUCT_TABLE}.product_name_id`, `${PRODUCT_TABLE}.product_name_en`, `${PRODUCT_TABLE}.product_name_cn`,
+  `${TABLE}.no_order`,
   `${TABLE}.feature_product_description_id`, `${TABLE}.feature_product_description_en`, `${TABLE}.feature_product_description_cn`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
 
-const DEFAULT_SORT = [`${TABLE}.feature_product_id`, 'DESC']
+const DEFAULT_SORT = [`${TABLE}.no_order`, 'ASC']
 
 const condition = (builder, where, search = null) => {
   builder.where(`${TABLE}.deleted_at`, null)

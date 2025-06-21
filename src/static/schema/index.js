@@ -44,6 +44,9 @@ const specificationProductValue = require('./specification_product_value.json')
 const publicSpecification = require('./public_specification.json')
 const publicJobCareer = require('./public_job_career.json')
 const publicCareerApply = require('./public_career_apply.json')
+const productModel = require('./product_model.json')
+const productDimensi = require('./product_dimensi.json')
+const review = require('./review.json')
 
 module.exports = {
   ...auth,
@@ -91,5 +94,8 @@ module.exports = {
   ...specificationProductValue,
   ...publicSpecification,
   ...publicJobCareer,
-  ...publicCareerApply
+  ...publicCareerApply,
+  ...productModel,
+  ...productDimensi,
+  ...review
 }

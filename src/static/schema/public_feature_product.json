@@ -8,6 +8,9 @@
 			"product_id": {
 				"type": "string"
 			},
+			"no_order": {
+				"type": "string"
+			},
 			"feature_product_name_id": {
 				"type": "string"
 			},

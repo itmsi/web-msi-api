@@ -21,10 +21,10 @@ const fetchPublic = async (req, res) => {
 }
 
 const fetchPublicBySlug = async (req, res) => {
-  const { slug } = req.params
+  const { type, slug } = req.params
   const { language = 'id' } = req.query
 
-  const result = await repository.getBySlug(slug, language)
+  const result = await repository.getBySlug(type, slug, language)
   return paginationResponsePublic(req, res, result)
 }
 

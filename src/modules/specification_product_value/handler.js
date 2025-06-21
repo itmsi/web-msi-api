@@ -17,6 +17,17 @@ const {
   decodeToken
 } = require('../../utils')
 
+const storeImport = async (req, res) => {
+  try {
+    const payload = { ...req?.body, ...decodeToken('created', req) }
+    const result = await repository.createOrUpdate(payload)
+    return baseResponse(res, result)
+  } catch (error) {
+    error.path = __filename
+    return baseResponse(res, { code: 500, data: { status: false, message: error.message } })
+  }
+}
+
 const store = async (req, res) => {
   try {
     const payload = { ...req?.body, ...decodeToken('created', req) }
@@ -77,6 +88,7 @@ const softDelete = async (req, res) => {
 
 module.exports = {
   store,
+  storeImport,
   fetch,
   fetchByParam,
   update,

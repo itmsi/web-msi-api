@@ -14,12 +14,16 @@ const TABLE = 'mst_specification_values'
 const TABLE_SPECIFICATION = 'mst_specifications'
 const TABLE_SPECIFICATION_LABEL = 'mst_specification_labels'
 const TABLE_PRODUCT = 'mst_product'
+const TABLE_PRODUCT_MODEL = 'mst_product_model'
+const TABLE_PRODUCT_DIMENSI = 'mst_product_dimensi'
 
 const COLUMN_ALL = [
   `${TABLE}.specification_value_id`, `${TABLE}.specification_value_name`,
   `${TABLE_SPECIFICATION}.specification_id`, `${TABLE_SPECIFICATION}.specification_name`,
   `${TABLE_SPECIFICATION_LABEL}.specification_label_id`, `${TABLE_SPECIFICATION_LABEL}.specification_label_name`,
   `${TABLE_PRODUCT}.product_id`, `${TABLE_PRODUCT}.product_name_en`,
+  `${TABLE_PRODUCT_MODEL}.product_model_id`, `${TABLE_PRODUCT_MODEL}.product_model_name`,
+  `${TABLE_PRODUCT_DIMENSI}.product_dimensi_id`, `${TABLE_PRODUCT_DIMENSI}.product_dimensi_value`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
@@ -29,6 +33,8 @@ const COLUMN = [
   `${TABLE_SPECIFICATION}.specification_id`, `${TABLE_SPECIFICATION}.specification_name`,
   `${TABLE_SPECIFICATION_LABEL}.specification_label_id`, `${TABLE_SPECIFICATION_LABEL}.specification_label_name`,
   `${TABLE_PRODUCT}.product_id`, `${TABLE_PRODUCT}.product_name_en`,
+  `${TABLE_PRODUCT_MODEL}.product_model_id`, `${TABLE_PRODUCT_MODEL}.product_model_name`,
+  `${TABLE_PRODUCT_DIMENSI}.product_dimensi_id`, `${TABLE_PRODUCT_DIMENSI}.product_dimensi_value`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
@@ -60,7 +66,9 @@ const sql = (where, search = false) => {
   let query = pgCore(TABLE)
     .leftJoin(TABLE_SPECIFICATION_LABEL, `${TABLE}.specification_label_id`, `${TABLE_SPECIFICATION_LABEL}.specification_label_id`)
     .leftJoin(TABLE_SPECIFICATION, `${TABLE_SPECIFICATION_LABEL}.specification_id`, `${TABLE_SPECIFICATION}.specification_id`)
-    .leftJoin(TABLE_PRODUCT, `${TABLE}.product_id`, `${TABLE_PRODUCT}.product_id`)
+    .leftJoin(TABLE_PRODUCT_DIMENSI, `${TABLE}.product_dimensi_id`, `${TABLE_PRODUCT_DIMENSI}.product_dimensi_id`)
+    .leftJoin(TABLE_PRODUCT_MODEL, `${TABLE_PRODUCT_DIMENSI}.product_model_id`, `${TABLE_PRODUCT_MODEL}.product_model_id`)
+    .leftJoin(TABLE_PRODUCT, `${TABLE_PRODUCT_MODEL}.product_id`, `${TABLE_PRODUCT}.product_id`)
 
   if (where != null) {
     query = query.where((builder) => {
@@ -70,6 +78,7 @@ const sql = (where, search = false) => {
 
   return query
 }
+
 /**
  *
  *
@@ -95,6 +104,77 @@ const create = async (payload) => {
     return mappingError(error)
   }
 }
+
+/**
+ * Insert or Update function that checks if record exists based on
+ * product_dimensi_id and specification_label_id
+ * If record exists, it updates the data, otherwise it inserts new data
+ * @param {*} payload
+ * @return {*}
+ */
+const createOrUpdate = async (payload) => {
+  const transaction = await pgCore.transaction();
+
+  try {
+    // Check if record exists based on product_dimensi_id and specification_label_id
+    const existingRecord = await pgCore(TABLE)
+      .select(['specification_value_id'])
+      .where({
+        product_dimensi_id: payload.product_dimensi_id,
+        specification_label_id: payload.specification_label_id,
+        deleted_at: null
+      })
+      .first();
+
+    let result;
+    let message;
+
+    if (existingRecord) {
+      // Record exists, perform update
+      const updatePayload = {
+        specification_value_name: payload.specification_value_name,
+        description: payload.description,
+        updated_at: payload.updated_at,
+        updated_by: payload.updated_by
+      };
+
+      result = await pgCore(TABLE)
+        .where({
+          specification_value_id: existingRecord.specification_value_id
+        })
+        .update(updatePayload)
+        .returning([COLUMN[0]]);
+
+      message = lang.__('updated.success', { id: existingRecord.specification_value_id });
+    } else {
+      // Record doesn't exist, perform insert
+      const insertPayload = {
+        specification_value_name: payload.specification_value_name,
+        specification_label_id: payload.specification_label_id,
+        product_dimensi_id: payload.product_dimensi_id,
+        description: payload.description,
+        created_at: payload.created_at,
+        created_by: payload.created_by
+      };
+
+      result = await Repo.insert(TABLE, insertPayload, COLUMN[0]);
+      message = lang.__('created.success');
+    }
+
+    if (!result) {
+      await transaction.rollback();
+      return mappingSuccess(existingRecord ? lang.__('updated.failed') : lang.__('created.failed'), null, 200, false);
+    }
+
+    await transaction.commit();
+    return mappingSuccess(message, result);
+  } catch (error) {
+    await transaction.rollback();
+    error.path = __filename;
+    return mappingError(error);
+  }
+}
+
 /**
  *
  *
@@ -158,7 +238,7 @@ const update = async (where, payload) => {
     const updatePayload = {
       specification_value_name: payload.specification_value_name,
       specification_label_id: payload.specification_label_id,
-      product_id: payload.product_id,
+      product_dimensi_id: payload.product_dimensi_id,
       description: payload.description,
       updated_at: payload.updated_at,
       updated_by: payload.updated_by
@@ -194,6 +274,7 @@ const update = async (where, payload) => {
 
 module.exports = {
   create,
+  createOrUpdate,
   get,
   update,
   getByParam,

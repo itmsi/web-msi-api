@@ -4,7 +4,7 @@ exports.up = function (knex) {
       .uuid('location_id')
       .defaultTo(knex.raw('uuid_generate_v4()'))
       .primary();
-    table.string('location_code', 30).unique();
+    table.string('location_code', 100).nullable();
     table.string('location_name', 100);
     table.string('location_account_number', 25);
     table.string('location_code_inventory', 10);
