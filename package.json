@@ -10,7 +10,10 @@
     "consumer": "node src/scripts/start-consumer.js",
     "consumer-career": "node src/scripts/start-consumer-career.js",
     "consumer-voucher": "node src/scripts/start-consumer-voucher.js",
-    "consumer-claim-voucher": "node src/scripts/start-consumer-claim-voucher.js"
+    "consumer-claim-voucher": "node src/scripts/start-consumer-claim-voucher.js",
+    "swagger:enable": "./scripts/swagger-control.sh enable",
+    "swagger:disable": "./scripts/swagger-control.sh disable",
+    "swagger:status": "./scripts/swagger-control.sh status"
   },
   "repository": {
     "type": "git",

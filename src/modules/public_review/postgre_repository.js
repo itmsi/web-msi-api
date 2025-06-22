@@ -69,6 +69,28 @@ const create = async (payload) => {
   const transaction = await pgCore.transaction();
 
   try {
+    // Check if email already exists in the database
+    const existingEmail = await pgCore(TABLE)
+      .select('review_email')
+      .where('review_email', payload.review_email)
+      .first()
+
+    if (existingEmail) {
+      transaction.rollback();
+      return mappingSuccess('Email has already been used for review', null, 200, false)
+    }
+
+    // Check if phone number already exists in the database
+    const existingPhone = await pgCore(TABLE)
+      .select('review_phone')
+      .where('review_phone', payload.review_phone)
+      .first()
+
+    if (existingPhone) {
+      transaction.rollback();
+      return mappingSuccess('Phone number has already been used for review', null, 200, false)
+    }
+
     const result = await Repo.insert(TABLE, payload, COLUMN[0])
 
     if (!result) {
@@ -90,7 +112,7 @@ const create = async (payload) => {
     }
 
     transaction.commit();
-    return mappingSuccess(lang.__('created.success'), responseData)
+    return mappingSuccess('Review submitted successfully! Redirecting to Google Review...', responseData)
   } catch (error) {
     transaction.rollback();
     console.error('create: Error in create function:', error)
