@@ -9,8 +9,6 @@ const postValidation = [
   check('news_title_id')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'News Title ID' }))
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'News Title ID', max: 100 }))
     .notEmpty()
     .withMessage(lang.__('validator.required', { field: 'News Title ID' }))
     .custom(async (value) => {
@@ -23,15 +21,11 @@ const postValidation = [
   check('news_title_en')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'News Title EN' }))
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'News Title EN', max: 100 }))
     .notEmpty()
     .withMessage(lang.__('validator.required', { field: 'News Title EN' })),
   check('news_title_cn')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'News Title CN' }))
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'News Title CN', max: 100 }))
     .notEmpty()
     .withMessage(lang.__('validator.required', { field: 'News Title CN' })),
   check('news_content_id')
@@ -54,8 +48,6 @@ const postValidation = [
 
 const putValidation = [
   check('news_title_id')
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'News Title ID', max: 100 }))
     .isString()
     .withMessage(lang.__('validator.string', { field: 'News Title ID' }))
     .optional(true)
@@ -69,14 +61,10 @@ const putValidation = [
   check('news_title_en')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'News Title EN' }))
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'News Title EN', max: 100 }))
     .optional(true),
   check('news_title_cn')
     .isString()
     .withMessage(lang.__('validator.string', { field: 'News Title CN' }))
-    .isLength({ max: 100 })
-    .withMessage(lang.__('validator.max', { field: 'News Title CN', max: 100 }))
     .optional(true),
   check('news_content_id')
     .isString()
