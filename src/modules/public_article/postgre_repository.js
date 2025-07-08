@@ -25,6 +25,7 @@ const DEFAULT_SORT = [`${TABLE}.news_published_at`, 'DESC']
 
 const condition = (builder, where, search = null) => {
   builder.where(`${TABLE}.deleted_at`, null)
+  builder.where(`${TABLE}.news_status`, '1')
 
   if (where?.news_category_id) {
     builder.where(`${TABLE}.news_category_id`, where.news_category_id)
