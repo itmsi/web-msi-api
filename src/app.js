@@ -19,7 +19,14 @@ const healthCheck = require('./routes')
 const apiV1 = require('./routes/V1')
 const { initListener } = require('./listeners')
 
-initListener()
+// Conditionally initialize listeners only if RabbitMQ is configured and not disabled
+if (process.env.RABBITMQ_URL && process.env.RABBITMQ_URL !== 'disabled') {
+  console.log('Initializing RabbitMQ listeners...')
+  initListener()
+} else {
+  console.log('RabbitMQ not configured or disabled, skipping listener initialization')
+}
+
 const limit = process.env.JSON_LIMIT.toString() ?? '123072kb'
 app.set('trust proxy', 1);
 app.use(compress()) // gzip compression

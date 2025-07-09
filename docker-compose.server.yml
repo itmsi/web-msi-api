@@ -18,7 +18,10 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=9501
-      - RABBITMQ_URL=amqp://guest:guest@103.169.73.226:5672
+      - RABBITMQ_URL=amqp://guest:guest@103.169.73.226:9505
+      - APM_SERVICE_URL=disabled
+      - APM_SERVICE_NAME=disabled
+      - APM_SERVICE_TOKEN=disabled
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:9501/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
       interval: 30s
