@@ -1,4 +1,4 @@
-const { rabbitmq } = require('../config')
+const { connectRabbitMQ } = require('../config/rabbitmq')
 const {
   ENUM, EXCHANGES, logger, todayFormat, ACTION_TRX
 } = require('../utils')
@@ -20,7 +20,7 @@ const methodExecution = async (payload, channel, msg) => {
 
 const initAuctionTrx = async () => {
   const queueName = EXCHANGES.AUCTION
-  const { channel, connection } = await rabbitmq()
+  const { channel, connection } = await connectRabbitMQ()
   process.once('SIGINT', async () => {
     console.info('got sigint, closing connection')
     await channel.close()

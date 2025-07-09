@@ -1,4 +1,4 @@
-const { rabbitmq } = require('../config')
+const { connectRabbitMQ } = require('../config/rabbitmq')
 const {
   EXCHANGES, logger, todayFormat
 } = require('../utils')
@@ -12,7 +12,7 @@ const methodExecution = async (payload, channel, msg) => {
 
 const initInspectionTrx = async () => {
   const queueName = EXCHANGES.INSPECTION
-  const { channel, connection } = await rabbitmq()
+  const { channel, connection } = await connectRabbitMQ()
   process.once('SIGINT', async () => {
     console.info('got sigint, closing connection')
     await channel.close()

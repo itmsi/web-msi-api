@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { rabbitmq } = require('../config')
+const { connectRabbitMQ } = require('../config/rabbitmq')
 const {
   EXCHANGES, logger, todayFormat, mail, sendAlert
 } = require('../utils')
@@ -34,7 +34,7 @@ const methodExecution = async (payload, channel) => {
 
 const initEmailServices = async () => {
   const queueName = EXCHANGES.EMAIL
-  const { channel, connection } = await rabbitmq()
+  const { channel, connection } = await connectRabbitMQ()
   process.once('SIGINT', async () => {
     console.info('got sigint, closing connection')
     await channel.close()

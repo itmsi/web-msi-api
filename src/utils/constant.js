@@ -423,7 +423,7 @@ module.exports = {
     { id: 1, name: 'Publish' },
     { id: 2, name: 'Draft' },
   ],
-  LAST_DATE_EXISTING: (process.env.LAST_DATE_EXISTING).toString(),
+  LAST_DATE_EXISTING: (process.env.LAST_DATE_EXISTING || '2024-12-31').toString(),
   INVENTORY_STATUS_NAME: {
     OPERASI: 'operasi',
     TERSEDIA: 'tersedia',

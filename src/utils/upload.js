@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const { awsBucket, awsBucketPrivate } = require('../config')
+const { awsBucket, awsBucketPrivate, isAwsEnabled } = require('../config')
 const { generateFolder, generateFolderWithSlash } = require('./folder')
 const { logger } = require('./logger')
 const { logDateFormat } = require('./date')
@@ -12,6 +12,16 @@ const generateUpload = async (req, num, paths, naming, defaults = '', additional
 }) => {
   const filePath = `user-upload-${logDateFormat()}.txt`
   try {
+    // If AWS is disabled, return default values
+    if (!isAwsEnabled) {
+      console.log('AWS is disabled, returning default values for upload')
+      return {
+        pathForDatabase: defaults,
+        fileNames: defaults,
+        status: false
+      }
+    }
+
     let { buffer } = req.files[num]
     const mime = req?.files[num]?.mimetype
     let fileNames = req?.files[num]?.fieldname ? `${naming !== '' ? `${naming}-` : ''}${Date.now()}${path.extname(req?.files[num]?.originalname)}` : defaults
@@ -81,6 +91,12 @@ const generateUploadUpdated = async (req, file, row, defaults = '', additional =
   isWatermark: false, isPrivate: false, isContentType: false, fileNames: '', compressImage: false
 }) => {
   try {
+    // If AWS is disabled, return row payload as is
+    if (!isAwsEnabled) {
+      console.log('AWS is disabled, returning row payload for upload update')
+      return row?.payload
+    }
+
     const filePath = `user-upload-put-${logDateFormat()}.txt`
     let fileName = req?.files[file?.num]?.fieldname ? `${file?.name !== '' ? `${file?.name}-` : ''}${Date.now()}${path.extname(req?.files[file?.num]?.originalname)}` : defaults
     const pathBucket = additional.isPrivate ? `${process.env.AWS_BUCKET_PRIVATE}/${file?.path}` : `${process.env.AWS_BUCKET}/${file?.path}`
@@ -188,6 +204,16 @@ const storeToAws = async (
   options
 ) => {
   try {
+    // If AWS is disabled, return error status
+    if (!isAwsEnabled) {
+      console.log('AWS is disabled, returning error status for storeToAws')
+      return {
+        status: false,
+        path: '',
+        error: { message: 'AWS is disabled' }
+      }
+    }
+
     const bucketNamePublic = process.env.AWS_BUCKET;
     const bucketNamePrivate = process.env.AWS_BUCKET_PRIVATE;
     const buffer = options?.buffer;

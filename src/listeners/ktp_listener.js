@@ -1,4 +1,4 @@
-const { rabbitmq } = require('../config')
+const { connectRabbitMQ } = require('../config/rabbitmq')
 const {
   EXCHANGES, logger, todayFormat,
   QUEUE,
@@ -25,7 +25,7 @@ const methodExecution = async (rows) => {
 }
 
 const initKtpProcessing = async () => {
-  const { channel, connection } = await rabbitmq()
+  const { channel, connection } = await connectRabbitMQ()
   process.once('SIGINT', async () => {
     console.info('got sigint, closing connection')
     await channel.close()

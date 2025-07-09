@@ -1,24 +1,27 @@
-const { rabbitmq, publishToRabbitMqQueueSingle } = require('../config')
+const { connectRabbitMQ, publishToRabbitMqQueueSingle } = require('../config')
 const { EXCHANGES } = require('../utils')
 const mail = require('../utils/mail')
 
 const debugJob = async (rows, url, APP_INFO) => {
   try {
-    const { status } = await rabbitmq()
+    const rabbitMQ = await connectRabbitMQ()
     const email = rows?.email
     const subject = 'Reset Password Seller'
     const template = 'mail/client_reset_password'
     const data = {
       ...rows, url, ...APP_INFO
     }
-    console.log(status);
-    if (status === 'connected') {
+
+    if (rabbitMQ?.connection && rabbitMQ?.channel) {
       const payload = {
         data,
         email,
         subject,
         template
       }
+      // Close the connection after publishing
+      await rabbitMQ.channel.close()
+      await rabbitMQ.connection.close()
       return await publishToRabbitMqQueueSingle(EXCHANGES.EMAIL, EXCHANGES.EMAIL, payload)
     }
     return await mail.init()
