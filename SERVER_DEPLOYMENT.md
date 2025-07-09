@@ -37,6 +37,7 @@ chmod +x deploy-server.sh
 make deploy-server
 
 # Or step by step:
+make setup-server-dirs
 make docker-server-build
 make docker-server-up
 ```
@@ -44,6 +45,9 @@ make docker-server-up
 ### Option 3: Using Docker Compose directly
 
 ```bash
+# Setup directories first
+./setup-server-dirs.sh
+
 # Build the image
 docker-compose -f docker-compose.server.yml build
 
@@ -56,6 +60,9 @@ docker-compose -f docker-compose.server.yml up -d
 ### Server Management
 
 ```bash
+# Setup server directories with proper permissions
+make setup-server-dirs
+
 # Start server environment (API only)
 make docker-server-up
 
@@ -127,7 +134,31 @@ The server deployment uses `docker-compose.server.yml` which:
 - Maps port 9509 (host) to 9501 (container)
 - Includes health checks
 - Sets resource limits (1GB memory, 0.5 CPU)
-- Mounts logs directory for persistence
+- Mounts logs, public, and storages directories for persistence
+
+### Directory Structure
+
+The application requires the following directory structure:
+
+```
+core-api-msi/
+├── logs/
+│   ├── listener/
+│   ├── upload/
+│   ├── email/
+│   ├── queue/
+│   ├── mail/
+│   ├── image-ktp/
+│   ├── pdf/
+│   └── excel/
+├── public/
+│   ├── pdf/
+│   └── excel/
+└── storages/
+    └── tmp/
+```
+
+These directories are automatically created by the setup scripts with proper permissions.
 
 ## Monitoring
 
@@ -159,7 +190,20 @@ docker-compose -f docker-compose.server.yml ps
 
 ### Common Issues
 
-1. **Port already in use**
+1. **Permission denied errors**
+   ```bash
+   # Run the directory setup script
+   make setup-server-dirs
+   
+   # Or manually create directories with proper permissions
+   mkdir -p logs/listener logs/upload logs/email logs/queue logs/mail logs/image-ktp logs/pdf logs/excel
+   mkdir -p public/pdf public/excel
+   mkdir -p storages/tmp
+   chmod -R 755 logs public storages
+   chmod -R 777 logs/* public/* storages/*
+   ```
+
+2. **Port already in use**
    ```bash
    # Check what's using the port
    lsof -i :9509
@@ -167,7 +211,7 @@ docker-compose -f docker-compose.server.yml ps
    # Stop the conflicting service or change the port in docker-compose.server.yml
    ```
 
-2. **Container won't start**
+3. **Container won't start**
    ```bash
    # Check logs for errors
    make docker-server-logs
@@ -176,11 +220,12 @@ docker-compose -f docker-compose.server.yml ps
    docker-compose -f docker-compose.server.yml ps
    ```
 
-3. **Permission issues**
+4. **Log directory creation errors**
    ```bash
-   # Ensure logs directory exists and has proper permissions
-   mkdir -p logs
-   chmod 755 logs
+   # Ensure the container has write permissions
+   docker-compose -f docker-compose.server.yml down
+   make setup-server-dirs
+   docker-compose -f docker-compose.server.yml up -d
    ```
 
 ### Updating the Application
@@ -200,6 +245,7 @@ make docker-server-restart
 - Only necessary ports are exposed (9509)
 - Health checks are enabled for monitoring
 - Resource limits are set to prevent resource exhaustion
+- Directories have appropriate permissions for the container user
 
 ## Backup and Maintenance
 
@@ -238,7 +284,8 @@ For issues or questions:
 1. Check the logs: `make docker-server-logs`
 2. Verify configuration in `.env` file
 3. Check container status: `docker-compose -f docker-compose.server.yml ps`
-4. Review this documentation
+4. Ensure directories exist with proper permissions: `make setup-server-dirs`
+5. Review this documentation
 
 ---
 

@@ -38,6 +38,19 @@ if ! command -v docker-compose &> /dev/null; then
     exit 1
 fi
 
+# Setup directories
+print_status "Setting up directories..."
+if [ -f "./setup-server-dirs.sh" ]; then
+    ./setup-server-dirs.sh
+else
+    print_warning "setup-server-dirs.sh not found, creating directories manually..."
+    mkdir -p logs/listener logs/upload logs/email logs/queue logs/mail logs/image-ktp logs/pdf logs/excel
+    mkdir -p public/pdf public/excel
+    mkdir -p storages/tmp
+    chmod -R 755 logs public storages
+    chmod -R 777 logs/* public/* storages/*
+fi
+
 # Stop existing containers if running
 print_status "Stopping existing containers..."
 docker-compose -f docker-compose.server.yml down || true

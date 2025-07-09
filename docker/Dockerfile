@@ -26,10 +26,17 @@ COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
 # Copy application code
 COPY --chown=nodejs:nodejs . .
 
-# Create logs directory with proper permissions
-RUN mkdir -p logs && \
+# Create logs directory structure with proper permissions
+RUN mkdir -p logs/listener logs/upload logs/email logs/queue logs/mail logs/image-ktp logs/pdf logs/excel && \
     chown -R nodejs:nodejs logs && \
-    chmod -R 755 logs
+    chmod -R 755 logs && \
+    chmod -R 777 logs/*
+
+# Create other necessary directories
+RUN mkdir -p public/pdf public/excel storages/tmp && \
+    chown -R nodejs:nodejs public storages && \
+    chmod -R 755 public storages && \
+    chmod -R 777 public/* storages/*
 
 # Switch to non-root user
 USER nodejs

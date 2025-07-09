@@ -13,6 +13,8 @@ services:
     restart: unless-stopped
     volumes:
       - ./logs:/app/logs
+      - ./public:/app/public
+      - ./storages:/app/storages
     environment:
       - NODE_ENV=production
       - PORT=9501
