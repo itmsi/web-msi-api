@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: core-api-cum-dev
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    ports:
+      - "9513:9501"
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - ./logs:/app/logs
+    environment:
+      - NODE_ENV=development
+      - PORT=9501
+
+networks:
+  default:
+    driver: bridge 

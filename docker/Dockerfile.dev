@@ -1,0 +1,25 @@
+FROM node:22-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install nodemon globally untuk development
+RUN npm install -g nodemon
+
+# Copy package files
+COPY package*.json ./
+
+# Install all dependencies (including dev dependencies)
+RUN npm install && npm cache clean --force
+
+# Copy application code
+COPY . .
+
+# Create logs directory
+RUN mkdir -p logs
+
+# Expose port
+EXPOSE 9501
+
+# Start application dengan nodemon untuk auto-reload
+CMD ["nodemon", "src/server.js"] 
