@@ -18,7 +18,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=9501
-      - RABBITMQ_URL=amqp://guest:guest@103.169.73.226:9505
+      - RABBITMQ_URL=amqp://api_user:api_password@103.169.73.226:9505
       - APM_SERVICE_URL=disabled
       - APM_SERVICE_NAME=disabled
       - APM_SERVICE_TOKEN=disabled
