@@ -4,22 +4,34 @@ const { sendAlertSlack } = require('./alert')
 const { lang } = require('../lang')
 
 let apm;
-if (process.env.NODE_ENV === 'production') {
-  // eslint-disable-next-line import/no-unresolved, global-require
-  apm = require('elastic-apm-node').start({
-    // Override the service name from package.json
-    // Allowed characters: a-z, A-Z, 0-9, -, _, and space
-    serviceName: process.env.APM_SERVICE_NAME,
-    // Use if APM Server requires a secret token
-    secretToken: process.env.APM_SERVICE_TOKEN,
-    // Set the custom APM Server URL (default: http://localhost:8200)
-    serverUrl: process.env.APM_SERVICE_URL,
-    verifyServerCert: false,
-    // Set the service environment
-    environment: process.env.NODE_ENV,
-    // Add centralConfig: false option
-    centralConfig: false
-  });
+if (process.env.NODE_ENV === 'production'
+    && process.env.ELASTIC_APM_DISABLED !== 'true'
+    && process.env.ELASTIC_APM_ACTIVE !== 'false'
+    && process.env.APM_SERVICE_URL
+    && process.env.APM_SERVICE_URL !== 'disabled') {
+  try {
+    // eslint-disable-next-line import/no-unresolved, global-require
+    apm = require('elastic-apm-node').start({
+      // Override the service name from package.json
+      // Allowed characters: a-z, A-Z, 0-9, -, _, and space
+      serviceName: process.env.APM_SERVICE_NAME || 'core-api-msi',
+      // Use if APM Server requires a secret token
+      secretToken: process.env.APM_SERVICE_TOKEN,
+      // Set the custom APM Server URL (default: http://localhost:8200)
+      serverUrl: process.env.APM_SERVICE_URL,
+      verifyServerCert: false,
+      // Set the service environment
+      environment: process.env.NODE_ENV,
+      // Add centralConfig: false option
+      centralConfig: false
+    });
+  } catch (error) {
+    console.log('APM initialization failed:', error.message);
+    apm = null;
+  }
+} else {
+  console.log('APM is disabled or not configured');
+  apm = null;
 }
 
 const notFoundHandler = (req, res) => {
@@ -207,7 +219,7 @@ const mappingError = (error, code = HTTP.CREATED) => {
   if (process.env.NODE_ENV === 'development') {
     exception = error.toString()
   }
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production' && apm) {
     apm.captureError(error);
   }
   console.log(manipulate[0]);

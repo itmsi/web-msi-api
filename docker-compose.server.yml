@@ -19,9 +19,15 @@ services:
       - NODE_ENV=production
       - PORT=9501
       - RABBITMQ_URL=amqp://api_user:api_password@103.169.73.226:9505
-      - APM_SERVICE_URL=disabled
-      - APM_SERVICE_NAME=disabled
-      - APM_SERVICE_TOKEN=disabled
+      - APM_SERVICE_URL=
+      - APM_SERVICE_NAME=
+      - APM_SERVICE_TOKEN=
+      - ELASTIC_APM_SERVER_URL=
+      - ELASTIC_APM_SECRET_TOKEN=
+      - ELASTIC_APM_SERVICE_NAME=
+      - ELASTIC_APM_ENVIRONMENT=production
+      - ELASTIC_APM_ACTIVE=false
+      - ELASTIC_APM_DISABLED=true
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:9501/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
       interval: 30s
