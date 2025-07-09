@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   api:
-    container_name: core-api-cum-dev
+    container_name: core-api-msi-dev
     image: core-api-msi-dev
     build:
       context: .
