@@ -25,6 +25,7 @@ const COLUMN_DEFAULT = [
   `${TABLE_PRODUCT_MODEL}.product_model_foto`,
   `${TABLE_PRODUCT_MODEL}.deleted_at as model_deleted_at`,
   `${TABLE_PRODUCT_DIMENSI}.product_dimensi_value`,
+  `${TABLE_PRODUCT_DIMENSI}.product_flayer`,
   `${TABLE_PRODUCT_DIMENSI}.deleted_at as dimensi_deleted_at`,
 ]
 
@@ -99,6 +100,7 @@ const transformToNestedStructure = (flatData) => {
     const productName = row.product_name_en
     const modelName = row.product_model_name
     const dimensiValue = row.product_dimensi_value
+    const flayer = row.product_flayer
     const specificationName = row.specification_name
     const labelName = row.specification_label_name
     const valueName = row.specification_value_name
@@ -137,6 +139,7 @@ const transformToNestedStructure = (flatData) => {
     if (!products[productName].product_model[modelName].product_dimensi[dimensiValue]) {
       products[productName].product_model[modelName].product_dimensi[dimensiValue] = {
         product_dimensi_value: dimensiValue,
+        product_flayer: flayer,
         specification: []
       }
     }
@@ -168,6 +171,7 @@ const transformToNestedStructure = (flatData) => {
       product_model_foto: model.product_model_foto,
       product_dimensi: Object.values(model.product_dimensi).map((dimensi) => ({
         product_dimensi_value: dimensi.product_dimensi_value,
+        product_flayer: dimensi.product_flayer,
         specification: dimensi.specification // Already an array
       }))
     }))

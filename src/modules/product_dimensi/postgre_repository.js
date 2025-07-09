@@ -18,6 +18,7 @@ const TYPE_TABLE = 'mst_type_product'
 const COLUMN_ALL = [
   `${TABLE}.product_dimensi_id`, `${TABLE}.product_model_id`, `${TABLE}.product_dimensi_value`, `${TABLE}.product_dimensi_description`,
   `${TABLE_MODEL}.product_model_name`,
+  `${TABLE}.product_flayer`,
   `${PRODUCT_TABLE}.product_name_id`, `${PRODUCT_TABLE}.product_name_en`, `${PRODUCT_TABLE}.product_name_cn`,
   `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
@@ -27,6 +28,7 @@ const COLUMN_ALL = [
 const COLUMN = [
   `${TABLE}.product_dimensi_id`, `${TABLE}.product_model_id`, `${TABLE}.product_dimensi_value`, `${TABLE}.product_dimensi_description`,
   `${TABLE_MODEL}.product_model_name`,
+  `${TABLE}.product_flayer`,
   `${PRODUCT_TABLE}.product_name_id`, `${PRODUCT_TABLE}.product_name_en`, `${PRODUCT_TABLE}.product_name_cn`,
   `${TYPE_TABLE}.type_product_name_id`, `${TYPE_TABLE}.type_product_name_en`, `${TYPE_TABLE}.type_product_name_cn`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
