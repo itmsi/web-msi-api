@@ -1,7 +1,5 @@
 version: '3.8'
 
-name: core-api-msi-server
-
 services:
   api:
     container_name: core-api-msi-server
