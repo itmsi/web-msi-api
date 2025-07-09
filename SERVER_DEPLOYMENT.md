@@ -110,6 +110,9 @@ Create a `.env` file in the root directory with your configuration:
 NODE_ENV=production
 PORT=9501
 
+# RabbitMQ Configuration (external server)
+RABBITMQ_URL=amqp://guest:guest@103.169.73.226:5672
+
 # Database Configuration (if connecting to external database)
 DB_HOST=your-database-host
 DB_PORT=5432
@@ -135,6 +138,7 @@ The server deployment uses `docker-compose.server.yml` which:
 - Includes health checks
 - Sets resource limits (1GB memory, 0.5 CPU)
 - Mounts logs, public, and storages directories for persistence
+- Connects to external RabbitMQ server at 103.169.73.226:5672
 
 ### Directory Structure
 
@@ -203,7 +207,16 @@ docker-compose -f docker-compose.server.yml ps
    chmod -R 777 logs/* public/* storages/*
    ```
 
-2. **Port already in use**
+2. **RabbitMQ connection errors**
+   ```bash
+   # Check if RabbitMQ server is accessible
+   telnet 103.169.73.226 5672
+   
+   # Verify RabbitMQ credentials in .env file
+   # Default: guest:guest
+   ```
+
+3. **Port already in use**
    ```bash
    # Check what's using the port
    lsof -i :9509
@@ -211,7 +224,7 @@ docker-compose -f docker-compose.server.yml ps
    # Stop the conflicting service or change the port in docker-compose.server.yml
    ```
 
-3. **Container won't start**
+4. **Container won't start**
    ```bash
    # Check logs for errors
    make docker-server-logs
@@ -220,7 +233,7 @@ docker-compose -f docker-compose.server.yml ps
    docker-compose -f docker-compose.server.yml ps
    ```
 
-4. **Log directory creation errors**
+5. **Log directory creation errors**
    ```bash
    # Ensure the container has write permissions
    docker-compose -f docker-compose.server.yml down
@@ -246,6 +259,7 @@ make docker-server-restart
 - Health checks are enabled for monitoring
 - Resource limits are set to prevent resource exhaustion
 - Directories have appropriate permissions for the container user
+- RabbitMQ connects to external server with proper authentication
 
 ## Backup and Maintenance
 
@@ -289,4 +303,4 @@ For issues or questions:
 
 ---
 
-**Note**: This deployment includes only the API service. If you need database or Redis functionality, you'll need to configure external connections in your `.env` file or use the full docker-compose setup. 
+**Note**: This deployment includes only the API service. If you need database or Redis functionality, you'll need to configure external connections in your `.env` file or use the full docker-compose setup. RabbitMQ connects to external server at 103.169.73.226:5672. 
