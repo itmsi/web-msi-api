@@ -42,11 +42,11 @@ RUN mkdir -p public/pdf public/excel storages/tmp && \
 USER nodejs
 
 # Expose port
-EXPOSE 9501
+EXPOSE 9509
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:9501/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })" || exit 1
+  CMD node -e "require('http').get('http://localhost:9509/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })" || exit 1
 
 # Start application
 CMD ["node", "src/server.js"]
