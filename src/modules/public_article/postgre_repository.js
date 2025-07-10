@@ -136,7 +136,7 @@ const get = async (where, filter, column = COLUMN_DEFAULT) => {
   }
 }
 
-const getBySlug = async (slug, language = 'id') => {
+const getBySlug = async (slug, language = 'en') => {
   try {
     const query = pgCore(TABLE)
       .leftJoin(TABLE_CATEGORY, `${TABLE}.news_category_id`, `${TABLE_CATEGORY}.news_category_id`)
