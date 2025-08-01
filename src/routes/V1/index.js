@@ -60,6 +60,7 @@ const productModel = require('../../modules/product_model')
 const productDimensi = require('../../modules/product_dimensi')
 const review = require('../../modules/review')
 const publicReview = require('../../modules/public_review')
+const campaignDoctorTruck = require('../../modules/campaign_doctor_truck')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -132,4 +133,5 @@ routing.use(`${API_TAG}/specification-product-value`, verifyToken, specification
 routing.use(`${API_TAG}/product-model`, verifyToken, productModel)
 routing.use(`${API_TAG}/product-dimensi`, verifyToken, productDimensi)
 routing.use(`${API_TAG}/review`, verifyToken, review)
+routing.use(`${API_TAG}/campaign-doctor-truck`, verifyToken, campaignDoctorTruck)
 module.exports = routing;
