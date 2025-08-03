@@ -76,5 +76,50 @@
 				"format": "binary"
 			}
 		}
+	},
+	"SchemaPostCampaignDoctorTruckPublic": {
+		"type": "object",
+		"required": [
+			"participant_name",
+			"participant_phone",
+			"participant_company",
+			"participant_department"
+		],
+		"properties": {
+			"participant_name": {
+				"type": "string",
+				"description": "Nama peserta campaign",
+				"maxLength": 100
+			},
+			"participant_phone": {
+				"type": "string",
+				"description": "Nomor telepon peserta",
+				"maxLength": 100
+			},
+			"participant_company": {
+				"type": "string",
+				"description": "Nama perusahaan peserta",
+				"maxLength": 100
+			},
+			"participant_department": {
+				"type": "string",
+				"description": "Departemen peserta",
+				"maxLength": 100
+			},
+			"participant_description": {
+				"type": "string",
+				"description": "Deskripsi tambahan (opsional)"
+			},
+			"file1": {
+				"type": "string",
+				"format": "binary",
+				"description": "File PDF (opsional)"
+			},
+			"file2": {
+				"type": "string",
+				"format": "binary",
+				"description": "File Image (opsional)"
+			}
+		}
 	}
 }

@@ -96,6 +96,7 @@ routing.use(`${API_TAG}/public/degree`, publicDegree)
 routing.use(`${API_TAG}/public/province`, publicProvince)
 routing.use(`${API_TAG}/public/city`, publicCity)
 routing.use(`${API_TAG}/public/review`, publicReview)
+routing.use(`${API_TAG}/public/campaign-doctor-truck`, campaignDoctorTruck)
 
 // need token verify register here
 routing.use(`${API_TAG}/admin-menu`, verifyToken, adminMenu)

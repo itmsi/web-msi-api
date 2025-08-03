@@ -141,8 +141,39 @@ const softDelete = async (req, res) => {
   return baseResponse(res, result)
 }
 
+const storePublic = async (req, res) => {
+  try {
+    const payload = { ...req?.body }
+
+    // Log request files untuk debugging
+    console.log('Request files:', req?.files)
+    console.log('Request body:', req?.body)
+
+    // Upload PDF file
+    const pdfResult = await generateMinioUpload(req, 0, 'campaign-doctor-truck/pdf', 'pdf')
+    payload.participant_file_name_pdf = pdfResult.pathForDatabase || null
+
+    // Upload Image file
+    const imgResult = await generateMinioUpload(req, 1, 'campaign-doctor-truck/images', 'img')
+    payload.participant_file_name_img = imgResult.pathForDatabase || null
+
+    // Log untuk debugging
+    console.log('PDF Upload Result:', pdfResult)
+    console.log('Image Upload Result:', imgResult)
+    console.log('Final Payload:', payload)
+
+    const result = await repository.create(payload);
+    console.log('Database result:', result)
+    return baseResponse(res, result)
+  } catch (error) {
+    console.error('Error in storePublic function:', error)
+    return baseResponse(res, { success: false, message: 'Error uploading files', error: error.message })
+  }
+}
+
 module.exports = {
   store,
+  storePublic,
   fetch,
   fetchByParam,
   update,

@@ -103,4 +103,40 @@ const paramValidation = [
   (req, res, next) => { validateMiddleware(req, res, next) }
 ]
 
-module.exports = { postValidation, putValidation, paramValidation }
+const publicPostValidation = [
+  check('participant_name')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'Campaign Participant Name' }))
+    .isLength({ max: 100 })
+    .withMessage(lang.__('validator.max', { field: 'Campaign Participant Name', max: 100 }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Campaign Participant Name' })),
+  check('participant_phone')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'Campaign Participant Phone' }))
+    .isLength({ max: 100 })
+    .withMessage(lang.__('validator.max', { field: 'Campaign Participant Phone', max: 100 }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Campaign Participant Phone' })),
+  check('participant_company')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'Campaign Participant Company' }))
+    .isLength({ max: 100 })
+    .withMessage(lang.__('validator.max', { field: 'Campaign Participant Company', max: 100 }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Campaign Participant Company' })),
+  check('participant_department')
+    .isString()
+    .withMessage(lang.__('validator.string', { field: 'Campaign Participant Department' }))
+    .isLength({ max: 100 })
+    .withMessage(lang.__('validator.max', { field: 'Campaign Participant Department', max: 100 }))
+    .notEmpty()
+    .withMessage(lang.__('validator.required', { field: 'Campaign Participant Department' })),
+  (req, res, next) => {
+    validateMiddleware(req, res, next)
+  }
+]
+
+module.exports = {
+  postValidation, putValidation, paramValidation, publicPostValidation
+}

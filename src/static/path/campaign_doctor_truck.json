@@ -209,5 +209,46 @@
 				}
 			}
 		}
+	},
+	"/public/campaign-doctor-truck/public": {
+		"post": {
+			"tags": [
+				"Campaign Doctor Truck Public"
+			],
+			"summary": "Create campaign doctor truck data (Public Access)",
+			"description": "Create new campaign doctor truck data without authentication. File upload is optional.",
+			"requestBody": {
+				"required": true,
+				"content": {
+					"multipart/form-data": {
+						"schema": {
+							"$ref": "#/components/schemas/SchemaPostCampaignDoctorTruckPublic"
+						}
+					}
+				}
+			},
+			"responses": {
+				"200": {
+					"description": "Success",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				},
+				"400": {
+					"description": "Bad Request - Validation Error",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaErrorResponse"
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }

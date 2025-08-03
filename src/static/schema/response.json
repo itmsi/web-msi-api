@@ -49,5 +49,29 @@
         }
       }
     }
+  },
+  "SchemaErrorResponse": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "boolean",
+        "example": false
+      },
+      "message": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": ["Validation error message"]
+      },
+      "exception": {
+        "type": "string",
+        "example": "Validation error message"
+      },
+      "data": {
+        "type": "array",
+        "example": []
+      }
+    }
   }
 }
