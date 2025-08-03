@@ -17,6 +17,9 @@
 			"participant_department": {
 				"type": "string"
 			},
+			"participant_description": {
+				"type": "string"
+			},
 			"participant_file_name_pdf": {
 				"type": "string"
 			},
@@ -61,11 +64,16 @@
 			"participant_department": {
 				"type": "string"
 			},
-			"participant_file_name_pdf": {
+			"participant_description": {
 				"type": "string"
 			},
+			"participant_file_name_pdf": {
+				"type": "string",
+				"format": "binary"
+			},
 			"participant_file_name_img": {
-				"type": "string"
+				"type": "string",
+				"format": "binary"
 			}
 		}
 	}
