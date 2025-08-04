@@ -25,9 +25,8 @@ const generateUpload = async (req, num, paths, naming, defaults = '', additional
     let { buffer } = req.files[num]
     const mime = req?.files[num]?.mimetype
     let fileNames = req?.files[num]?.fieldname ? `${naming !== '' ? `${naming}-` : ''}${Date.now()}${path.extname(req?.files[num]?.originalname)}` : defaults
-    // const ACL = additional.isPrivate ? { ACL: 'authenticated-read' } : {};
+    const ACL = additional.isPrivate ? { ACL: 'authenticated-read' } : { ACL: 'public-read' };
     const method = additional.isPrivate ? awsBucketPrivate : awsBucket
-    // waiting the bucket allow ACLs
     const ContentType = additional.isContentType ? { ContentType: mime } : {};
 
     let watermarkImage;
@@ -49,7 +48,7 @@ const generateUpload = async (req, num, paths, naming, defaults = '', additional
       Key: fileNames,
       Body: buffer,
       ...ContentType,
-      // ...ACL, // waiting the bucket allow ACLs
+      ...ACL,
     };
 
     // Uploading files to the bucket
@@ -105,8 +104,7 @@ const generateUploadUpdated = async (req, file, row, defaults = '', additional =
     const mime = req?.files[file?.num]?.mimetype
     const method = additional.isPrivate ? awsBucketPrivate : awsBucket
     const bucket = additional.isPrivate ? process.env.AWS_BUCKET_PRIVATE : process.env.AWS_BUCKET
-    // const ACL = additional.isPrivate ? { ACL: 'authenticated-read' } : {};
-    // waiting the bucket allow ACLs
+    const ACL = additional.isPrivate ? { ACL: 'authenticated-read' } : { ACL: 'public-read' };
     const ContentType = additional.isContentType ? { ContentType: mime } : {};
     let watermarkImage;
     if (additional.isWatermark) {
@@ -125,7 +123,7 @@ const generateUploadUpdated = async (req, file, row, defaults = '', additional =
       Key: fileName,
       Body: buffer,
       ...ContentType,
-      // ...ACL, // waiting the bucket allow ACLs
+      ...ACL,
     };
     if (row?.column) {
       const url = row?.column ?? '';
@@ -220,6 +218,7 @@ const storeToAws = async (
     const mime = options?.mime ?? '';
     const client = options.is_private === true ? awsBucketPrivate : awsBucket;
     const bucketConfig = options.is_private === true ? bucketNamePrivate : bucketNamePublic;
+    const ACL = options.is_private === true ? { ACL: 'authenticated-read' } : { ACL: 'public-read' };
     const ContentType = { ContentType: mime };
     const fileName = options?.file_name ?? '';
     const originalName = options?.original_name ?? '';
@@ -232,7 +231,8 @@ const storeToAws = async (
       Bucket: bucketConfig,
       Key: pathForAws,
       Body: buffer,
-      ...ContentType
+      ...ContentType,
+      ...ACL
     };
 
     const bucketPath = new Promise((resolve) => {
