@@ -10,6 +10,7 @@ exports.up = function (knex) {
     table.string('participant_company', 200).nullable()
     table.string('participant_department', 200).nullable()
     table.text('participant_description').nullable()
+    table.text('participant_location').nullable()
     table.text('participant_file_name_pdf').nullable()
     table.text('participant_file_name_img').nullable()
     table.timestamp('created_at').defaultTo(knex.fn.now())

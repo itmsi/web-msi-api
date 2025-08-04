@@ -13,13 +13,13 @@ const { lang } = require('../../lang')
 const TABLE = 'mst_campaign_participant'
 
 const COLUMN_ALL = [
-  `${TABLE}.campaign_participant_id`, `${TABLE}.participant_name`, `${TABLE}.participant_phone`, `${TABLE}.participant_company`, `${TABLE}.participant_department`, `${TABLE}.participant_description`, `${TABLE}.participant_file_name_pdf`, `${TABLE}.participant_file_name_img`,
+  `${TABLE}.campaign_participant_id`, `${TABLE}.participant_name`, `${TABLE}.participant_phone`, `${TABLE}.participant_company`, `${TABLE}.participant_department`, `${TABLE}.participant_description`, `${TABLE}.participant_file_name_pdf`, `${TABLE}.participant_file_name_img`, `${TABLE}.participant_location`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
 
 const COLUMN = [
-  `${TABLE}.campaign_participant_id`, `${TABLE}.participant_name`, `${TABLE}.participant_phone`, `${TABLE}.participant_company`, `${TABLE}.participant_department`, `${TABLE}.participant_description`, `${TABLE}.participant_file_name_pdf`, `${TABLE}.participant_file_name_img`,
+  `${TABLE}.campaign_participant_id`, `${TABLE}.participant_name`, `${TABLE}.participant_phone`, `${TABLE}.participant_company`, `${TABLE}.participant_department`, `${TABLE}.participant_description`, `${TABLE}.participant_file_name_pdf`, `${TABLE}.participant_file_name_img`, `${TABLE}.participant_location`,
   `${TABLE}.created_at`, `${TABLE}.created_by`, `${TABLE}.updated_at`, `${TABLE}.updated_by`,
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
