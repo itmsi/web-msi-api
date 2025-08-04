@@ -27,12 +27,13 @@ if (process.env.RABBITMQ_URL && process.env.RABBITMQ_URL !== 'disabled') {
   console.log('RabbitMQ not configured or disabled, skipping listener initialization')
 }
 
-const limit = process.env.JSON_LIMIT.toString() ?? '123072kb'
+const limit = process.env.JSON_LIMIT.toString() ?? '1gb'
 app.set('trust proxy', 1);
 app.use(compress()) // gzip compression
 app.use(methodOverride()) // lets you use HTTP verbs
 app.use(xss()) // handler xss attack
 app.use(express.json({ limit })) // json limit
+app.use(express.urlencoded({ limit, extended: true })) // urlencoded limit
 if (process.env.NODE_ENV === 'production') {
   app.use(morgan(MORGAN_FORMAT.PROD))
 } else {

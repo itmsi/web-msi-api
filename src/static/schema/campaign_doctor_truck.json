@@ -8,6 +8,9 @@
 			"participant_name": {
 				"type": "string"
 			},
+			"participant_location": {
+				"type": "string"
+			},
 			"participant_phone": {
 				"type": "string"
 			},
@@ -67,6 +70,9 @@
 			"participant_description": {
 				"type": "string"
 			},
+			"participant_location": {
+				"type": "string"
+			},
 			"participant_file_name_pdf": {
 				"type": "string",
 				"format": "binary"
@@ -109,6 +115,10 @@
 			"participant_description": {
 				"type": "string",
 				"description": "Deskripsi tambahan (opsional)"
+			},
+			"participant_location": {
+				"type": "string",
+				"description": "Lokasi peserta"
 			},
 			"file1": {
 				"type": "string",

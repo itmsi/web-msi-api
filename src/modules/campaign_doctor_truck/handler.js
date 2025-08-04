@@ -1,4 +1,10 @@
 /**
+ * Campaign Doctor Truck Handler
+ *
+ * File Upload Configuration:
+ * - Maksimal ukuran file: 1 GB (1024 MB)
+ * - Maksimal jumlah file: 10 file
+ * - Format yang didukung: PDF dan Image (JPG, PNG, etc.)
  *
  * @param {*} lang this is for consisent with other language message
  * @param {*} repository this is repository for postgres definition
@@ -14,6 +20,30 @@ const {
 } = require('../../utils')
 const { generateMinioUpload, generateMinioUploadUpdated } = require('../../utils/minio-upload')
 
+// Helper function untuk mengubah URL MinIO menjadi format MINIO_ENDPOINT_BASE/dir/namafile
+const formatMinioUrl = (url) => {
+  if (!url) return null;
+
+  // Target base endpoint (new Minio public URL)
+  const minioEndpointBase = process.env.MINIO_ENDPOINT_BASE || 'https://minio-bucket.motorsights.com';
+
+  try {
+    // Bersihkan jika URL diawali "@"
+    const cleanUrl = url.startsWith('@') ? url.slice(1) : url;
+
+    const parsedUrl = new URL(cleanUrl);
+
+    // Ambil path setelah domain
+    const path = parsedUrl.pathname.replace(/^\/+/, ''); // hilangkan leading slash
+
+    // Hasil akhir
+    return `https://${minioEndpointBase}/${path}`;
+  } catch (error) {
+    // Kalau bukan URL valid, kembalikan original
+    return url;
+  }
+}
+
 const store = async (req, res) => {
   try {
     const payload = { ...req?.body, ...decodeToken('created', req) }
@@ -24,11 +54,11 @@ const store = async (req, res) => {
 
     // Upload PDF file
     const pdfResult = await generateMinioUpload(req, 0, 'campaign-doctor-truck/pdf', 'pdf')
-    payload.participant_file_name_pdf = pdfResult.pathForDatabase || null
+    payload.participant_file_name_pdf = formatMinioUrl(pdfResult.pathForDatabase) || null
 
     // Upload Image file
     const imgResult = await generateMinioUpload(req, 1, 'campaign-doctor-truck/images', 'img')
-    payload.participant_file_name_img = imgResult.pathForDatabase || null
+    payload.participant_file_name_img = formatMinioUrl(imgResult.pathForDatabase) || null
 
     // Log untuk debugging
     console.log('PDF Upload Result:', pdfResult)
@@ -124,6 +154,14 @@ const update = async (req, res) => {
 
       payload = await generateMinioUploadUpdated(req, defImg, defImgRow)
       payload = await generateMinioUploadUpdated(req, defPdf, defPdfRow)
+
+      // Format URL untuk database setelah upload
+      if (payload.participant_file_name_img) {
+        payload.participant_file_name_img = formatMinioUrl(payload.participant_file_name_img)
+      }
+      if (payload.participant_file_name_pdf) {
+        payload.participant_file_name_pdf = formatMinioUrl(payload.participant_file_name_pdf)
+      }
     }
 
     const result = await repository.update(where, payload)
@@ -151,11 +189,11 @@ const storePublic = async (req, res) => {
 
     // Upload PDF file
     const pdfResult = await generateMinioUpload(req, 0, 'campaign-doctor-truck/pdf', 'pdf')
-    payload.participant_file_name_pdf = pdfResult.pathForDatabase || null
+    payload.participant_file_name_pdf = formatMinioUrl(pdfResult.pathForDatabase) || null
 
     // Upload Image file
     const imgResult = await generateMinioUpload(req, 1, 'campaign-doctor-truck/images', 'img')
-    payload.participant_file_name_img = imgResult.pathForDatabase || null
+    payload.participant_file_name_img = formatMinioUrl(imgResult.pathForDatabase) || null
 
     // Log untuk debugging
     console.log('PDF Upload Result:', pdfResult)
