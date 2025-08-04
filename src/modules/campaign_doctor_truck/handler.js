@@ -37,7 +37,7 @@ const formatMinioUrl = (url) => {
     const path = parsedUrl.pathname.replace(/^\/+/, ''); // hilangkan leading slash
 
     // Hasil akhir
-    return `@${minioEndpointBase}/${path}`;
+    return `https://${minioEndpointBase}/${path}`;
   } catch (error) {
     // Kalau bukan URL valid, kembalikan original
     return url;
