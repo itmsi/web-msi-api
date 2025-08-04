@@ -175,7 +175,8 @@ module.exports = {
       SPECIFICATION_VALUE: 'mst_specification_value',
       PRODUCT_MODEL: 'mst_product_model',
       PRODUCT_DIMENSI: 'mst_product_dimensi',
-      REVIEW: 'mst_review'
+      REVIEW: 'mst_review',
+      CAMPAIGN_PARTICIPANT: 'mst_campaign_participant'
     },
     PRIMARY_KEY: {
       JENIS_AKUN: 'jenis_akun_id',
@@ -291,7 +292,8 @@ module.exports = {
       SPECIFICATION_VALUE: 'specification_value_id',
       PRODUCT_MODEL: 'product_model_id',
       PRODUCT_DIMENSI: 'product_dimensi_id',
-      REVIEW: 'review_id'
+      REVIEW: 'review_id',
+      CAMPAIGN_PARTICIPANT: 'campaign_participant_id'
     }
   },
   FILE_DESCRIPTION: [

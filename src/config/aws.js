@@ -25,7 +25,7 @@ if (isAwsEnabled) {
   })
 }
 
-const getSingedUrl = async (isPrivate, Key) => {
+const getSingedUrl = async (isPrivate, Key, expiry = 5 * 30 * 24 * 60 * 60) => {
   // If AWS is disabled, return empty string
   if (!isAwsEnabled) {
     console.log('AWS is disabled, returning empty signed URL')
@@ -40,7 +40,7 @@ const getSingedUrl = async (isPrivate, Key) => {
     Bucket = process.env.AWS_BUCKET
     method = awsBucketPrivate
   }
-  const params = { Bucket, Key }
+  const params = { Bucket, Key, Expires: expiry }
   try {
     const url = await new Promise((resolve, reject) => {
       method.getSignedUrl('getObject', params, (err, row) => (err ? reject(err) : resolve(row)))

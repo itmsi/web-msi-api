@@ -1,0 +1,125 @@
+{
+	"SchemaResponseCampaignDoctorTruck": {
+		"type": "object",
+		"properties": {
+			"campaign_participant_id": {
+				"type": "string"
+			},
+			"participant_name": {
+				"type": "string"
+			},
+			"participant_phone": {
+				"type": "string"
+			},
+			"participant_company": {
+				"type": "string"
+			},
+			"participant_department": {
+				"type": "string"
+			},
+			"participant_description": {
+				"type": "string"
+			},
+			"participant_file_name_pdf": {
+				"type": "string"
+			},
+			"participant_file_name_img": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostCampaignDoctorTruck": {
+		"type": "object",
+		"properties": {
+			"participant_name": {
+				"type": "string"
+			},
+			"participant_phone": {
+				"type": "string"
+			},
+			"participant_company": {
+				"type": "string"
+			},
+			"participant_department": {
+				"type": "string"
+			},
+			"participant_description": {
+				"type": "string"
+			},
+			"participant_file_name_pdf": {
+				"type": "string",
+				"format": "binary"
+			},
+			"participant_file_name_img": {
+				"type": "string",
+				"format": "binary"
+			}
+		}
+	},
+	"SchemaPostCampaignDoctorTruckPublic": {
+		"type": "object",
+		"required": [
+			"participant_name",
+			"participant_phone",
+			"participant_company",
+			"participant_department"
+		],
+		"properties": {
+			"participant_name": {
+				"type": "string",
+				"description": "Nama peserta campaign",
+				"maxLength": 100
+			},
+			"participant_phone": {
+				"type": "string",
+				"description": "Nomor telepon peserta",
+				"maxLength": 100
+			},
+			"participant_company": {
+				"type": "string",
+				"description": "Nama perusahaan peserta",
+				"maxLength": 100
+			},
+			"participant_department": {
+				"type": "string",
+				"description": "Departemen peserta",
+				"maxLength": 100
+			},
+			"participant_description": {
+				"type": "string",
+				"description": "Deskripsi tambahan (opsional)"
+			},
+			"file1": {
+				"type": "string",
+				"format": "binary",
+				"description": "File PDF (opsional)"
+			},
+			"file2": {
+				"type": "string",
+				"format": "binary",
+				"description": "File Image (opsional)"
+			}
+		}
+	}
+}
