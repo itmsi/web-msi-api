@@ -96,8 +96,8 @@ ELASTIC_APM_DISABLED=true
 # Swagger Configuration
 SWAGGER_ENABLED=development
 
-# JSON Limit
-JSON_LIMIT=123072kb
+# JSON Limit (1 GB untuk upload file)
+JSON_LIMIT=1gb
 ```
 
 ## Available Commands

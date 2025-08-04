@@ -1,4 +1,10 @@
 /**
+ * Campaign Doctor Truck Handler
+ *
+ * File Upload Configuration:
+ * - Maksimal ukuran file: 1 GB (1024 MB)
+ * - Maksimal jumlah file: 10 file
+ * - Format yang didukung: PDF dan Image (JPG, PNG, etc.)
  *
  * @param {*} lang this is for consisent with other language message
  * @param {*} repository this is repository for postgres definition
