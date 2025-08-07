@@ -57,6 +57,7 @@ const productDimensi = require('./product_dimensi.json')
 const review = require('./review.json')
 const publicReview = require('./public_review.json')
 const campaignDoctorTruck = require('./campaign_doctor_truck.json')
+const emailEmployee = require('./email_employee.json')
 
 module.exports = {
   ...auth,
@@ -117,5 +118,6 @@ module.exports = {
   ...productDimensi,
   ...review,
   ...publicReview,
-  ...campaignDoctorTruck
+  ...campaignDoctorTruck,
+  ...emailEmployee
 }

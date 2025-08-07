@@ -1,0 +1,300 @@
+{
+	"/email-employee": {
+		"get": {
+			"tags": [
+				"Email Employee"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"parameters": [
+				{
+					"in": "query",
+					"name": "limit",
+					"required": false,
+					"schema": {
+						"type": "integer"
+					},
+					"description": "Limit value is number by default limit is 10. ex : ?limit=100"
+				},
+				{
+					"in": "query",
+					"name": "page",
+					"required": false,
+					"schema": {
+						"type": "number"
+					},
+					"description": "Page value is number. ex : ?page=1"
+				},
+				{
+					"in": "query",
+					"name": "direction",
+					"required": false,
+					"schema": {
+						"type": "array or string"
+					},
+					"description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id"
+				},
+				{
+					"in": "query",
+					"name": "order",
+					"required": false,
+					"schema": {
+						"type": "array or string"
+					},
+					"description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc"
+				},
+				{
+					"in": "query",
+					"name": "search",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Search value is string with rule ex : ?search=john"
+				}
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaPaginationResponse"
+							}
+						}
+					}
+				}
+			}
+		},
+		"post": {
+			"tags": [
+				"Email Employee"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"requestBody": {
+				"required": true,
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/SchemaPostEmailEmployee"
+						}
+					}
+				}
+			},
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"/email-employee/import": {
+		"post": {
+			"tags": [
+				"Email Employee"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"summary": "Import email employee data from Excel file",
+			"description": "Import multiple email employee data from Excel file (.xlsx, .xls). File must have columns: Nama Email Employee (optional), Email (optional), Alias (optional), Deskripsi (optional). All fields are nullable. Maximum file size: 10MB.",
+			"requestBody": {
+				"required": true,
+				"content": {
+					"multipart/form-data": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"file": {
+									"type": "string",
+									"format": "binary",
+									"description": "Excel file (.xlsx, .xls) with email employee data. All fields are optional."
+								}
+							},
+							"required": ["file"]
+						}
+					}
+				}
+			},
+			"responses": {
+				"200": {
+					"description": "Success",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaEmailEmployeeImportResponse"
+							}
+						}
+					}
+				},
+				"400": {
+					"description": "Bad Request - Validation Error",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaErrorResponse"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"/email-employee/template": {
+		"get": {
+			"tags": [
+				"Email Employee"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"summary": "Download Excel template for email employee import",
+			"description": "Download Excel template file with sample data for email employee import",
+			"responses": {
+				"200": {
+					"description": "Success",
+					"content": {
+						"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+							"schema": {
+								"type": "string",
+								"format": "binary"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"/email-employee/{email_employee_id}": {
+		"get": {
+			"tags": [
+				"Email Employee"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"parameters": [
+				{
+					"in": "path",
+					"name": "email_employee_id",
+					"required": true,
+					"schema": {
+						"type": "string",
+						"format": "uuid"
+					},
+					"description": "Email employee ID"
+				}
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				}
+			}
+		},
+		"put": {
+			"tags": [
+				"Email Employee"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"parameters": [
+				{
+					"in": "path",
+					"name": "email_employee_id",
+					"required": true,
+					"schema": {
+						"type": "string",
+						"format": "uuid"
+					},
+					"description": "Email employee ID"
+				}
+			],
+			"requestBody": {
+				"required": true,
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/SchemaPutEmailEmployee"
+						}
+					}
+				}
+			},
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				}
+			}
+		},
+		"delete": {
+			"tags": [
+				"Email Employee"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"parameters": [
+				{
+					"in": "path",
+					"name": "email_employee_id",
+					"required": true,
+					"schema": {
+						"type": "string",
+						"format": "uuid"
+					},
+					"description": "Email employee ID"
+				}
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+} 

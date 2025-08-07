@@ -1,0 +1,142 @@
+{
+	"SchemaPostEmailEmployee": {
+		"type": "object",
+		"properties": {
+			"email_employee_name": {
+				"type": "string",
+				"maxLength": 200,
+				"description": "Nama email employee",
+				"example": "John Doe"
+			},
+			"email_employee_email": {
+				"type": "string",
+				"format": "email",
+				"maxLength": 200,
+				"description": "Alamat email employee",
+				"example": "john.doe@example.com"
+			},
+			"email_employee_alias": {
+				"type": "string",
+				"maxLength": 200,
+				"description": "Alias/nickname email employee",
+				"example": "john"
+			},
+			"email_employee_description": {
+				"type": "string",
+				"description": "Deskripsi tambahan (opsional)",
+				"example": "IT Department"
+			}
+		},
+		"required": ["email_employee_name", "email_employee_email", "email_employee_alias"]
+	},
+	"SchemaPutEmailEmployee": {
+		"type": "object",
+		"properties": {
+			"email_employee_name": {
+				"type": "string",
+				"maxLength": 200,
+				"description": "Nama email employee",
+				"example": "John Doe"
+			},
+			"email_employee_email": {
+				"type": "string",
+				"format": "email",
+				"maxLength": 200,
+				"description": "Alamat email employee",
+				"example": "john.doe@example.com"
+			},
+			"email_employee_alias": {
+				"type": "string",
+				"maxLength": 200,
+				"description": "Alias/nickname email employee",
+				"example": "john"
+			},
+			"email_employee_description": {
+				"type": "string",
+				"description": "Deskripsi tambahan (opsional)",
+				"example": "IT Department"
+			}
+		}
+	},
+	"SchemaEmailEmployeeImportResponse": {
+		"type": "object",
+		"properties": {
+			"status": {
+				"type": "boolean",
+				"description": "Status response",
+				"example": true
+			},
+			"message": {
+				"type": "string",
+				"description": "Pesan response",
+				"example": "Berhasil mengimport 2 data email employee"
+			},
+			"data": {
+				"type": "object",
+				"properties": {
+					"success": {
+						"type": "integer",
+						"description": "Jumlah data yang berhasil diimport",
+						"example": 2
+					},
+					"errors": {
+						"type": "integer",
+						"description": "Jumlah error yang terjadi",
+						"example": 0
+					},
+					"details": {
+						"type": "object",
+						"properties": {
+							"success": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"row": {
+											"type": "integer",
+											"description": "Nomor baris di Excel",
+											"example": 2
+										},
+										"data": {
+											"type": "object",
+											"properties": {
+												"email_employee_id": {
+													"type": "string",
+													"format": "uuid",
+													"description": "ID email employee yang berhasil dibuat"
+												}
+											}
+										},
+										"status": {
+											"type": "string",
+											"description": "Status import",
+											"example": "success"
+										}
+									}
+								}
+							},
+							"errors": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"row": {
+											"type": "integer",
+											"description": "Nomor baris di Excel",
+											"example": 3
+										},
+										"message": {
+											"type": "string",
+											"description": "Pesan error",
+											"example": "Email jane.smith@example.com sudah terdaftar"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+} 
