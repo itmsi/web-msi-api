@@ -119,5 +119,23 @@
       }
     }
   }
+  ,
+  "/public/voting/participants": {
+    "get": {
+      "tags": [
+        "Public Campaigen Voting"
+      ],
+      "summary": "List participants with vote percentage",
+      "parameters": [
+        { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" } },
+        { "in": "query", "name": "page", "required": false, "schema": { "type": "number" } },
+        { "in": "query", "name": "direction", "required": false, "schema": { "type": "array or string" } },
+        { "in": "query", "name": "order", "required": false, "schema": { "type": "array or string" } }
+      ],
+      "responses": {
+        "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SchemaPaginationResponse" } } } }
+      }
+    }
+  }
 }
 

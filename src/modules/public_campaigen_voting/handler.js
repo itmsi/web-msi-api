@@ -3,9 +3,7 @@
  */
 
 const repository = require('../campaigen_voting/postgre_repository')
-const {
-  paging, paginationResponsePublic
-} = require('../../utils')
+const { paging, paginationResponsePublic } = require('../../utils')
 
 const fetchPublic = async (req, res) => {
   const where = req.query
@@ -14,7 +12,14 @@ const fetchPublic = async (req, res) => {
   return paginationResponsePublic(req, res, result)
 }
 
+const fetchParticipants = async (req, res) => {
+  const filter = paging(req, ['p.campaign_participant_id', 'DESC'])
+  const result = await repository.getParticipantsWithPercentage({}, filter)
+  return paginationResponsePublic(req, res, result)
+}
+
 module.exports = {
-  fetchPublic
+  fetchPublic,
+  fetchParticipants
 }
 

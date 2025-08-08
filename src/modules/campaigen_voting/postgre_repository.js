@@ -11,6 +11,7 @@ const { lang } = require('../../lang')
 
 const TABLE = 'mst_campaigen_voting'
 const EMAIL_TABLE = 'mst_email_employee'
+const PARTICIPANT_TABLE = 'mst_campaign_participant'
 
 const COLUMN_ALL = [
   `${TABLE}.campaigen_voting_id`, `${TABLE}.email_employee_id`, `${TABLE}.campaigen_voting_email`, `${TABLE}.campaign_participant_id`, `${TABLE}.campaigen_voting_description`,
@@ -163,11 +164,87 @@ const findEmailEmployeeByEmail = async (email) => {
   return rows
 }
 
+const getParticipantsWithPercentage = async (where, filter) => {
+  try {
+    const participantColumns = [
+      'p.campaign_participant_id',
+      'p.participant_name',
+      'p.participant_company',
+      'p.participant_department',
+      'p.participant_description',
+      'p.participant_file_name_pdf',
+      'p.participant_file_name_img',
+      'p.participant_location',
+      'p.created_at',
+      'p.updated_at',
+    ]
+
+    // List participants with paging
+    const participants = await pgCore(`${PARTICIPANT_TABLE} as p`)
+      .select(participantColumns)
+      .whereNull('p.deleted_at')
+      .orderBy(filter.direction || participantColumns[0], filter.order || 'DESC')
+      .limit(filter.limit)
+      .offset(((filter.page - 1) * filter.limit))
+
+    const ids = participants.map((p) => p.campaign_participant_id)
+
+    // Count votes per participant in current page
+    let voteCounts = []
+    if (ids.length > 0) {
+      voteCounts = await pgCore(`${TABLE} as v`)
+        .select('v.campaign_participant_id')
+        .count({ vote_count: 'v.campaigen_voting_id' })
+        .whereNull('v.deleted_at')
+        .whereIn('v.campaign_participant_id', ids)
+        .groupBy('v.campaign_participant_id')
+    }
+
+    // Total votes for participants in current page (for percentage)
+    const [totalVotesRow] = await pgCore(`${TABLE} as v`)
+      .whereNull('v.deleted_at')
+      .whereIn('v.campaign_participant_id', ids)
+      .count({ total: '*' })
+    const totalVotes = Number(totalVotesRow?.total || 0)
+
+    // Total participants (for pagination count)
+    const [participantsCountRow] = await pgCore(`${PARTICIPANT_TABLE} as p`)
+      .whereNull('p.deleted_at')
+      .count({ count: 'p.campaign_participant_id' })
+
+    const countMap = voteCounts.reduce((acc, row) => {
+      acc[row.campaign_participant_id] = Number(row.vote_count || 0)
+      return acc
+    }, {})
+
+    const result = participants.map((p) => {
+      const voteCount = countMap[p.campaign_participant_id] || 0
+      const votePercentage = totalVotes > 0
+        ? Number(((voteCount / totalVotes) * 100).toFixed(2))
+        : 0
+      return {
+        ...p,
+        vote_count: voteCount,
+        vote_percentage: votePercentage,
+      }
+    })
+
+    return mappingSuccessPagination(lang.__('get.success'), {
+      result: manipulateDate(result),
+      count: participantsCountRow?.count
+    })
+  } catch (error) {
+    error.path = __filename
+    return mappingError(error)
+  }
+}
+
 module.exports = {
   create,
   get,
   update,
   getByParam,
+  getParticipantsWithPercentage,
   findEmailEmployeeByEmail,
   COLUMN,
   DEFAULT_SORT,

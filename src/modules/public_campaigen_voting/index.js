@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { fetchPublic } = require('./handler')
+const { fetchPublic, fetchParticipants } = require('./handler')
 const { publicPostValidation } = require('../campaigen_voting/validation')
 const { storePublic } = require('../campaigen_voting/handler')
 
@@ -10,5 +10,6 @@ const router = Router()
 */
 router.get('/', fetchPublic)
 router.post('/', publicPostValidation, storePublic)
+router.get('/participants', fetchParticipants)
 
 module.exports = router
