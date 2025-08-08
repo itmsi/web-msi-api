@@ -58,6 +58,7 @@ const review = require('./review.json')
 const publicReview = require('./public_review.json')
 const campaignDoctorTruck = require('./campaign_doctor_truck.json')
 const emailEmployee = require('./email_employee.json')
+const campaigenVoting = require('./campaigen_voting.json')
 
 module.exports = {
   ...auth,
@@ -119,5 +120,6 @@ module.exports = {
   ...review,
   ...publicReview,
   ...campaignDoctorTruck,
-  ...emailEmployee
+  ...emailEmployee,
+  ...campaigenVoting
 }
