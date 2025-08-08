@@ -1,0 +1,141 @@
+{
+  "/campaigen-voting": {
+    "get": {
+      "tags": [
+        "Campaigen Voting"
+      ],
+      "security": [
+        { "bearerAuth": [] }
+      ],
+      "parameters": [
+        { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" }, "description": "Limit pagination" },
+        { "in": "query", "name": "page", "required": false, "schema": { "type": "number" }, "description": "Page pagination" },
+        { "in": "query", "name": "direction", "required": false, "schema": { "type": "array or string" }, "description": "direction field" },
+        { "in": "query", "name": "order", "required": false, "schema": { "type": "array or string" }, "description": "order value" },
+        { "in": "query", "name": "search", "required": false, "schema": { "type": "string" }, "description": "search by email" }
+      ],
+      "responses": {
+        "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SchemaPaginationResponse" } } } }
+      }
+    },
+    "post": {
+      "tags": [
+        "Campaigen Voting"
+      ],
+      "security": [
+        { "bearerAuth": [] }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": { "schema": { "$ref": "#/components/schemas/SchemaPostCampaigenVoting" } }
+        }
+      },
+      "responses": {
+        "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SchemaResponse" } } } }
+      }
+    }
+  },
+  "/campaigen-voting/{campaigen_voting_id}": {
+    "get": {
+      "tags": [
+        "Campaigen Voting"
+      ],
+      "security": [
+        { "bearerAuth": [] }
+      ],
+      "parameters": [
+        { "in": "path", "name": "campaigen_voting_id", "required": true, "schema": { "type": "string", "format": "uuid" }, "description": "ID voting" }
+      ],
+      "responses": {
+        "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SchemaResponse" } } } }
+      }
+    },
+    "put": {
+      "tags": [
+        "Campaigen Voting"
+      ],
+      "security": [
+        { "bearerAuth": [] }
+      ],
+      "parameters": [
+        { "in": "path", "name": "campaigen_voting_id", "required": true, "schema": { "type": "string", "format": "uuid" }, "description": "ID voting" }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": { "schema": { "$ref": "#/components/schemas/SchemaPutCampaigenVoting" } }
+        }
+      },
+      "responses": {
+        "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SchemaResponse" } } } }
+      }
+    },
+    "delete": {
+      "tags": [
+        "Campaigen Voting"
+      ],
+      "security": [
+        { "bearerAuth": [] }
+      ],
+      "parameters": [
+        { "in": "path", "name": "campaigen_voting_id", "required": true, "schema": { "type": "string", "format": "uuid" }, "description": "ID voting" }
+      ],
+      "responses": {
+        "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SchemaResponse" } } } }
+      }
+    }
+  },
+  "/public/voting": {
+    "post": {
+      "tags": [
+        "Public Campaigen Voting"
+      ],
+      "summary": "Submit vote (email + participant)",
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": { "schema": { "$ref": "#/components/schemas/SchemaPostCampaigenVoting" } }
+        }
+      },
+      "responses": {
+        "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SchemaResponse" } } } }
+      }
+    },
+    "get": {
+      "tags": [
+        "Public Campaigen Voting"
+      ],
+      "summary": "List voting (group by latest per email)",
+      "parameters": [
+        { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" } },
+        { "in": "query", "name": "page", "required": false, "schema": { "type": "number" } },
+        { "in": "query", "name": "direction", "required": false, "schema": { "type": "array or string" } },
+        { "in": "query", "name": "order", "required": false, "schema": { "type": "array or string" } },
+        { "in": "query", "name": "search", "required": false, "schema": { "type": "string" } }
+      ],
+      "responses": {
+        "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SchemaPaginationResponse" } } } }
+      }
+    }
+  }
+  ,
+  "/public/voting/participants": {
+    "get": {
+      "tags": [
+        "Public Campaigen Voting"
+      ],
+      "summary": "List participants with vote percentage",
+      "parameters": [
+        { "in": "query", "name": "limit", "required": false, "schema": { "type": "integer" } },
+        { "in": "query", "name": "page", "required": false, "schema": { "type": "number" } },
+        { "in": "query", "name": "direction", "required": false, "schema": { "type": "array or string" } },
+        { "in": "query", "name": "order", "required": false, "schema": { "type": "array or string" } }
+      ],
+      "responses": {
+        "200": { "description": "OK", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SchemaPaginationResponse" } } } }
+      }
+    }
+  }
+}
+
