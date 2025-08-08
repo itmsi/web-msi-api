@@ -166,6 +166,8 @@ const findEmailEmployeeByEmail = async (email) => {
 
 const getParticipantsWithPercentage = async (where, filter) => {
   try {
+    console.log('Starting getParticipantsWithPercentage with filter:', filter)
+
     const participantColumns = [
       'p.campaign_participant_id',
       'p.participant_name',
@@ -179,33 +181,85 @@ const getParticipantsWithPercentage = async (where, filter) => {
       'p.updated_at',
     ]
 
+    // Check if participants table has data
+    const totalParticipants = await pgCore(`${PARTICIPANT_TABLE} as p`)
+      .whereNull('p.deleted_at')
+      .count('* as total')
+
+    console.log('Total participants in DB:', totalParticipants[0]?.total)
+
     // List participants with paging
     const participants = await pgCore(`${PARTICIPANT_TABLE} as p`)
       .select(participantColumns)
       .whereNull('p.deleted_at')
-      .orderBy(filter.direction || participantColumns[0], filter.order || 'DESC')
+      .orderBy(filter.direction || 'p.campaign_participant_id', filter.order || 'DESC')
       .limit(filter.limit)
       .offset(((filter.page - 1) * filter.limit))
 
-    const ids = participants.map((p) => p.campaign_participant_id)
+    console.log('Participants found:', participants.length)
 
-    // Count votes per participant in current page
+    const ids = participants.map((p) => p.campaign_participant_id)
+    console.log('Participant IDs:', ids)
+
+    // Count votes per participant in current page (only latest vote per email)
     let voteCounts = []
     if (ids.length > 0) {
-      voteCounts = await pgCore(`${TABLE} as v`)
-        .select('v.campaign_participant_id')
-        .count({ vote_count: 'v.campaigen_voting_id' })
+      // Get all votes for participants in current page
+      const allVotes = await pgCore(`${TABLE} as v`)
+        .select('v.campaign_participant_id', 'v.campaigen_voting_email', 'v.created_at')
         .whereNull('v.deleted_at')
         .whereIn('v.campaign_participant_id', ids)
-        .groupBy('v.campaign_participant_id')
+        .whereNotNull('v.campaigen_voting_email')
+
+      console.log('All votes found:', allVotes.length)
+
+      // Group by email and get latest vote per email
+      const emailLatestVotes = {}
+      allVotes.forEach((vote) => {
+        if (!emailLatestVotes[vote.campaigen_voting_email]) {
+          emailLatestVotes[vote.campaigen_voting_email] = vote
+        } else {
+          // If email already exists, check if this vote is newer
+          const existingVote = emailLatestVotes[vote.campaigen_voting_email]
+          if (new Date(vote.created_at) > new Date(existingVote.created_at)) {
+            emailLatestVotes[vote.campaigen_voting_email] = vote
+          }
+        }
+      })
+
+      console.log('Unique emails with latest votes:', Object.keys(emailLatestVotes).length)
+
+      // Count votes per participant from latest votes
+      const voteCountMap = {}
+      Object.values(emailLatestVotes).forEach((vote) => {
+        const currentCount = voteCountMap[vote.campaign_participant_id] || 0
+        voteCountMap[vote.campaign_participant_id] = currentCount + 1
+      })
+
+      voteCounts = Object.entries(voteCountMap).map(([campaign_participant_id, vote_count]) => ({
+        campaign_participant_id,
+        vote_count
+      }))
     }
 
-    // Total votes for participants in current page (for percentage)
-    const [totalVotesRow] = await pgCore(`${TABLE} as v`)
-      .whereNull('v.deleted_at')
-      .whereIn('v.campaign_participant_id', ids)
-      .count({ total: '*' })
-    const totalVotes = Number(totalVotesRow?.total || 0)
+    // Total votes for participants in current page (only latest vote per email)
+    let totalVotes = 0
+    if (ids.length > 0) {
+      const allVotesForTotal = await pgCore(`${TABLE} as v`)
+        .select('v.campaigen_voting_email', 'v.created_at')
+        .whereNull('v.deleted_at')
+        .whereIn('v.campaign_participant_id', ids)
+        .whereNotNull('v.campaigen_voting_email')
+
+      // Count unique emails (latest vote per email)
+      const uniqueEmails = new Set()
+      allVotesForTotal.forEach((vote) => {
+        uniqueEmails.add(vote.campaigen_voting_email)
+      })
+      totalVotes = uniqueEmails.size
+    }
+
+    console.log('Total votes (unique emails):', totalVotes)
 
     // Total participants (for pagination count)
     const [participantsCountRow] = await pgCore(`${PARTICIPANT_TABLE} as p`)
@@ -229,11 +283,14 @@ const getParticipantsWithPercentage = async (where, filter) => {
       }
     })
 
+    console.log('Final result count:', result.length)
+
     return mappingSuccessPagination(lang.__('get.success'), {
       result: manipulateDate(result),
       count: participantsCountRow?.count
     })
   } catch (error) {
+    console.error('Error in getParticipantsWithPercentage:', error)
     error.path = __filename
     return mappingError(error)
   }
