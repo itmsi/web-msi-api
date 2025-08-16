@@ -93,7 +93,7 @@ const get = async (where, filter, column = COLUMN) => {
         ]
       ))
 
-    // Ambil hanya baris rn = 1 (terbaru per email)
+    // Ambil hanya baris rn = 1 (terbaru per email) untuk menghindari duplikat
     const result = await pgCore.from(baseQuery.as('t'))
       .where('t.rn', 1)
       .orderBy((typeof filter.direction === 'string' ? filter.direction.split('.').pop() : filter.direction), filter.order)
@@ -103,9 +103,54 @@ const get = async (where, filter, column = COLUMN) => {
     // Hitung jumlah grup (distinct email)
     const [rows] = await pgCore.from(baseQuery.as('t')).where('t.rn', 1).count('*')
 
+    // Hitung total votes (unique emails yang sudah vote)
+    const totalVotes = await getTotalVotes()
+
+    // Optimasi: Ambil semua vote count untuk semua participant dalam satu query
+    const allParticipantIds = result.map(record => record.campaign_participant_id)
+    
+    let voteCountMap = {}
+    if (allParticipantIds.length > 0) {
+      // Query untuk mendapatkan vote count per participant
+      // Logic: Hitung berdasarkan kombinasi unique (email + participant_id) yang terbaru
+      const voteCounts = await pgCore.raw(`
+        SELECT 
+          v.campaign_participant_id,
+          COUNT(DISTINCT v.campaigen_voting_email) as vote_count
+        FROM (
+          SELECT 
+            campaign_participant_id,
+            campaigen_voting_email,
+            created_at,
+            ROW_NUMBER() OVER (
+              PARTITION BY campaigen_voting_email, campaign_participant_id 
+              ORDER BY created_at DESC
+            ) as rn
+          FROM ${TABLE}
+          WHERE deleted_at IS NULL 
+            AND campaigen_voting_email IS NOT NULL
+        ) v
+        WHERE v.rn = 1
+          AND v.campaign_participant_id IN (${allParticipantIds.map(() => '?').join(',')})
+        GROUP BY v.campaign_participant_id
+      `, allParticipantIds)
+
+      // Buat map untuk quick lookup
+      voteCounts.rows.forEach(vote => {
+        voteCountMap[vote.campaign_participant_id] = parseInt(vote.vote_count || 0)
+      })
+    }
+
+    // Tambahkan vote_count untuk setiap record
+    const resultWithVoteCount = result.map(record => ({
+      ...record,
+      vote_count: voteCountMap[record.campaign_participant_id] || 0
+    }))
+
     return mappingSuccessPagination(lang.__('get.success'), {
-      result: manipulateDate(result),
-      count: rows?.count
+      result: manipulateDate(resultWithVoteCount),
+      count: rows?.count,
+      total_votes: totalVotes
     })
   } catch (error) {
     error.path = __filename
@@ -280,6 +325,106 @@ const getParticipantsWithPercentage = async (where, filter) => {
   }
 }
 
+const getTotalVotes = async () => {
+  try {
+    // Hitung total unique emails yang sudah melakukan voting
+    // Logic: Hitung berdasarkan kombinasi unique (email + participant_id) yang terbaru
+    const result = await pgCore.raw(`
+      SELECT COUNT(DISTINCT campaigen_voting_email) as total
+      FROM (
+        SELECT 
+          campaigen_voting_email,
+          campaign_participant_id,
+          created_at,
+          ROW_NUMBER() OVER (
+            PARTITION BY campaigen_voting_email, campaign_participant_id 
+            ORDER BY created_at DESC
+          ) as rn
+        FROM ${TABLE}
+        WHERE deleted_at IS NULL 
+          AND campaigen_voting_email IS NOT NULL
+      ) v
+      WHERE v.rn = 1
+    `)
+    
+    return parseInt(result.rows[0]?.total || 0)
+  } catch (error) {
+    console.error('Error getting total votes:', error)
+    return 0
+  }
+}
+
+const getVotingStats = async () => {
+  try {
+    // Total unique emails yang sudah vote
+    const [totalVotesResult] = await pgCore(TABLE)
+      .whereNull('deleted_at')
+      .whereNotNull('campaigen_voting_email')
+      .countDistinct('campaigen_voting_email as total')
+    
+    const totalVotes = parseInt(totalVotesResult?.total || 0)
+
+    // Total participants
+    const [totalParticipantsResult] = await pgCore(PARTICIPANT_TABLE)
+      .whereNull('deleted_at')
+      .count('* as total')
+    
+    const totalParticipants = parseInt(totalParticipantsResult?.total || 0)
+
+    // Votes per participant dengan logic yang sama
+    const votesPerParticipant = await pgCore.raw(`
+      SELECT 
+        v.campaign_participant_id,
+        COUNT(DISTINCT v.campaigen_voting_email) as vote_count
+      FROM (
+        SELECT 
+          campaign_participant_id,
+          campaigen_voting_email,
+          created_at,
+          ROW_NUMBER() OVER (
+            PARTITION BY campaigen_voting_email, campaign_participant_id 
+            ORDER BY created_at DESC
+          ) as rn
+        FROM ${TABLE}
+        WHERE deleted_at IS NULL 
+          AND campaigen_voting_email IS NOT NULL
+      ) v
+      WHERE v.rn = 1
+      GROUP BY v.campaign_participant_id
+      ORDER BY vote_count DESC
+    `)
+
+    // Hitung persentase untuk setiap participant
+    const participantsWithVotes = votesPerParticipant.rows.map(vote => ({
+      campaign_participant_id: vote.campaign_participant_id,
+      vote_count: parseInt(vote.vote_count),
+      vote_percentage: totalVotes > 0 ? Number(((parseInt(vote.vote_count) / totalVotes) * 100).toFixed(2)) : 0
+    }))
+
+    return {
+      status: true,
+      message: 'Statistik voting berhasil diambil',
+      data: {
+        total_votes: totalVotes,
+        total_participants: totalParticipants,
+        participants_votes: participantsWithVotes,
+        summary: {
+          total_unique_voters: totalVotes,
+          total_campaign_participants: totalParticipants,
+          average_votes_per_participant: totalParticipants > 0 ? Number((totalVotes / totalParticipants).toFixed(2)) : 0
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error getting voting stats:', error)
+    return {
+      status: false,
+      message: 'Gagal mengambil statistik voting',
+      data: null
+    }
+  }
+}
+
 module.exports = {
   create,
   get,
@@ -287,6 +432,8 @@ module.exports = {
   getByParam,
   getParticipantsWithPercentage,
   findEmailEmployeeByEmail,
+  getTotalVotes,
+  getVotingStats,
   COLUMN,
   DEFAULT_SORT,
   TABLE
