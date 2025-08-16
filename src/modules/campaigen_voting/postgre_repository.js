@@ -203,6 +203,8 @@ const getParticipantsWithPercentage = async (where, filter) => {
 
     // Count votes per participant in current page (only latest vote per email)
     let voteCounts = []
+    let totalVotes = 0
+    
     if (ids.length > 0) {
       // Get all votes for participants in current page
       const allVotes = await pgCore(`${TABLE} as v`)
@@ -210,6 +212,7 @@ const getParticipantsWithPercentage = async (where, filter) => {
         .whereNull('v.deleted_at')
         .whereIn('v.campaign_participant_id', ids)
         .whereNotNull('v.campaigen_voting_email')
+        .orderBy('v.created_at', 'DESC') // Order by created_at DESC to get latest first
 
       console.log('All votes found:', allVotes.length)
 
@@ -218,13 +221,8 @@ const getParticipantsWithPercentage = async (where, filter) => {
       allVotes.forEach((vote) => {
         if (!emailLatestVotes[vote.campaigen_voting_email]) {
           emailLatestVotes[vote.campaigen_voting_email] = vote
-        } else {
-          // If email already exists, check if this vote is newer
-          const existingVote = emailLatestVotes[vote.campaigen_voting_email]
-          if (new Date(vote.created_at) > new Date(existingVote.created_at)) {
-            emailLatestVotes[vote.campaigen_voting_email] = vote
-          }
         }
+        // Since we ordered by created_at DESC, first occurrence is the latest
       })
 
       console.log('Unique emails with latest votes:', Object.keys(emailLatestVotes).length)
@@ -240,23 +238,9 @@ const getParticipantsWithPercentage = async (where, filter) => {
         campaign_participant_id,
         vote_count
       }))
-    }
 
-    // Total votes for participants in current page (only latest vote per email)
-    let totalVotes = 0
-    if (ids.length > 0) {
-      const allVotesForTotal = await pgCore(`${TABLE} as v`)
-        .select('v.campaigen_voting_email', 'v.created_at')
-        .whereNull('v.deleted_at')
-        .whereIn('v.campaign_participant_id', ids)
-        .whereNotNull('v.campaigen_voting_email')
-
-      // Count unique emails (latest vote per email)
-      const uniqueEmails = new Set()
-      allVotesForTotal.forEach((vote) => {
-        uniqueEmails.add(vote.campaigen_voting_email)
-      })
-      totalVotes = uniqueEmails.size
+      // Total votes is the count of unique emails
+      totalVotes = Object.keys(emailLatestVotes).length
     }
 
     console.log('Total votes (unique emails):', totalVotes)
