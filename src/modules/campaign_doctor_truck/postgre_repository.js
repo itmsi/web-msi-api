@@ -25,7 +25,7 @@ const COLUMN = [
   `${TABLE}.deleted_at`, `${TABLE}.deleted_by`
 ]
 
-const DEFAULT_SORT = [COLUMN[0], 'DESC']
+const DEFAULT_SORT = ['vote_count', 'DESC']
 const condition = (builder, where, search = null) => {
   builder.where(`${TABLE}.deleted_at`, null)
 
@@ -168,9 +168,10 @@ const getTotalVotes = async () => {
  */
 const get = async (where, filter, column = COLUMN) => {
   try {
+    // Gunakan campaign_participant_id untuk sorting di database karena vote_count belum ada
     const result = await sql(where, filter.search).clone()
       .select(column)
-      .orderBy(`${filter.direction}`, filter.order)
+      .orderBy(`${TABLE}.campaign_participant_id`, 'DESC')
       .limit(filter.limit)
       .offset(((filter.page - 1) * filter.limit))
 
@@ -195,6 +196,9 @@ const get = async (where, filter, column = COLUMN) => {
           vote_percentage: votePercentage
         }
       })
+
+      // Default sorting berdasarkan vote_count tertinggi
+      resultWithVoteCount.sort((a, b) => b.vote_count - a.vote_count)
 
       return mappingSuccessPagination(lang.__('get.success'), {
         result: manipulateDate(resultWithVoteCount),

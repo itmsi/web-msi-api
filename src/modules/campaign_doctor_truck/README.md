@@ -122,3 +122,77 @@ Endpoint POST mendukung upload file:
 - Logic voting menggunakan window function `ROW_NUMBER()` untuk menghindari duplikasi
 - Soft delete tidak mempengaruhi perhitungan voting
 - Persentase dibulatkan ke 2 desimal untuk akurasi 
+
+# Campaign Doctor Truck API
+
+## Endpoint: GET /api/v1/campaign-doctor-truck
+
+### Deskripsi
+Endpoint untuk mengambil data campaign doctor truck dengan default sorting berdasarkan vote count tertinggi.
+
+### Parameter Query
+- `limit` (optional): Jumlah data per halaman (default: 10)
+- `page` (optional): Nomor halaman (default: 1)
+- `search` (optional): Pencarian berdasarkan nama, phone, company, department, atau description
+
+### Contoh Request
+
+#### Request dengan limit 100:
+```bash
+curl -X 'GET' \
+  'http://localhost:9509/api/v1/campaign-doctor-truck?limit=100' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer YOUR_TOKEN'
+```
+
+#### Request dengan pencarian:
+```bash
+curl -X 'GET' \
+  'http://localhost:9509/api/v1/campaign-doctor-truck?limit=100&search=nama_participant' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer YOUR_TOKEN'
+```
+
+### Response Format
+```json
+{
+  "status": true,
+  "message": "Data berhasil diambil",
+  "data": {
+    "result": [
+      {
+        "campaign_participant_id": "uuid",
+        "participant_name": "Nama Participant",
+        "participant_phone": "08123456789",
+        "participant_company": "Nama Perusahaan",
+        "participant_department": "Departemen",
+        "participant_description": "Deskripsi",
+        "participant_file_name_pdf": "url_pdf",
+        "participant_file_name_img": "url_image",
+        "participant_location": "Lokasi",
+        "created_at": "2024-01-01T00:00:00.000Z",
+        "vote_count": 150,
+        "vote_percentage": 25.5,
+        "total_votes": 588
+      }
+    ],
+    "count": 100,
+    "total_votes": 588
+  }
+}
+```
+
+### Fitur Tambahan
+- **vote_count**: Jumlah voting yang diterima participant
+- **vote_percentage**: Persentase voting dari total keseluruhan
+- **total_votes**: Total voting keseluruhan campaign
+
+### Default Sorting
+- **Data secara otomatis diurutkan berdasarkan `vote_count` tertinggi**
+- Participant dengan vote count tertinggi akan muncul di urutan pertama
+- Tidak perlu parameter tambahan untuk mengaktifkan sorting ini
+
+### Catatan
+- Semua data yang di-soft delete tidak akan ditampilkan
+- Sorting berdasarkan vote count dilakukan setelah data diambil dari database
+- Persentase voting dibulatkan ke 2 desimal untuk akurasi 
