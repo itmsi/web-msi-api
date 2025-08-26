@@ -29,6 +29,18 @@
 			"participant_file_name_img": {
 				"type": "string"
 			},
+			"vote_count": {
+				"type": "integer",
+				"description": "Jumlah voting yang didapatkan oleh participant ini"
+			},
+			"vote_percentage": {
+				"type": "number",
+				"description": "Persentase voting yang didapatkan oleh participant ini"
+			},
+			"total_votes": {
+				"type": "integer",
+				"description": "Total voting keseluruhan untuk semua participant"
+			},
 			"created_at": {
 				"type": "string",
 				"format": "date-time"

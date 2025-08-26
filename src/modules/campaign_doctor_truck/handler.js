@@ -95,6 +95,7 @@ const fetch = async (req, res) => {
   try {
     const where = req.query; // dynamicFilterJoin(req, repository.COLUMN)
     const filter = paging(req, repository.DEFAULT_SORT)
+    
     const result = await repository.get(where, filter)
 
     // Tambahkan URL ke data

@@ -47,6 +47,15 @@ const fetch = async (req, res) => {
   return paginationResponse(req, res, result)
 }
 
+const getVotingStats = async (req, res) => {
+  try {
+    const stats = await repository.getVotingStats()
+    return baseResponse(res, stats)
+  } catch (error) {
+    return baseResponse(res, { code: 200, data: { status: false, message: error?.message || 'Terjadi kesalahan', data: [] } })
+  }
+}
+
 const fetchByParam = async (req, res) => {
   const where = requestHttp(req)
   const result = await repository.getByParam(where)
@@ -73,6 +82,7 @@ module.exports = {
   fetch,
   fetchByParam,
   update,
-  softDelete
+  softDelete,
+  getVotingStats
 }
 
