@@ -11,6 +11,7 @@ const TABLE_SPECIFICATION_VALUE = 'mst_specification_values'
 const TABLE_PRODUCT = 'mst_product'
 const TABLE_PRODUCT_MODEL = 'mst_product_model'
 const TABLE_PRODUCT_DIMENSI = 'mst_product_dimensi'
+const TABLE_TYPE_PRODUCT = 'mst_type_product'
 
 const COLUMN_DEFAULT = [
   `${TABLE}.specification_name`,
@@ -39,6 +40,10 @@ const condition = (builder, where, search = null) => {
 
   if (where?.slug_product) {
     builder.where(`${TABLE_PRODUCT}.slug_product`, where.slug_product)
+  }
+
+  if (where?.slug_type_product) {
+    builder.where(`${TABLE_TYPE_PRODUCT}.slug_type_product`, where.slug_type_product)
   }
 
   if (search) {
@@ -81,6 +86,10 @@ const sql = (where, search = false) => {
     .leftJoin(TABLE_PRODUCT, function () {
       this.on(`${TABLE_PRODUCT_MODEL}.product_id`, '=', `${TABLE_PRODUCT}.product_id`)
         .andOnNull(`${TABLE_PRODUCT}.deleted_at`)
+    })
+    .leftJoin(TABLE_TYPE_PRODUCT, function () {
+      this.on(`${TABLE_PRODUCT}.type_product_id`, '=', `${TABLE_TYPE_PRODUCT}.type_product_id`)
+        .andOnNull(`${TABLE_TYPE_PRODUCT}.deleted_at`)
     })
 
   if (where != null) {
