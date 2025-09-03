@@ -26,6 +26,7 @@ const COLUMN_DEFAULT = [
   `${TABLE_PRODUCT_MODEL}.product_model_foto`,
   `${TABLE_PRODUCT_MODEL}.deleted_at as model_deleted_at`,
   `${TABLE_PRODUCT_DIMENSI}.product_dimensi_value`,
+  `${TABLE_PRODUCT_DIMENSI}.product_dimensi_foto`,
   `${TABLE_PRODUCT_DIMENSI}.product_flayer`,
   `${TABLE_PRODUCT_DIMENSI}.deleted_at as dimensi_deleted_at`,
   `${TABLE_TYPE_PRODUCT}.type_product_name_en`,
@@ -111,6 +112,7 @@ const transformToNestedStructure = (flatData) => {
     const productName = row.product_name_en
     const modelName = row.product_model_name
     const dimensiValue = row.product_dimensi_value
+    const dimensiFoto = row.product_dimensi_foto
     const flayer = row.product_flayer
     const specificationName = row.specification_name
     const labelName = row.specification_label_name
@@ -163,6 +165,7 @@ const transformToNestedStructure = (flatData) => {
     if (!products[productName].product_model_type[typeProductName].product_model[modelKey].product_dimensi[dimensiValue]) {
       products[productName].product_model_type[typeProductName].product_model[modelKey].product_dimensi[dimensiValue] = {
         product_dimensi_value: dimensiValue,
+        product_dimensi_foto: dimensiFoto,
         product_flayer: flayer,
         specification: []
       }
@@ -198,6 +201,7 @@ const transformToNestedStructure = (flatData) => {
         product_model_type: model.product_model_type,
         product_dimensi: Object.values(model.product_dimensi).map((dimensi) => ({
           product_dimensi_value: dimensi.product_dimensi_value,
+          product_dimensi_foto: dimensi.product_dimensi_foto,
           product_flayer: dimensi.product_flayer,
           specification: dimensi.specification // Already an array
         }))
