@@ -14,6 +14,9 @@
 			"product_dimensi_description": {
 				"type": "string"
 			},
+			"product_dimensi_foto": {
+				"type": "string"
+			},
 			"created_at": {
 				"type": "string",
 				"format": "date-time"
@@ -47,6 +50,9 @@
 				"type": "string"
 			},
 			"product_dimensi_description": {
+				"type": "string"
+			},
+			"product_dimensi_foto": {
 				"type": "string"
 			}
 		}

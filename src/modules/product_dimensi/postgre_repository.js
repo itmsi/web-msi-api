@@ -16,7 +16,7 @@ const PRODUCT_TABLE = 'mst_product'
 const TYPE_TABLE = 'mst_type_product'
 
 const COLUMN_ALL = [
-  `${TABLE}.product_dimensi_id`, `${TABLE}.product_model_id`, `${TABLE}.product_dimensi_value`, `${TABLE}.product_dimensi_description`,
+  `${TABLE}.product_dimensi_id`, `${TABLE}.product_model_id`, `${TABLE}.product_dimensi_value`, `${TABLE}.product_dimensi_description`, `${TABLE}.product_dimensi_foto`,
   `${TABLE_MODEL}.product_model_name`,
   `${TABLE}.product_flayer`,
   `${PRODUCT_TABLE}.product_name_id`, `${PRODUCT_TABLE}.product_name_en`, `${PRODUCT_TABLE}.product_name_cn`,
@@ -26,7 +26,7 @@ const COLUMN_ALL = [
 ]
 
 const COLUMN = [
-  `${TABLE}.product_dimensi_id`, `${TABLE}.product_model_id`, `${TABLE}.product_dimensi_value`, `${TABLE}.product_dimensi_description`,
+  `${TABLE}.product_dimensi_id`, `${TABLE}.product_model_id`, `${TABLE}.product_dimensi_value`, `${TABLE}.product_dimensi_description`, `${TABLE}.product_dimensi_foto`,
   `${TABLE_MODEL}.product_model_name`,
   `${TABLE}.product_flayer`,
   `${PRODUCT_TABLE}.product_name_id`, `${PRODUCT_TABLE}.product_name_en`, `${PRODUCT_TABLE}.product_name_cn`,
