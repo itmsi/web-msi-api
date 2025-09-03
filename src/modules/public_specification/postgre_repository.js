@@ -134,13 +134,24 @@ const transformToNestedStructure = (flatData) => {
     if (!products[productName]) {
       products[productName] = {
         product_name_en: productName,
+        product_model_type: {}
+      }
+    }
+
+    // Create unique key combining model name and type
+    const modelKey = `${modelName}_${typeProductName}`
+
+    // Initialize model type if not exists
+    if (!products[productName].product_model_type[typeProductName]) {
+      products[productName].product_model_type[typeProductName] = {
+        type_product_name_en: typeProductName,
         product_model: {}
       }
     }
 
     // Initialize model if not exists
-    if (!products[productName].product_model[modelName]) {
-      products[productName].product_model[modelName] = {
+    if (!products[productName].product_model_type[typeProductName].product_model[modelKey]) {
+      products[productName].product_model_type[typeProductName].product_model[modelKey] = {
         product_model_name: modelName,
         product_model_foto: modelFoto,
         product_model_type: typeProductName,
@@ -149,8 +160,8 @@ const transformToNestedStructure = (flatData) => {
     }
 
     // Initialize dimensi if not exists
-    if (!products[productName].product_model[modelName].product_dimensi[dimensiValue]) {
-      products[productName].product_model[modelName].product_dimensi[dimensiValue] = {
+    if (!products[productName].product_model_type[typeProductName].product_model[modelKey].product_dimensi[dimensiValue]) {
+      products[productName].product_model_type[typeProductName].product_model[modelKey].product_dimensi[dimensiValue] = {
         product_dimensi_value: dimensiValue,
         product_flayer: flayer,
         specification: []
@@ -159,7 +170,7 @@ const transformToNestedStructure = (flatData) => {
 
     // Add specification to array instead of using object with unique keys
     // This allows multiple specifications with the same name and label
-    const existingSpec = products[productName].product_model[modelName]
+    const existingSpec = products[productName].product_model_type[typeProductName].product_model[modelKey]
       .product_dimensi[dimensiValue].specification.find(
         (spec) => spec.specification_name === specificationName
                 && spec.specification_label_name === labelName
@@ -167,7 +178,7 @@ const transformToNestedStructure = (flatData) => {
       )
 
     if (!existingSpec) {
-      products[productName].product_model[modelName]
+      products[productName].product_model_type[typeProductName].product_model[modelKey]
         .product_dimensi[dimensiValue].specification.push({
           specification_name: specificationName,
           specification_label_name: labelName,
@@ -176,17 +187,20 @@ const transformToNestedStructure = (flatData) => {
     }
   })
 
-  // Convert objects to arrays
+  // Convert objects to arrays with proper grouping
   const result = Object.values(products).map((product) => ({
     product_name_en: product.product_name_en,
-    product_model: Object.values(product.product_model).map((model) => ({
-      product_model_name: model.product_model_name,
-      product_model_foto: model.product_model_foto,
-      product_model_type: model.product_model_type,
-      product_dimensi: Object.values(model.product_dimensi).map((dimensi) => ({
-        product_dimensi_value: dimensi.product_dimensi_value,
-        product_flayer: dimensi.product_flayer,
-        specification: dimensi.specification // Already an array
+    product_model_type: Object.values(product.product_model_type).map((typeGroup) => ({
+      type_product_name_en: typeGroup.type_product_name_en,
+      product_model: Object.values(typeGroup.product_model).map((model) => ({
+        product_model_name: model.product_model_name,
+        product_model_foto: model.product_model_foto,
+        product_model_type: model.product_model_type,
+        product_dimensi: Object.values(model.product_dimensi).map((dimensi) => ({
+          product_dimensi_value: dimensi.product_dimensi_value,
+          product_flayer: dimensi.product_flayer,
+          specification: dimensi.specification // Already an array
+        }))
       }))
     }))
   }))
