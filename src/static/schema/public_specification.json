@@ -13,6 +13,9 @@
 			},
 			"product_name_en": {
 				"type": "string"
+			},
+			"product_model_type": {
+				"type": "string"
 			}
 		}
 	}
