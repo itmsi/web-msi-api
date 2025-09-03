@@ -28,6 +28,8 @@ const COLUMN_DEFAULT = [
   `${TABLE_PRODUCT_DIMENSI}.product_dimensi_value`,
   `${TABLE_PRODUCT_DIMENSI}.product_flayer`,
   `${TABLE_PRODUCT_DIMENSI}.deleted_at as dimensi_deleted_at`,
+  `${TABLE_TYPE_PRODUCT}.type_product_name_en`,
+  `${TABLE_TYPE_PRODUCT}.deleted_at as type_product_deleted_at`,
 ]
 
 const DEFAULT_SORT = [`${TABLE}.specification_id`, 'DESC']
@@ -114,10 +116,11 @@ const transformToNestedStructure = (flatData) => {
     const labelName = row.specification_label_name
     const valueName = row.specification_value_name
     const modelFoto = row.product_model_foto
+    const typeProductName = row.type_product_name_en
 
     // Check if any record is deleted (deleted_at is not null)
     if (row.specification_deleted_at || row.label_deleted_at || row.value_deleted_at
-        || row.product_deleted_at || row.model_deleted_at || row.dimensi_deleted_at) {
+        || row.product_deleted_at || row.model_deleted_at || row.dimensi_deleted_at || row.type_product_deleted_at) {
       return
     }
 
@@ -140,6 +143,7 @@ const transformToNestedStructure = (flatData) => {
       products[productName].product_model[modelName] = {
         product_model_name: modelName,
         product_model_foto: modelFoto,
+        product_model_type: typeProductName,
         product_dimensi: {}
       }
     }
@@ -178,6 +182,7 @@ const transformToNestedStructure = (flatData) => {
     product_model: Object.values(product.product_model).map((model) => ({
       product_model_name: model.product_model_name,
       product_model_foto: model.product_model_foto,
+      product_model_type: model.product_model_type,
       product_dimensi: Object.values(model.product_dimensi).map((dimensi) => ({
         product_dimensi_value: dimensi.product_dimensi_value,
         product_flayer: dimensi.product_flayer,
