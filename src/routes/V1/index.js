@@ -60,6 +60,10 @@ const productModel = require('../../modules/product_model')
 const productDimensi = require('../../modules/product_dimensi')
 const review = require('../../modules/review')
 const publicReview = require('../../modules/public_review')
+const campaignDoctorTruck = require('../../modules/campaign_doctor_truck')
+const emailEmployee = require('../../modules/email_employee')
+const campaigenVoting = require('../../modules/campaigen_voting')
+const publicCampaigenVoting = require('../../modules/public_campaigen_voting')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -95,6 +99,9 @@ routing.use(`${API_TAG}/public/degree`, publicDegree)
 routing.use(`${API_TAG}/public/province`, publicProvince)
 routing.use(`${API_TAG}/public/city`, publicCity)
 routing.use(`${API_TAG}/public/review`, publicReview)
+routing.use(`${API_TAG}/public/campaign-doctor-truck`, campaignDoctorTruck)
+routing.use(`${API_TAG}/public/campaigen-voting`, campaigenVoting)
+routing.use(`${API_TAG}/public/voting`, publicCampaigenVoting)
 
 // need token verify register here
 routing.use(`${API_TAG}/admin-menu`, verifyToken, adminMenu)
@@ -132,4 +139,7 @@ routing.use(`${API_TAG}/specification-product-value`, verifyToken, specification
 routing.use(`${API_TAG}/product-model`, verifyToken, productModel)
 routing.use(`${API_TAG}/product-dimensi`, verifyToken, productDimensi)
 routing.use(`${API_TAG}/review`, verifyToken, review)
+routing.use(`${API_TAG}/campaign-doctor-truck`, verifyToken, campaignDoctorTruck)
+routing.use(`${API_TAG}/email-employee`, verifyToken, emailEmployee)
+routing.use(`${API_TAG}/campaigen-voting`, verifyToken, campaigenVoting)
 module.exports = routing;

@@ -67,6 +67,15 @@
 						"type": "string"
 					},
 					"description": "Slug product value is string with rule ex : ?slug_product=hitam"
+				},
+				{
+					"in": "query",
+					"name": "slug_type_product",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Slug type product value is string with rule ex : ?slug_type_product=hitam"
 				}
 			],
 			"responses": {

@@ -1,0 +1,50 @@
+{
+  "SchemaPostCampaigenVoting": {
+    "type": "object",
+    "properties": {
+      "campaigen_voting_email": {
+        "type": "string",
+        "maxLength": 200,
+        "format": "email",
+        "description": "Email karyawan yang melakukan voting",
+        "example": "john.doe@example.com"
+      },
+      "campaign_participant_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID participant yang dipilih",
+        "example": "2a0d3c1f-5f7b-4f9c-87e0-c8d4b7b1a9ef"
+      },
+      "campaigen_voting_description": {
+        "type": "string",
+        "description": "Keterangan tambahan (opsional)",
+        "example": "vote pertama"
+      }
+    },
+    "required": ["campaigen_voting_email", "campaign_participant_id"]
+  },
+  "SchemaPutCampaigenVoting": {
+    "type": "object",
+    "properties": {
+      "campaigen_voting_email": {
+        "type": "string",
+        "maxLength": 200,
+        "format": "email",
+        "description": "Email karyawan yang melakukan voting",
+        "example": "john.doe@example.com"
+      },
+      "campaign_participant_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID participant yang dipilih",
+        "example": "2a0d3c1f-5f7b-4f9c-87e0-c8d4b7b1a9ef"
+      },
+      "campaigen_voting_description": {
+        "type": "string",
+        "description": "Keterangan tambahan (opsional)",
+        "example": "vote pertama"
+      }
+    }
+  }
+}
+

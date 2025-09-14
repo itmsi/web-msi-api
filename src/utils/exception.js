@@ -79,29 +79,25 @@ const syntaxError = (err, req, res, next) => {
   }
 
   if (err instanceof SyntaxError) {
-    res.status(HTTP.OK).send(result)
-  } else {
-    next()
+    if (process.env.NODE_ENV === 'development') {
+      console.info(err.toString())
+    } else {
+      // sent to sentry or whatever
+      console.info(err.toString())
+      sendAlertSlack({
+        alert_type: 'exception',
+        messages: `syntax error ${err}`,
+        errors: err,
+        exceptions: err.toString()
+      }).then((r) => {
+        console.log('success sending', r)
+      }).catch((error) => {
+        console.log('error sending', error)
+      })
+    }
+    return res.status(HTTP.OK).send(result)
   }
-
-  if (process.env.NODE_ENV === 'development') {
-    console.info(err.toString())
-    res.status(HTTP.OK).send(result)
-  } else {
-    // sent to sentry or whatever
-    console.info(err.toString())
-    sendAlertSlack({
-      alert_type: 'exception',
-      messages: `syntax error ${err}`,
-      errors: err,
-      exceptions: err.toString()
-    }).then((r) => {
-      console.log('success sending', r)
-    }).catch((error) => {
-      console.log('error sending', error)
-    })
-    res.status(HTTP.OK).send(result)
-  }
+  return next()
 }
 
 const paginationResponse = (req, res, rows) => {

@@ -1,0 +1,254 @@
+{
+	"/campaign-doctor-truck": {
+		"get": {
+			"tags": [
+				"Campaign Doctor Truck"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"parameters": [
+				{
+					"in": "query",
+					"name": "limit",
+					"required": false,
+					"schema": {
+						"type": "integer"
+					},
+					"description": "Limit value is number by default limit is 10. ex : ?limit=100"
+				},
+				{
+					"in": "query",
+					"name": "page",
+					"required": false,
+					"schema": {
+						"type": "number"
+					},
+					"description": "Page value is number. ex : ?page=1"
+				},
+				{
+					"in": "query",
+					"name": "direction",
+					"required": false,
+					"schema": {
+						"type": "array or string"
+					},
+					"description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id"
+				},
+				{
+					"in": "query",
+					"name": "order",
+					"required": false,
+					"schema": {
+						"type": "array or string"
+					},
+					"description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc"
+				},
+				{
+					"in": "query",
+					"name": "search",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Search value is string with rule ex : ?search=Hitam"
+				}
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaPaginationResponse"
+							}
+						}
+					}
+				}
+			}
+		},
+		"post": {
+			"tags": [
+				"Campaign Doctor Truck"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"requestBody": {
+				"required": false,
+				"content": {
+					"multipart/form-data": {
+						"schema": {
+							"$ref": "#/components/schemas/SchemaPostCampaignDoctorTruck"
+						}
+					}
+				}
+			},
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"/campaign-doctor-truck/{campaign_doctor_truck_id}": {
+		"get": {
+			"tags": [
+				"Campaign Doctor Truck"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"parameters": [
+				{
+					"in": "path",
+					"name": "campaign_doctor_truck_id",
+					"required": true,
+					"schema": {
+						"type": "string"
+					}
+				}
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				}
+			}
+		},
+		"put": {
+			"tags": [
+				"Campaign Doctor Truck"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"parameters": [
+				{
+					"in": "path",
+					"name": "campaign_doctor_truck_id",
+					"required": true,
+					"schema": {
+						"type": "string"
+					}
+				}
+			],
+			"requestBody": {
+				"required": false,
+				"content": {
+					"multipart/form-data": {
+						"schema": {
+							"$ref": "#/components/schemas/SchemaPostCampaignDoctorTruck"
+						}
+					}
+				}
+			},
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				}
+			}
+		},
+		"delete": {
+			"tags": [
+				"Campaign Doctor Truck"
+			],
+			"security": [
+				{
+					"bearerAuth": []
+				}
+			],
+			"parameters": [
+				{
+					"in": "path",
+					"name": "campaign_doctor_truck_id",
+					"required": true,
+					"schema": {
+						"type": "string"
+					}
+				}
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"/public/campaign-doctor-truck/public": {
+		"post": {
+			"tags": [
+				"Campaign Doctor Truck Public"
+			],
+			"summary": "Create campaign doctor truck data (Public Access)",
+			"description": "Create new campaign doctor truck data without authentication. File upload is optional.",
+			"requestBody": {
+				"required": true,
+				"content": {
+					"multipart/form-data": {
+						"schema": {
+							"$ref": "#/components/schemas/SchemaPostCampaignDoctorTruckPublic"
+						}
+					}
+				}
+			},
+			"responses": {
+				"200": {
+					"description": "Success",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponse"
+							}
+						}
+					}
+				},
+				"400": {
+					"description": "Bad Request - Validation Error",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaErrorResponse"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

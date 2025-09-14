@@ -1,0 +1,7 @@
+# File Excel contoh untuk testing
+# Format: Nama Email Employee | Email | Alias | Deskripsi (Opsional)
+# 
+# Contoh data:
+# John Doe | john.doe@example.com | john | IT Department
+# Jane Smith | jane.smith@example.com | jane | HR Department
+# Bob Johnson | bob.johnson@example.com | bob | Finance Department 
