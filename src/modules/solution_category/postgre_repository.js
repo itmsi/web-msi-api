@@ -149,11 +149,11 @@ const update = async (where, payload, name = '') => {
       }
     }
     delete payload?.type_method
-    result = await pgCore(TABLE).where(where).update(payload).returning(['news_category_id'])
+    result = await pgCore(TABLE).where(where).update(payload).returning(['solution_category_id'])
     if (result) {
       return mappingSuccess(message, result)
     }
-    return mappingSuccess(lang.__('not.found.id', { id: where?.news_category_id }), result)
+    return mappingSuccess(lang.__('not.found.id', { id: where?.solution_category_id }), result)
   } catch (error) {
     error.path = __filename
     return mappingError(error)
