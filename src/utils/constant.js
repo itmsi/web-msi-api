@@ -177,7 +177,9 @@ module.exports = {
       PRODUCT_DIMENSI: 'mst_product_dimensi',
       REVIEW: 'mst_review',
       CAMPAIGN_PARTICIPANT: 'mst_campaign_participant',
-      EMAIL_EMPLOYEE: 'mst_email_employee'
+      EMAIL_EMPLOYEE: 'mst_email_employee',
+      SOLUTION_CATEGORY: 'mst_solution_category',
+      SOLUTION_CONTENT: 'mst_solution_content'
     },
     PRIMARY_KEY: {
       JENIS_AKUN: 'jenis_akun_id',
@@ -295,7 +297,9 @@ module.exports = {
       PRODUCT_DIMENSI: 'product_dimensi_id',
       REVIEW: 'review_id',
       CAMPAIGN_PARTICIPANT: 'campaign_participant_id',
-      EMAIL_EMPLOYEE: 'email_employee_id'
+      EMAIL_EMPLOYEE: 'email_employee_id',
+      SOLUTION_CATEGORY: 'solution_category_id',
+      SOLUTION_CONTENT: 'solution_content_id'
     }
   },
   FILE_DESCRIPTION: [
