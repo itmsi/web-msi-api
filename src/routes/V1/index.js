@@ -66,6 +66,8 @@ const campaigenVoting = require('../../modules/campaigen_voting')
 const publicCampaigenVoting = require('../../modules/public_campaigen_voting')
 const solutionCategory = require('../../modules/solution_category')
 const solutionContent = require('../../modules/solution_content')
+const publicSolutionCategory = require('../../modules/public_solution_category')
+const publicSolutionContent = require('../../modules/public_solution_content')
 
 const routing = express();
 const API_TAG = '/api/v1';
@@ -104,6 +106,8 @@ routing.use(`${API_TAG}/public/review`, publicReview)
 routing.use(`${API_TAG}/public/campaign-doctor-truck`, campaignDoctorTruck)
 routing.use(`${API_TAG}/public/campaigen-voting`, campaigenVoting)
 routing.use(`${API_TAG}/public/voting`, publicCampaigenVoting)
+routing.use(`${API_TAG}/public/solution-category`, publicSolutionCategory)
+routing.use(`${API_TAG}/public/solution-content`, publicSolutionContent)
 
 // need token verify register here
 routing.use(`${API_TAG}/admin-menu`, verifyToken, adminMenu)

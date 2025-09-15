@@ -61,6 +61,8 @@ const emailEmployee = require('./email_employee.json')
 const campaigenVoting = require('./campaigen_voting.json')
 const solutionCategory = require('./solution_category.json')
 const solutionContent = require('./solution_content.json')
+const publicSolutionCategory = require('./public_solution_category.json')
+const publicSolutionContent = require('./public_solution_content.json')
 
 module.exports = {
   ...auth,
@@ -125,5 +127,7 @@ module.exports = {
   ...emailEmployee,
   ...campaigenVoting,
   ...solutionCategory,
-  ...solutionContent
+  ...solutionContent,
+  ...publicSolutionCategory,
+  ...publicSolutionContent
 }

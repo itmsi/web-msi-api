@@ -1,0 +1,140 @@
+{
+	"/public/solution-content": {
+		"get": {
+			"tags": [
+				"Solution Content"
+			],
+			"parameters": [
+				{
+					"in": "query",
+					"name": "limit",
+					"required": false,
+					"schema": {
+						"type": "integer"
+					},
+					"description": "Limit value is number by default limit is 10. ex : ?limit=100"
+				},
+				{
+					"in": "query",
+					"name": "page",
+					"required": false,
+					"schema": {
+						"type": "number"
+					},
+					"description": "Page value is number. ex : ?page=1"
+				},
+				{
+					"in": "query",
+					"name": "direction",
+					"required": false,
+					"schema": {
+						"type": "array or string"
+					},
+					"description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id"
+				},
+				{
+					"in": "query",
+					"name": "order",
+					"required": false,
+					"schema": {
+						"type": "array or string"
+					},
+					"description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc"
+				},
+				{
+					"in": "query",
+					"name": "search",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Search value is string with rule ex : ?search=Hitam"
+				},
+				{
+					"in": "query",
+					"name": "language",
+					"required": false,
+					"schema": {
+						"type": "string"
+					},
+					"description": "Language value is string with rule ex : ?language=id / ?language=en / ?language=cn"
+				}
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponsePublicSolutionContent"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"/public/solution-content/{slug}": {
+		"get": {
+			"tags": [
+				"Solution Content"
+			],
+			"summary": "Get article by slug",
+			"description": "Retrieve a single article by its slug in the specified language",
+			"parameters": [
+				{
+					"in": "path",
+					"name": "slug",
+					"required": true,
+					"schema": {
+						"type": "string"
+					},
+					"description": "The slug of the solution content to retrieve"
+				},
+				{
+					"in": "query",
+					"name": "language",
+					"required": false,
+					"schema": {
+						"type": "string",
+						"enum": ["id", "en", "cn"],
+						"default": "id"
+					},
+					"description": "Language of the solution content to retrieve (id/en/cn). Defaults to 'id'"
+				}
+			],
+			"responses": {
+				"200": {
+					"description": "OK",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SchemaResponsePublicSolutionContent"
+							}
+						}
+					}
+				},
+				"404": {
+					"description": "Solution content not found",
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"status": {
+										"type": "integer",
+										"example": 404
+									},
+									"message": {
+										"type": "string",
+										"example": "Solution content not found"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
