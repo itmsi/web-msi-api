@@ -1,0 +1,206 @@
+{
+	"SchemaResponseSolutionContent": {
+		"type": "object",
+		"properties": {
+			"solution_content_id": {
+				"type": "string"
+			},
+			"solution_title_id": {
+				"type": "string"
+			},
+			"solution_title_en": {
+				"type": "string"
+			},
+			"solution_title_cn": {
+				"type": "string"
+			},
+			"solution_slug_id": {
+				"type": "string"
+			},
+			"solution_slug_en": {
+				"type": "string"
+			},
+			"solution_slug_cn": {
+				"type": "string"
+			},
+			"solution_content_body_id": {
+				"type": "string"
+			},
+			"solution_content_body_en": {
+				"type": "string"
+			},
+			"solution_content_body_cn": {
+				"type": "string"
+			},
+			"solution_category_id": {
+				"type": "string"
+			},
+			"solution_image": {
+				"type": "string"
+			},
+			"solution_image_caption": {
+				"type": "string"
+			},
+			"solution_image_alt": {
+				"type": "string"
+			},
+			"solution_image_title": {
+				"type": "string"
+			},
+			"solution_image_description": {
+				"type": "string"
+			},
+			"solution_image_keywords": {
+				"type": "string"
+			},
+			"solution_image_tags": {
+				"type": "string"
+			},
+			"solution_meta_description_id": {
+				"type": "string"
+			},
+			"solution_meta_description_en": {
+				"type": "string"
+			},
+			"solution_meta_description_cn": {
+				"type": "string"
+			},
+			"solution_meta_keywords_id": {
+				"type": "string"
+			},
+			"solution_meta_keywords_en": {
+				"type": "string"
+			},
+			"solution_meta_keywords_cn": {
+				"type": "string"
+			},
+			"solution_meta_title_id": {
+				"type": "string"
+			},
+			"solution_meta_title_en": {
+				"type": "string"
+			},
+			"solution_meta_title_cn": {
+				"type": "string"
+			},
+			"solution_status": {
+				"type": "string"
+			},
+			"solution_published_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"created_by": {
+				"type": "string"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"updated_by": {
+				"type": "string"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time"
+			},
+			"deleted_by": {
+				"type": "string"
+			}
+		}
+	},
+	"SchemaPostSolutionContent": {
+		"type": "object",
+		"properties": {
+			"solution_title_id": {
+				"type": "string"
+			},
+			"solution_title_en": {
+				"type": "string"
+			},
+			"solution_title_cn": {
+				"type": "string"
+			},
+			"solution_slug_id": {
+				"type": "string"
+			},
+			"solution_slug_en": {
+				"type": "string"
+			},
+			"solution_slug_cn": {
+				"type": "string"
+			},
+			"solution_content_body_id": {
+				"type": "string"
+			},
+			"solution_content_body_en": {
+				"type": "string"
+			},
+			"solution_content_body_cn": {
+				"type": "string"
+			},
+			"solution_category_id": {
+				"type": "string"
+			},
+			"solution_image": {
+				"type": "string"
+			},
+			"solution_image_caption": {
+				"type": "string"
+			},
+			"solution_image_alt": {
+				"type": "string"
+			},
+			"solution_image_title": {
+				"type": "string"
+			},
+			"solution_image_description": {
+				"type": "string"
+			},
+			"solution_image_keywords": {
+				"type": "string"
+			},
+			"solution_image_tags": {
+				"type": "string"
+			},
+			"solution_meta_description_id": {
+				"type": "string"
+			},
+			"solution_meta_description_en": {
+				"type": "string"
+			},
+			"solution_meta_description_cn": {
+				"type": "string"
+			},
+			"solution_meta_keywords_id": {
+				"type": "string"
+			},
+			"solution_meta_keywords_en": {
+				"type": "string"
+			},
+			"solution_meta_keywords_cn": {
+				"type": "string"
+			},
+			"solution_meta_title_id": {
+				"type": "string"
+			},
+			"solution_meta_title_en": {
+				"type": "string"
+			},
+			"solution_meta_title_cn": {
+				"type": "string"
+			},
+			"solution_status": {
+				"type": "string"
+			},
+			"solution_published_at": {
+				"type": "string",
+				"format": "date-time"
+			}
+		}
+	}
+}

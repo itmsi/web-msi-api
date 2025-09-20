@@ -1,0 +1,161 @@
+{
+	"SchemaResponsePublicSolutionContent": {
+		"type": "object",
+		"properties": {
+			"status": {
+				"type": "integer",
+				"example": 200,
+				"description": "HTTP status code"
+			},
+			"message": {
+				"type": "string",
+				"example": "Success get data",
+				"description": "Response message"
+			},
+			"data": {
+				"type": "object",
+				"properties": {
+					"result": {
+						"oneOf": [
+							{
+								"type": "array",
+								"items": {
+									"$ref": "#/components/schemas/SolutionContentData"
+								},
+								"description": "Array of solution contents for list endpoint"
+							},
+							{
+								"$ref": "#/components/schemas/SolutionContentData"
+							}
+						],
+						"description": "Solution content data, can be single object or array"
+					},
+					"count": {
+						"type": "integer",
+						"description": "Total count of records (only for list endpoint)",
+						"example": 100
+					},
+					"page": {
+						"type": "integer",
+						"description": "Current page number (only for list endpoint)",
+						"example": 1
+					},
+					"limit": {
+						"type": "integer",
+						"description": "Number of items per page (only for list endpoint)",
+						"example": 10
+					}
+				}
+			}
+		}
+	},
+	"SolutionContentData": {
+		"type": "object",
+		"properties": {
+			"solution_id": {
+				"type": "string",
+				"format": "uuid",
+				"description": "Unique identifier of the solution content"
+			},
+			"solution_title_id": {
+				"type": "string",
+				"description": "Solution content title in Indonesian"
+			},
+			"solution_title_en": {
+				"type": "string",
+				"description": "Solution content title in English"
+			},
+			"solution_title_cn": {
+				"type": "string",
+				"description": "Solution content title in Chinese"
+			},
+			"solution_slug_id": {
+				"type": "string",
+				"description": "URL-friendly slug in Indonesian for solution content"
+			},
+			"solution_slug_en": {
+				"type": "string",
+				"description": "URL-friendly slug in English for solution content"
+			},
+			"solution_slug_cn": {
+				"type": "string",
+				"description": "URL-friendly slug in Chinese for solution content"
+			},
+				"solution_content_id": {
+				"type": "string",
+				"description": "Solution content in Indonesian"
+			},
+			"solution_content_en": {
+				"type": "string",
+				"description": "Solution content in English"
+			},
+			"solution_content_cn": {
+				"type": "string",
+				"description": "Solution content in Chinese"
+			},
+			"solution_image": {
+				"type": "string",
+				"description": "URL of the solution content's main image"
+			},
+			"solution_image_tags": {
+				"type": "string",
+				"description": "Alt text or tags for the solution content image"
+			},
+			"solution_status": {
+				"type": "boolean",
+				"description": "Solution content publication status"
+			},
+			"solution_published_at": {
+				"type": "string",
+				"format": "date-time",
+				"description": "When the solution content was published"
+			},
+			"solution_category_id": {
+				"type": "string",
+				"format": "uuid",
+				"description": "Category identifier"
+			},
+			"solution_category_name_id": {
+				"type": "string",
+				"description": "Category name in Indonesian for solution content"
+			},
+			"solution_category_name_en": {
+				"type": "string",
+				"description": "Category name in English for solution content"
+			},
+			"solution_category_name_cn": {
+				"type": "string",
+				"description": "Category name in Chinese for solution content"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time",
+				"description": "When the solution content was created"
+			},
+			"created_by": {
+				"type": "string",
+				"description": "User who created the solution content for solution content"
+			},
+			"updated_at": {
+				"type": "string",
+				"format": "date-time",
+				"description": "When the solution content was last updated for solution content"
+			},
+			"updated_by": {
+				"type": "string",
+				"description": "User who last updated the solution content for solution content"
+			},
+			"deleted_at": {
+				"type": "string",
+				"format": "date-time",
+				"nullable": true,
+				"description": "When the solution content was deleted (null if not deleted) for solution content"
+			},
+			"deleted_by": {
+				"type": "string",
+				"nullable": true,
+				"description": "User who deleted the solution content (null if not deleted) for solution content"
+			}
+		}
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"SchemaResponsePublicSolutionCategory": {
+		"type": "object",
+		"properties": {
+			"solution_category_id": {
+				"type": "string"
+			},
+			"solution_category_name_id": {
+				"type": "string"
+			},
+			"solution_category_name_en": {
+				"type": "string"
+			},
+			"solution_category_name_cn": {
+				"type": "string"
+			},
+			"created_at": {
+				"type": "string",
+				"format": "date-time"
+			}
+		}
+	}
+}
