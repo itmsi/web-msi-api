@@ -9,12 +9,11 @@
 */
 
 const repository = require('./postgre_repository')
-const { baseResponse, dynamicFilter, decodeToken } = require('../../utils')
+const { baseResponse, dynamicFilter } = require('../../utils')
 
 const fetch = async (req, res) => {
-  const roles = decodeToken('getRoles', req)
   const where = dynamicFilter(req, repository.COLUMN)
-  const result = await repository.get(where, roles[0])
+  const result = await repository.get(where)
   return baseResponse(res, result)
 }
 

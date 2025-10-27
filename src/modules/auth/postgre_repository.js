@@ -246,20 +246,6 @@ const refreshToken = async (where, column = COLUMN) => {
   }
 };
 
-const getPermissions = async (result) => {
-  try {
-    const permissions = await pgCore.raw(`select concat(mam.permission_name, '.',mp.name)
-    from mst_menu_has_permissions mmhp
-    inner join mst_permissions mp on mmhp.permission_id = mp.id
-    inner join mst_admin_menu mam on mmhp.menu_id = mam.menu_id
-    inner join mst_role_has_permissions mrhp on mmhp.permission_id = mrhp.permission_id
-    and mmhp.menu_id = mrhp.menu_id and mrhp.role_id = '${result?.role_id}'`);
-    return permissions?.rows;
-  } catch (error) {
-    return error;
-  }
-};
-
 const me = async (where, column = COLUMN_ME) => {
   try {
     where[`${TABLE}.deleted_at`] = null;
@@ -268,8 +254,6 @@ const me = async (where, column = COLUMN_ME) => {
       .select(column)
       .where(where);
     if (result) {
-      const permissions = await getPermissions(result);
-      result.permissions = permissions.map((obj) => obj.concat.toLowerCase().split(' ').join(''));
       return mappingSuccess(lang.__('get.success'), result);
     }
     return mappingSuccess(lang.__('not.found'), [], 201, false);
