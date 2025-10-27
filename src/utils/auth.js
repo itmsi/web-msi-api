@@ -35,14 +35,30 @@ const setPayloadToken = (result, type = 'admin', column = false) => {
     full_name = result.full_name
   }
   const jti = crypto.randomUUID();
+  
+  // Parse expires in from env (e.g., "24h" -> 86400 seconds)
+  const parseExpiresIn = (expiresIn) => {
+    if (!expiresIn) return 86400; // default 24h
+    const timeUnit = expiresIn.slice(-1); // h, d, etc
+    const timeValue = parseInt(expiresIn.slice(0, -1));
+    if (timeUnit === 'h') return timeValue * 3600;
+    if (timeUnit === 'd') return timeValue * 86400;
+    return 86400; // default
+  }
+  
+  const accessExpiresIn = parseExpiresIn(process.env.JWT_EXPIRES_IN || '24h');
+  const refreshExpiresIn = parseExpiresIn(process.env.JWT_REFRESH_EXPIRES_IN || '7d');
+  const algorithm = process.env.JWT_ALGORITHM || 'HS256';
+  
   const payload = {
       sub,
       full_name,
       roles: [result?.role_name, roles],
       jti: jti,
-      exp: Math.floor(new Date(Date.now() + (43200 * 1000)) / 1000)
+      exp: Math.floor(Date.now() / 1000) + accessExpiresIn
   };
-  const b_token = jwt.sign(payload, process.env.SECRET_KEY_AUTH_JWT, { algorithm: 'HS256' });
+  const b_token = jwt.sign(payload, process.env.JWT_SECRET, { algorithm });
+  
   return {
     bearer_token: b_token,
     access_token: {
@@ -50,16 +66,16 @@ const setPayloadToken = (result, type = 'admin', column = false) => {
       full_name,
       roles: [result?.role_name, roles],
       jti: crypto.randomUUID(),
-      exp: Math.floor(new Date(Date.now() + (43200 * 1000)) / 1000)
+      exp: Math.floor(Date.now() / 1000) + accessExpiresIn
     },
     refresh_token: {
       sub,
       full_name,
       roles: [result?.role_name, roles],
       jti: crypto.randomUUID(),
-      exp: Math.floor(new Date(Date.now() + (86400 * 1000)) / 1000) // refresh must be > access
+      exp: Math.floor(Date.now() / 1000) + refreshExpiresIn
     },
-    exp: 43200 // 12 hours
+    exp: accessExpiresIn
   }
 }
 
@@ -69,7 +85,7 @@ const decodeToken = (type, req) => {
     const tokenHeader = req?.headers?.authorization ?? ''
     const token = tokenHeader.split(' ')[1]
 
-    const decode = jwt.verify(token, process.env.SECRET_KEY_AUTH_JWT)
+    const decode = jwt.verify(token, process.env.JWT_SECRET)
 
     switch (type) {
       case 'created':

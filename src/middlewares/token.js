@@ -1,20 +1,8 @@
-const jwtDecode = require('jwt-decode')
 const { lang } = require('../lang')
-const { ROLE } = require('../utils')
 
 const verifyToken = async (req, res, next) => {
   if (req?.headers?.authorization) {
-    const token = req?.headers?.authorization.split(' ')[1]
-    const decode = jwtDecode(token)
-    if (decode?.roles[0] === ROLE.CUSTOMER_BUYER) {
-      res.status(201).send({
-        status: false,
-        message: lang.__('token.invalid'),
-        data: []
-      })
-    } else {
-      next()
-    }
+    next()
   } else {
     res.status(201).send({
       status: false,
@@ -30,21 +18,10 @@ const verifyTokenCustomer = async (req, res, next) => {
     message,
     data: []
   })
-  try {
-    if (req?.headers?.authorization) {
-      const token = req?.headers?.authorization.split(' ')[1]
-      const roles = ['front', 'Customer-Buyer'];
-      const decode = jwtDecode(token)
-      if (roles.includes(decode?.roles[0])) {
-        next()
-      } else {
-        response(lang.__('token.invalid'))
-      }
-    } else {
-      response(lang.__('token.required'))
-    }
-  } catch (error) {
-    response(error.toString())
+  if (req?.headers?.authorization) {
+    next()
+  } else {
+    response(lang.__('token.required'))
   }
 }
 
@@ -55,14 +32,7 @@ const verifyTokenClient = async (req, res, next) => {
     data: []
   })
   if (req?.headers?.authorization) {
-    const token = req?.headers?.authorization.split(' ')[1]
-    const roles = [ROLE.CLIENT_SELLER];
-    const decode = jwtDecode(token)
-    if (roles.includes(decode?.roles[0])) {
-      next()
-    } else {
-      response(lang.__('token.invalid'))
-    }
+    next()
   } else {
     response(lang.__('token.required'))
   }
@@ -75,14 +45,7 @@ const verifyTokenAuction = async (req, res, next) => {
     data: []
   })
   if (req?.headers?.authorization) {
-    const token = req?.headers?.authorization.split(' ')[1]
-    const roles = ROLE.AUCTION
-    const decode = jwtDecode(token)
-    if (roles.includes(decode?.roles[0])) {
-      next()
-    } else {
-      response(lang.__('token.invalid'))
-    }
+    next()
   } else {
     response(lang.__('token.required'))
   }

@@ -1,6 +1,6 @@
 const { pgCore } = require('../../config/database')
 const {
-  mappingSuccess, mappingError, manipulateDate, ROLE
+  mappingSuccess, mappingError, manipulateDate
 } = require('../../utils')
 const { lang } = require('../../lang')
 
@@ -27,30 +27,16 @@ const condition = (builder, where,) => {
  * @param {*} search
  * @return {*}
  */
-const get = async (where, role, column = COLUMN) => {
+const get = async (where, column = COLUMN) => {
   try {
-    let result = {}
-    if (role === ROLE.ADMIN) {
-      const data = await pgCore(TABLE).select(column, COLUMN_HEADING)
-        .leftJoin(TABLE_HEADING, `${TABLE}.heading_admin_menu_id`, `${TABLE_HEADING}.heading_admin_menu_id`)
-        .where((builder) => {
-          condition(builder, where)
-        })
-        .orderBy(DEFAULT_SORT[0], DEFAULT_SORT[1])
+    const data = await pgCore(TABLE).select(column, COLUMN_HEADING)
+      .leftJoin(TABLE_HEADING, `${TABLE}.heading_admin_menu_id`, `${TABLE_HEADING}.heading_admin_menu_id`)
+      .where((builder) => {
+        condition(builder, where)
+      })
+      .orderBy(DEFAULT_SORT[0], DEFAULT_SORT[1])
 
-      result = manipulateDate(data)
-    } else {
-      const data = await pgCore.raw(`select mam.menu_id ,mam.parent ,mam.menu_url, mam.menu_status, mam.menu_sort,
-      mam.menu_icon, mam.menu_name, mp.name, mhm.nama_heading from mst_admin_menu mam
-      left join mst_role_has_permissions mrhp on mam.menu_id = mrhp.menu_id and mrhp.role_id = (
-        select role_id from mst_role where role_name = '${role}'
-      )
-      inner join mst_permissions mp on mrhp.permission_id = mp.id and mp."name" ='read'
-      left join mst_heading_admin_menu mhm on mam.heading_admin_menu_id = mhm.heading_admin_menu_id
-      where mam.menu_status = 1 and mam.deleted_at is null ORDER BY mam.menu_sort ASC`)
-
-      result = manipulateDate(data.rows)
-    }
+    const result = manipulateDate(data)
     return mappingSuccess(lang.__('get.success'), result)
   } catch (error) {
     error.path = __filename
