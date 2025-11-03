@@ -254,6 +254,26 @@ const me = async (where, column = COLUMN_ME) => {
       .select(column)
       .where(where);
     if (result) {
+      // If role is Administrator, get all permissions, otherwise get role-specific permissions
+      if (result.role_name === ROLE.ADMIN) {
+        // Get all permissions
+        const permissions = await pgCore('mst_permissions')
+          .where('deleted_at', null)
+          .select('name')
+          .pluck('name');
+        result.permissions = permissions || [];
+      } else {
+        // Get permissions for the role
+        const permissions = await pgCore('mst_role_has_permissions')
+          .innerJoin('mst_permissions', 'mst_role_has_permissions.permission_id', 'mst_permissions.id')
+          .where({
+            'mst_role_has_permissions.role_id': result.role_id,
+            'mst_role_has_permissions.deleted_at': null
+          })
+          .select('mst_permissions.name')
+          .pluck('name');
+        result.permissions = permissions || [];
+      }
       return mappingSuccess(lang.__('get.success'), result);
     }
     return mappingSuccess(lang.__('not.found'), [], 201, false);
