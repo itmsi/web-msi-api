@@ -27,7 +27,10 @@ services:
         limits:
           memory: 1G
           cpus: '0.5'
+    networks:
+      - infra_net
 
 networks:
-  default:
-    driver: bridge 
+  infra_net:
+    external: true  # PENTING! Gunakan network yang sudah ada
+    name: infra_net  # Network untuk nginx dan cloudflare tunnel 
