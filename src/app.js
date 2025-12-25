@@ -7,6 +7,7 @@ const compress = require('compression')
 const methodOverride = require('method-override')
 const xss = require('xss-clean')
 const morgan = require('morgan')
+const cors = require('cors')
 const {
   notFoundHandler,
   errorHandler,
@@ -14,6 +15,7 @@ const {
   MORGAN_FORMAT,
   syntaxError,
 } = require('./utils')
+const { corsOptions } = require('./utils/cors')
 
 const healthCheck = require('./routes')
 const apiV1 = require('./routes/V1')
@@ -29,6 +31,7 @@ if (process.env.RABBITMQ_URL && process.env.RABBITMQ_URL !== 'disabled') {
 
 const limit = process.env.JSON_LIMIT.toString() ?? '1gb'
 app.set('trust proxy', 1);
+app.use(cors(corsOptions)) // CORS middleware
 app.use(compress()) // gzip compression
 app.use(methodOverride()) // lets you use HTTP verbs
 app.use(xss()) // handler xss attack
