@@ -2,7 +2,9 @@ const whitelist = [
   'http://localhost',
   'https://88c98d580c697d.lhr.life',
   'https://motorsights.com',
-  'http://motorsights.com'
+  'https://www.motorsights.com',
+  'http://motorsights.com',
+  'http://www.motorsights.com'
 ]
 
 let allow
